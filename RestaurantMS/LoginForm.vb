@@ -3,7 +3,7 @@
 Public Class LoginForm
     Dim conn As MySqlConnection
     Dim COMMAND As MySqlCommand
-    Private Sub btn_connect_Click(sender As Object, e As EventArgs) Handles btn_connect.Click
+    Private Sub cbtn_login_Click(sender As Object, e As EventArgs) Handles cbtn_login.Click
         conn = New MySqlConnection
         conn.ConnectionString = "server=127.0.0.1;userid=root;password='';database=CSProject2"
 
@@ -17,7 +17,7 @@ Public Class LoginForm
         End Try
     End Sub
 
-    Private Sub btn_login_Click(sender As Object, e As EventArgs) Handles btn_login.Click
+    Private Sub cbtn_connect_Click(sender As Object, e As EventArgs) Handles cbtn_connect.Click
         conn = New MySqlConnection
         conn.ConnectionString = "server=127.0.0.1;userid=root;password='';database=CSProject2"
         Dim READER As MySqlDataReader
@@ -34,6 +34,8 @@ Public Class LoginForm
             End While
             If count = 1 Then
                 MessageBox.Show("Login successful!")
+                Mainform.Show()
+                Me.Hide()
             ElseIf count > 1 Then
                 MessageBox.Show("Username and password are duplicate!")
             Else
@@ -46,5 +48,6 @@ Public Class LoginForm
             conn.Close()
         End Try
     End Sub
+
 
 End Class
