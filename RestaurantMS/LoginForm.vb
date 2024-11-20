@@ -48,6 +48,4 @@ Public Class LoginForm
             conn.Close()
         End Try
     End Sub
-
-
 End Class
