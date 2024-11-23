@@ -3,7 +3,7 @@
 Public Class LoginForm
     Dim conn As MySqlConnection
     Dim COMMAND As MySqlCommand
-    Private Sub cbtn_login_Click(sender As Object, e As EventArgs) Handles cbtn_login.Click
+    Private Sub cbtn_connect_Click(sender As Object, e As EventArgs) Handles cbtn_connect.Click
         conn = New MySqlConnection
         conn.ConnectionString = "server=127.0.0.1;userid=root;password='';database=CSProject2"
 
@@ -17,7 +17,7 @@ Public Class LoginForm
         End Try
     End Sub
 
-    Private Sub cbtn_connect_Click(sender As Object, e As EventArgs) Handles cbtn_connect.Click
+    Private Sub cbtn_login_Click(sender As Object, e As EventArgs) Handles cbtn_login.Click
         conn = New MySqlConnection
         conn.ConnectionString = "server=127.0.0.1;userid=root;password='';database=CSProject2"
         Dim READER As MySqlDataReader
