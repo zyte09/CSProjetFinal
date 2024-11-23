@@ -31,7 +31,7 @@ Partial Class Mainform
         search_panel = New Panel()
         search_icon = New Button()
         search_text = New TextBox()
-        nav_panel = New Panel()
+        navbtn_panel = New Panel()
         btn_logout = New CircularButton()
         btn_settings = New CircularButton()
         btn_orders = New CircularButton()
@@ -59,25 +59,43 @@ Partial Class Mainform
         orderno_panel = New Panel()
         order_label = New Label()
         orderno_label = New Label()
+        nav_panel = New Panel()
+        orders_panel = New Panel()
+        Label5 = New Label()
+        settings_panel = New Panel()
+        Label4 = New Label()
+        payment_panel = New Panel()
+        Label3 = New Label()
+        menu_panel = New FlowLayoutPanel()
+        Label2 = New Label()
+        home_panel = New Panel()
+        Label1 = New Label()
         Mainform_panel.SuspendLayout()
         header_panel.SuspendLayout()
         date_panel.SuspendLayout()
         CType(date_icon, ComponentModel.ISupportInitialize).BeginInit()
         search_panel.SuspendLayout()
-        nav_panel.SuspendLayout()
+        navbtn_panel.SuspendLayout()
         receipt_panel.SuspendLayout()
         receipttotal_panel.SuspendLayout()
         guesttable_panel.SuspendLayout()
         CType(table_icon, ComponentModel.ISupportInitialize).BeginInit()
         CType(guest_icon, ComponentModel.ISupportInitialize).BeginInit()
         orderno_panel.SuspendLayout()
+        nav_panel.SuspendLayout()
+        orders_panel.SuspendLayout()
+        settings_panel.SuspendLayout()
+        payment_panel.SuspendLayout()
+        menu_panel.SuspendLayout()
+        home_panel.SuspendLayout()
         SuspendLayout()
         ' 
         ' Mainform_panel
         ' 
         Mainform_panel.Controls.Add(header_panel)
-        Mainform_panel.Controls.Add(nav_panel)
+        Mainform_panel.Controls.Add(navbtn_panel)
         Mainform_panel.Controls.Add(receipt_panel)
+        Mainform_panel.Controls.Add(nav_panel)
         Mainform_panel.Dock = DockStyle.Fill
         Mainform_panel.Location = New Point(0, 0)
         Mainform_panel.Name = "Mainform_panel"
@@ -161,20 +179,20 @@ Partial Class Mainform
         search_text.Size = New Size(262, 27)
         search_text.TabIndex = 1
         ' 
-        ' nav_panel
+        ' navbtn_panel
         ' 
-        nav_panel.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left
-        nav_panel.BackColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
-        nav_panel.Controls.Add(btn_logout)
-        nav_panel.Controls.Add(btn_settings)
-        nav_panel.Controls.Add(btn_orders)
-        nav_panel.Controls.Add(btn_payment)
-        nav_panel.Controls.Add(btn_menu)
-        nav_panel.Controls.Add(btn_home)
-        nav_panel.Location = New Point(0, 0)
-        nav_panel.Name = "nav_panel"
-        nav_panel.Size = New Size(115, 935)
-        nav_panel.TabIndex = 1
+        navbtn_panel.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left
+        navbtn_panel.BackColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
+        navbtn_panel.Controls.Add(btn_logout)
+        navbtn_panel.Controls.Add(btn_settings)
+        navbtn_panel.Controls.Add(btn_orders)
+        navbtn_panel.Controls.Add(btn_payment)
+        navbtn_panel.Controls.Add(btn_menu)
+        navbtn_panel.Controls.Add(btn_home)
+        navbtn_panel.Location = New Point(0, 0)
+        navbtn_panel.Name = "navbtn_panel"
+        navbtn_panel.Size = New Size(115, 935)
+        navbtn_panel.TabIndex = 1
         ' 
         ' btn_logout
         ' 
@@ -593,6 +611,108 @@ Partial Class Mainform
         orderno_label.Size = New Size(0, 46)
         orderno_label.TabIndex = 0
         ' 
+        ' nav_panel
+        ' 
+        nav_panel.Controls.Add(orders_panel)
+        nav_panel.Controls.Add(settings_panel)
+        nav_panel.Controls.Add(payment_panel)
+        nav_panel.Controls.Add(menu_panel)
+        nav_panel.Controls.Add(home_panel)
+        nav_panel.Location = New Point(111, 98)
+        nav_panel.Name = "nav_panel"
+        nav_panel.Size = New Size(929, 837)
+        nav_panel.TabIndex = 4
+        ' 
+        ' orders_panel
+        ' 
+        orders_panel.Controls.Add(Label5)
+        orders_panel.Location = New Point(3, 0)
+        orders_panel.Name = "orders_panel"
+        orders_panel.Size = New Size(931, 743)
+        orders_panel.TabIndex = 1
+        ' 
+        ' Label5
+        ' 
+        Label5.AutoSize = True
+        Label5.Font = New Font("Segoe UI", 60.0F)
+        Label5.Location = New Point(110, 448)
+        Label5.Name = "Label5"
+        Label5.Size = New Size(687, 133)
+        Label5.TabIndex = 0
+        Label5.Text = "ORDER PANEL"
+        ' 
+        ' settings_panel
+        ' 
+        settings_panel.Controls.Add(Label4)
+        settings_panel.Location = New Point(3, 0)
+        settings_panel.Name = "settings_panel"
+        settings_panel.Size = New Size(926, 743)
+        settings_panel.TabIndex = 1
+        ' 
+        ' Label4
+        ' 
+        Label4.AutoSize = True
+        Label4.Font = New Font("Segoe UI", 60.0F)
+        Label4.Location = New Point(160, 273)
+        Label4.Name = "Label4"
+        Label4.Size = New Size(805, 133)
+        Label4.TabIndex = 0
+        Label4.Text = "SETTIGNS PANEL"
+        ' 
+        ' payment_panel
+        ' 
+        payment_panel.Controls.Add(Label3)
+        payment_panel.Location = New Point(0, 0)
+        payment_panel.Name = "payment_panel"
+        payment_panel.Size = New Size(929, 743)
+        payment_panel.TabIndex = 1
+        ' 
+        ' Label3
+        ' 
+        Label3.AutoSize = True
+        Label3.Font = New Font("Segoe UI", 80.0F)
+        Label3.Location = New Point(70, 229)
+        Label3.Name = "Label3"
+        Label3.Size = New Size(1013, 177)
+        Label3.TabIndex = 0
+        Label3.Text = "payment PANEL"
+        ' 
+        ' menu_panel
+        ' 
+        menu_panel.Controls.Add(Label2)
+        menu_panel.Location = New Point(10, 9)
+        menu_panel.Name = "menu_panel"
+        menu_panel.Size = New Size(919, 695)
+        menu_panel.TabIndex = 1
+        ' 
+        ' Label2
+        ' 
+        Label2.AutoSize = True
+        Label2.Font = New Font("Segoe UI", 80.0F)
+        Label2.Location = New Point(3, 0)
+        Label2.Name = "Label2"
+        Label2.Size = New Size(875, 177)
+        Label2.TabIndex = 0
+        Label2.Text = "MENU PANEL"
+        ' 
+        ' home_panel
+        ' 
+        home_panel.Controls.Add(Label1)
+        home_panel.Location = New Point(10, 9)
+        home_panel.Name = "home_panel"
+        home_panel.Size = New Size(919, 695)
+        home_panel.TabIndex = 0
+        ' 
+        ' Label1
+        ' 
+        Label1.AutoSize = True
+        Label1.Font = New Font("Segoe UI", 60.0F)
+        Label1.Location = New Point(186, 171)
+        Label1.Name = "Label1"
+        Label1.Size = New Size(658, 133)
+        Label1.TabIndex = 0
+        Label1.Text = "HOME PANEL"
+        ' 
         ' Mainform
         ' 
         AutoScaleMode = AutoScaleMode.Inherit
@@ -611,7 +731,7 @@ Partial Class Mainform
         CType(date_icon, ComponentModel.ISupportInitialize).EndInit()
         search_panel.ResumeLayout(False)
         search_panel.PerformLayout()
-        nav_panel.ResumeLayout(False)
+        navbtn_panel.ResumeLayout(False)
         receipt_panel.ResumeLayout(False)
         receipttotal_panel.ResumeLayout(False)
         receipttotal_panel.PerformLayout()
@@ -621,11 +741,22 @@ Partial Class Mainform
         CType(guest_icon, ComponentModel.ISupportInitialize).EndInit()
         orderno_panel.ResumeLayout(False)
         orderno_panel.PerformLayout()
+        nav_panel.ResumeLayout(False)
+        orders_panel.ResumeLayout(False)
+        orders_panel.PerformLayout()
+        settings_panel.ResumeLayout(False)
+        settings_panel.PerformLayout()
+        payment_panel.ResumeLayout(False)
+        payment_panel.PerformLayout()
+        menu_panel.ResumeLayout(False)
+        menu_panel.PerformLayout()
+        home_panel.ResumeLayout(False)
+        home_panel.PerformLayout()
         ResumeLayout(False)
     End Sub
     Friend WithEvents Mainform_panel As Panel
     Friend WithEvents header_panel As Panel
-    Friend WithEvents nav_panel As Panel
+    Friend WithEvents navbtn_panel As Panel
     Friend WithEvents receipt_panel As Panel
     Friend WithEvents btn_home As CircularButton
     Friend WithEvents btn_logout As CircularButton
@@ -659,4 +790,15 @@ Partial Class Mainform
     Friend WithEvents guest_label As Label
     Friend WithEvents guest_icon As PictureBox
     Friend WithEvents receipttotal_panel As Panel
+    Friend WithEvents nav_panel As Panel
+    Friend WithEvents home_panel As Panel
+    Friend WithEvents Label1 As Label
+    Friend WithEvents settings_panel As Panel
+    Friend WithEvents Label4 As Label
+    Friend WithEvents payment_panel As Panel
+    Friend WithEvents Label3 As Label
+    Friend WithEvents menu_panel As FlowLayoutPanel
+    Friend WithEvents Label2 As Label
+    Friend WithEvents orders_panel As Panel
+    Friend WithEvents Label5 As Label
 End Class

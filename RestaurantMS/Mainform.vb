@@ -4,6 +4,7 @@
     Private Sub Mainform_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         UpdateCurrentDate()
         HighlightButton(btn_home)
+        ShowPanel(home_panel)
 
         orderno_panel.Visible = True
         guesttable_panel.Visible = True
@@ -49,23 +50,38 @@
         Hide()
     End Sub
 
+    Private Sub ShowPanel(panel As Panel)
+        home_panel.Visible = False
+        menu_panel.Visible = False
+        payment_panel.Visible = False
+        orders_panel.Visible = False
+        settings_panel.Visible = False
+
+        panel.Visible = True
+
+    End Sub
     Private Sub btn_home_Click(sender As Object, e As EventArgs) Handles btn_home.Click
         HighlightButton(btn_home)
+        ShowPanel(home_panel)
     End Sub
 
     Private Sub btn_menu_Click(sender As Object, e As EventArgs) Handles btn_menu.Click
         HighlightButton(btn_menu)
+        ShowPanel(menu_panel)
     End Sub
 
     Private Sub btn_payment_Click(sender As Object, e As EventArgs) Handles btn_payment.Click
         HighlightButton(btn_payment)
+        ShowPanel(payment_panel)
     End Sub
 
     Private Sub btn_orders_Click(sender As Object, e As EventArgs) Handles btn_orders.Click
         HighlightButton(btn_orders)
+        ShowPanel(orders_panel)
     End Sub
 
     Private Sub btn_settings_Click(sender As Object, e As EventArgs) Handles btn_settings.Click
         HighlightButton(btn_settings)
+        ShowPanel(settings_panel)
     End Sub
 End Class
