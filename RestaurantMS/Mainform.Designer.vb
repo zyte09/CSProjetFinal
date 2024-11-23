@@ -25,7 +25,7 @@ Partial Class Mainform
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Mainform))
         Mainform_panel = New Panel()
         header_panel = New Panel()
-        Panel1 = New Panel()
+        date_panel = New Panel()
         date_icon = New PictureBox()
         current_datelabel = New Label()
         search_panel = New Panel()
@@ -39,12 +39,38 @@ Partial Class Mainform
         btn_menu = New CircularButton()
         btn_home = New CircularButton()
         receipt_panel = New Panel()
+        receipttotal_panel = New Panel()
+        subtotal_label = New Label()
+        servicechargeno_label = New Label()
+        servicecharge_label = New Label()
+        totalno_label = New Label()
+        total_label = New Label()
+        btn_cancelorder = New CircularButton()
+        btn_sendorder = New CircularButton()
+        subtotalno_label = New Label()
+        receiptmenu_panel = New FlowLayoutPanel()
+        guesttable_panel = New Panel()
+        tableno_label = New Label()
+        table_label = New Label()
+        table_icon = New PictureBox()
+        guestno_label = New Label()
+        guest_label = New Label()
+        guest_icon = New PictureBox()
+        orderno_panel = New Panel()
+        order_label = New Label()
+        orderno_label = New Label()
         Mainform_panel.SuspendLayout()
         header_panel.SuspendLayout()
-        Panel1.SuspendLayout()
+        date_panel.SuspendLayout()
         CType(date_icon, ComponentModel.ISupportInitialize).BeginInit()
         search_panel.SuspendLayout()
         nav_panel.SuspendLayout()
+        receipt_panel.SuspendLayout()
+        receipttotal_panel.SuspendLayout()
+        guesttable_panel.SuspendLayout()
+        CType(table_icon, ComponentModel.ISupportInitialize).BeginInit()
+        CType(guest_icon, ComponentModel.ISupportInitialize).BeginInit()
+        orderno_panel.SuspendLayout()
         SuspendLayout()
         ' 
         ' Mainform_panel
@@ -61,7 +87,7 @@ Partial Class Mainform
         ' header_panel
         ' 
         header_panel.BackColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
-        header_panel.Controls.Add(Panel1)
+        header_panel.Controls.Add(date_panel)
         header_panel.Controls.Add(search_panel)
         header_panel.Dock = DockStyle.Top
         header_panel.Location = New Point(0, 0)
@@ -69,14 +95,14 @@ Partial Class Mainform
         header_panel.Size = New Size(1494, 97)
         header_panel.TabIndex = 2
         ' 
-        ' Panel1
+        ' date_panel
         ' 
-        Panel1.Controls.Add(date_icon)
-        Panel1.Controls.Add(current_datelabel)
-        Panel1.Location = New Point(1073, 26)
-        Panel1.Name = "Panel1"
-        Panel1.Size = New Size(284, 40)
-        Panel1.TabIndex = 1
+        date_panel.Controls.Add(date_icon)
+        date_panel.Controls.Add(current_datelabel)
+        date_panel.Location = New Point(1131, 26)
+        date_panel.Name = "date_panel"
+        date_panel.Size = New Size(284, 40)
+        date_panel.TabIndex = 1
         ' 
         ' date_icon
         ' 
@@ -165,7 +191,7 @@ Partial Class Mainform
         btn_logout.FlatAppearance.MouseOverBackColor = Color.FromArgb(CByte(118), CByte(171), CByte(174))
         btn_logout.FlatStyle = FlatStyle.Flat
         btn_logout.ForeColor = Color.FromArgb(CByte(238), CByte(238), CByte(238))
-        btn_logout.Location = New Point(6, 825)
+        btn_logout.Location = New Point(5, 695)
         btn_logout.Name = "btn_logout"
         btn_logout.Size = New Size(100, 100)
         btn_logout.TabIndex = 9
@@ -189,7 +215,7 @@ Partial Class Mainform
         btn_settings.FlatAppearance.MouseOverBackColor = Color.FromArgb(CByte(118), CByte(171), CByte(174))
         btn_settings.FlatStyle = FlatStyle.Flat
         btn_settings.ForeColor = Color.FromArgb(CByte(238), CByte(238), CByte(238))
-        btn_settings.Location = New Point(6, 611)
+        btn_settings.Location = New Point(5, 580)
         btn_settings.Name = "btn_settings"
         btn_settings.Size = New Size(100, 100)
         btn_settings.TabIndex = 8
@@ -213,7 +239,7 @@ Partial Class Mainform
         btn_orders.FlatAppearance.MouseOverBackColor = Color.FromArgb(CByte(118), CByte(171), CByte(174))
         btn_orders.FlatStyle = FlatStyle.Flat
         btn_orders.ForeColor = Color.FromArgb(CByte(238), CByte(238), CByte(238))
-        btn_orders.Location = New Point(6, 492)
+        btn_orders.Location = New Point(5, 460)
         btn_orders.Name = "btn_orders"
         btn_orders.Size = New Size(100, 100)
         btn_orders.TabIndex = 7
@@ -233,11 +259,11 @@ Partial Class Mainform
         btn_payment.BorderSize = 0
         btn_payment.Cursor = Cursors.Hand
         btn_payment.FlatAppearance.BorderSize = 0
-        btn_payment.FlatAppearance.MouseDownBackColor = Color.FromArgb(CByte(49), CByte(54), CByte(63))
+        btn_payment.FlatAppearance.MouseDownBackColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
         btn_payment.FlatAppearance.MouseOverBackColor = Color.FromArgb(CByte(118), CByte(171), CByte(174))
         btn_payment.FlatStyle = FlatStyle.Flat
         btn_payment.ForeColor = Color.FromArgb(CByte(238), CByte(238), CByte(238))
-        btn_payment.Location = New Point(6, 373)
+        btn_payment.Location = New Point(5, 340)
         btn_payment.Name = "btn_payment"
         btn_payment.Size = New Size(100, 100)
         btn_payment.TabIndex = 6
@@ -257,11 +283,11 @@ Partial Class Mainform
         btn_menu.BorderSize = 0
         btn_menu.Cursor = Cursors.Hand
         btn_menu.FlatAppearance.BorderSize = 0
-        btn_menu.FlatAppearance.MouseDownBackColor = Color.FromArgb(CByte(49), CByte(54), CByte(63))
+        btn_menu.FlatAppearance.MouseDownBackColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
         btn_menu.FlatAppearance.MouseOverBackColor = Color.FromArgb(CByte(118), CByte(171), CByte(174))
         btn_menu.FlatStyle = FlatStyle.Flat
         btn_menu.ForeColor = Color.FromArgb(CByte(238), CByte(238), CByte(238))
-        btn_menu.Location = New Point(6, 254)
+        btn_menu.Location = New Point(5, 220)
         btn_menu.Name = "btn_menu"
         btn_menu.Size = New Size(100, 100)
         btn_menu.TabIndex = 5
@@ -281,11 +307,11 @@ Partial Class Mainform
         btn_home.BorderSize = 0
         btn_home.Cursor = Cursors.Hand
         btn_home.FlatAppearance.BorderSize = 0
-        btn_home.FlatAppearance.MouseDownBackColor = Color.FromArgb(CByte(49), CByte(54), CByte(63))
+        btn_home.FlatAppearance.MouseDownBackColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
         btn_home.FlatAppearance.MouseOverBackColor = Color.FromArgb(CByte(118), CByte(171), CByte(174))
         btn_home.FlatStyle = FlatStyle.Flat
         btn_home.ForeColor = Color.FromArgb(CByte(238), CByte(238), CByte(238))
-        btn_home.Location = New Point(6, 135)
+        btn_home.Location = New Point(5, 100)
         btn_home.Name = "btn_home"
         btn_home.Size = New Size(100, 100)
         btn_home.TabIndex = 4
@@ -297,10 +323,275 @@ Partial Class Mainform
         ' receipt_panel
         ' 
         receipt_panel.Anchor = AnchorStyles.Bottom Or AnchorStyles.Right
-        receipt_panel.Location = New Point(1046, 97)
+        receipt_panel.Controls.Add(receipttotal_panel)
+        receipt_panel.Controls.Add(receiptmenu_panel)
+        receipt_panel.Controls.Add(guesttable_panel)
+        receipt_panel.Controls.Add(orderno_panel)
+        receipt_panel.Location = New Point(1046, 98)
         receipt_panel.Name = "receipt_panel"
-        receipt_panel.Size = New Size(448, 838)
+        receipt_panel.Size = New Size(448, 837)
         receipt_panel.TabIndex = 3
+        ' 
+        ' receipttotal_panel
+        ' 
+        receipttotal_panel.Controls.Add(subtotal_label)
+        receipttotal_panel.Controls.Add(servicechargeno_label)
+        receipttotal_panel.Controls.Add(servicecharge_label)
+        receipttotal_panel.Controls.Add(totalno_label)
+        receipttotal_panel.Controls.Add(total_label)
+        receipttotal_panel.Controls.Add(btn_cancelorder)
+        receipttotal_panel.Controls.Add(btn_sendorder)
+        receipttotal_panel.Controls.Add(subtotalno_label)
+        receipttotal_panel.Location = New Point(27, 448)
+        receipttotal_panel.Name = "receipttotal_panel"
+        receipttotal_panel.Size = New Size(392, 271)
+        receipttotal_panel.TabIndex = 16
+        ' 
+        ' subtotal_label
+        ' 
+        subtotal_label.Anchor = AnchorStyles.None
+        subtotal_label.AutoSize = True
+        subtotal_label.Font = New Font("Segoe UI", 10.0F)
+        subtotal_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
+        subtotal_label.Location = New Point(4, 29)
+        subtotal_label.Name = "subtotal_label"
+        subtotal_label.Size = New Size(87, 23)
+        subtotal_label.TabIndex = 11
+        subtotal_label.Text = "SUBTOTAL"
+        ' 
+        ' servicechargeno_label
+        ' 
+        servicechargeno_label.Anchor = AnchorStyles.None
+        servicechargeno_label.AutoSize = True
+        servicechargeno_label.Font = New Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        servicechargeno_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
+        servicechargeno_label.Location = New Point(348, 29)
+        servicechargeno_label.Name = "servicechargeno_label"
+        servicechargeno_label.Size = New Size(30, 23)
+        servicechargeno_label.TabIndex = 14
+        servicechargeno_label.Text = "99"
+        ' 
+        ' servicecharge_label
+        ' 
+        servicecharge_label.Anchor = AnchorStyles.None
+        servicecharge_label.AutoSize = True
+        servicecharge_label.Font = New Font("Segoe UI", 10.0F)
+        servicecharge_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
+        servicecharge_label.Location = New Point(4, 72)
+        servicecharge_label.Name = "servicecharge_label"
+        servicecharge_label.Size = New Size(144, 23)
+        servicecharge_label.TabIndex = 12
+        servicecharge_label.Text = "SERVICE CHARGE"
+        ' 
+        ' totalno_label
+        ' 
+        totalno_label.Anchor = AnchorStyles.None
+        totalno_label.AutoSize = True
+        totalno_label.Font = New Font("Segoe UI", 20.0F)
+        totalno_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
+        totalno_label.Location = New Point(305, 121)
+        totalno_label.Name = "totalno_label"
+        totalno_label.Size = New Size(74, 46)
+        totalno_label.TabIndex = 16
+        totalno_label.Text = "999"
+        ' 
+        ' total_label
+        ' 
+        total_label.Anchor = AnchorStyles.None
+        total_label.AutoSize = True
+        total_label.Font = New Font("Segoe UI", 20.0F)
+        total_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
+        total_label.Location = New Point(7, 121)
+        total_label.Name = "total_label"
+        total_label.Size = New Size(114, 46)
+        total_label.TabIndex = 15
+        total_label.Text = "TOTAL"
+        ' 
+        ' btn_cancelorder
+        ' 
+        btn_cancelorder.Anchor = AnchorStyles.None
+        btn_cancelorder.BackColor = Color.IndianRed
+        btn_cancelorder.BackgroundColor = Color.IndianRed
+        btn_cancelorder.BackgroundImageLayout = ImageLayout.Center
+        btn_cancelorder.BorderColor = Color.PaleVioletRed
+        btn_cancelorder.BorderRadius = 40
+        btn_cancelorder.BorderSize = 0
+        btn_cancelorder.Cursor = Cursors.Hand
+        btn_cancelorder.FlatAppearance.BorderSize = 0
+        btn_cancelorder.FlatAppearance.MouseDownBackColor = Color.FromArgb(CByte(49), CByte(54), CByte(63))
+        btn_cancelorder.FlatAppearance.MouseOverBackColor = Color.FromArgb(CByte(118), CByte(171), CByte(174))
+        btn_cancelorder.FlatStyle = FlatStyle.Flat
+        btn_cancelorder.Font = New Font("Segoe UI", 13.0F, FontStyle.Bold)
+        btn_cancelorder.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
+        btn_cancelorder.Location = New Point(5, 170)
+        btn_cancelorder.Name = "btn_cancelorder"
+        btn_cancelorder.Size = New Size(185, 69)
+        btn_cancelorder.TabIndex = 9
+        btn_cancelorder.Text = "CANCEL ORDER"
+        btn_cancelorder.TextColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
+        btn_cancelorder.UseVisualStyleBackColor = False
+        ' 
+        ' btn_sendorder
+        ' 
+        btn_sendorder.Anchor = AnchorStyles.None
+        btn_sendorder.BackColor = Color.PaleTurquoise
+        btn_sendorder.BackgroundColor = Color.PaleTurquoise
+        btn_sendorder.BackgroundImageLayout = ImageLayout.Center
+        btn_sendorder.BorderColor = Color.PaleVioletRed
+        btn_sendorder.BorderRadius = 40
+        btn_sendorder.BorderSize = 0
+        btn_sendorder.Cursor = Cursors.Hand
+        btn_sendorder.FlatAppearance.BorderSize = 0
+        btn_sendorder.FlatAppearance.MouseDownBackColor = Color.FromArgb(CByte(49), CByte(54), CByte(63))
+        btn_sendorder.FlatAppearance.MouseOverBackColor = Color.FromArgb(CByte(118), CByte(171), CByte(174))
+        btn_sendorder.FlatStyle = FlatStyle.Flat
+        btn_sendorder.Font = New Font("Segoe UI", 13.0F, FontStyle.Bold)
+        btn_sendorder.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
+        btn_sendorder.Location = New Point(207, 170)
+        btn_sendorder.Name = "btn_sendorder"
+        btn_sendorder.Size = New Size(185, 69)
+        btn_sendorder.TabIndex = 10
+        btn_sendorder.Text = "SEND ORDER"
+        btn_sendorder.TextColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
+        btn_sendorder.UseVisualStyleBackColor = False
+        ' 
+        ' subtotalno_label
+        ' 
+        subtotalno_label.Anchor = AnchorStyles.None
+        subtotalno_label.AutoSize = True
+        subtotalno_label.Font = New Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        subtotalno_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
+        subtotalno_label.Location = New Point(349, 72)
+        subtotalno_label.Name = "subtotalno_label"
+        subtotalno_label.Size = New Size(30, 23)
+        subtotalno_label.TabIndex = 13
+        subtotalno_label.Text = "99"
+        ' 
+        ' receiptmenu_panel
+        ' 
+        receiptmenu_panel.Anchor = AnchorStyles.Left Or AnchorStyles.Right
+        receiptmenu_panel.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
+        receiptmenu_panel.Location = New Point(27, 114)
+        receiptmenu_panel.Name = "receiptmenu_panel"
+        receiptmenu_panel.Size = New Size(392, 320)
+        receiptmenu_panel.TabIndex = 4
+        ' 
+        ' guesttable_panel
+        ' 
+        guesttable_panel.Anchor = AnchorStyles.Right
+        guesttable_panel.Controls.Add(tableno_label)
+        guesttable_panel.Controls.Add(table_label)
+        guesttable_panel.Controls.Add(table_icon)
+        guesttable_panel.Controls.Add(guestno_label)
+        guesttable_panel.Controls.Add(guest_label)
+        guesttable_panel.Controls.Add(guest_icon)
+        guesttable_panel.Location = New Point(27, 68)
+        guesttable_panel.Name = "guesttable_panel"
+        guesttable_panel.Size = New Size(392, 37)
+        guesttable_panel.TabIndex = 2
+        ' 
+        ' tableno_label
+        ' 
+        tableno_label.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Right
+        tableno_label.AutoSize = True
+        tableno_label.Font = New Font("Segoe UI", 10.0F)
+        tableno_label.ForeColor = Color.FromArgb(CByte(118), CByte(171), CByte(174))
+        tableno_label.Location = New Point(331, 7)
+        tableno_label.Name = "tableno_label"
+        tableno_label.Size = New Size(19, 23)
+        tableno_label.TabIndex = 5
+        tableno_label.Text = "2"
+        ' 
+        ' table_label
+        ' 
+        table_label.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Right
+        table_label.AutoSize = True
+        table_label.Font = New Font("Segoe UI", 10.0F)
+        table_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
+        table_label.Location = New Point(277, 7)
+        table_label.Name = "table_label"
+        table_label.Size = New Size(65, 23)
+        table_label.TabIndex = 4
+        table_label.Text = "TABLE: "
+        ' 
+        ' table_icon
+        ' 
+        table_icon.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Right
+        table_icon.BackgroundImage = CType(resources.GetObject("table_icon.BackgroundImage"), Image)
+        table_icon.BackgroundImageLayout = ImageLayout.Zoom
+        table_icon.Location = New Point(232, 0)
+        table_icon.Name = "table_icon"
+        table_icon.Size = New Size(45, 37)
+        table_icon.TabIndex = 3
+        table_icon.TabStop = False
+        ' 
+        ' guestno_label
+        ' 
+        guestno_label.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left
+        guestno_label.AutoSize = True
+        guestno_label.Font = New Font("Segoe UI", 10.0F)
+        guestno_label.ForeColor = Color.FromArgb(CByte(118), CByte(171), CByte(174))
+        guestno_label.Location = New Point(113, 7)
+        guestno_label.Name = "guestno_label"
+        guestno_label.Size = New Size(19, 23)
+        guestno_label.TabIndex = 2
+        guestno_label.Text = "5"
+        ' 
+        ' guest_label
+        ' 
+        guest_label.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left
+        guest_label.AutoSize = True
+        guest_label.Font = New Font("Segoe UI", 10.0F)
+        guest_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
+        guest_label.Location = New Point(49, 7)
+        guest_label.Name = "guest_label"
+        guest_label.Size = New Size(70, 23)
+        guest_label.TabIndex = 1
+        guest_label.Text = "GUEST: "
+        ' 
+        ' guest_icon
+        ' 
+        guest_icon.BackgroundImage = CType(resources.GetObject("guest_icon.BackgroundImage"), Image)
+        guest_icon.BackgroundImageLayout = ImageLayout.Zoom
+        guest_icon.Dock = DockStyle.Left
+        guest_icon.Location = New Point(0, 0)
+        guest_icon.Name = "guest_icon"
+        guest_icon.Size = New Size(45, 37)
+        guest_icon.TabIndex = 0
+        guest_icon.TabStop = False
+        ' 
+        ' orderno_panel
+        ' 
+        orderno_panel.Anchor = AnchorStyles.None
+        orderno_panel.Controls.Add(order_label)
+        orderno_panel.Controls.Add(orderno_label)
+        orderno_panel.Location = New Point(27, 14)
+        orderno_panel.Name = "orderno_panel"
+        orderno_panel.Size = New Size(392, 47)
+        orderno_panel.TabIndex = 1
+        ' 
+        ' order_label
+        ' 
+        order_label.AutoSize = True
+        order_label.Dock = DockStyle.Left
+        order_label.Font = New Font("Segoe UI", 20.0F)
+        order_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
+        order_label.Location = New Point(0, 0)
+        order_label.Name = "order_label"
+        order_label.Size = New Size(156, 46)
+        order_label.TabIndex = 0
+        order_label.Text = "ORDER #"
+        ' 
+        ' orderno_label
+        ' 
+        orderno_label.AutoSize = True
+        orderno_label.Dock = DockStyle.Right
+        orderno_label.Font = New Font("Segoe UI", 20.0F)
+        orderno_label.ForeColor = Color.FromArgb(CByte(118), CByte(171), CByte(174))
+        orderno_label.Location = New Point(392, 0)
+        orderno_label.Name = "orderno_label"
+        orderno_label.Size = New Size(0, 46)
+        orderno_label.TabIndex = 0
         ' 
         ' Mainform
         ' 
@@ -308,18 +599,28 @@ Partial Class Mainform
         BackColor = Color.FromArgb(CByte(238), CByte(238), CByte(238))
         ClientSize = New Size(1494, 935)
         Controls.Add(Mainform_panel)
+        FormBorderStyle = FormBorderStyle.FixedSingle
         Name = "Mainform"
         StartPosition = FormStartPosition.CenterScreen
         Text = "Mainform"
         WindowState = FormWindowState.Maximized
         Mainform_panel.ResumeLayout(False)
         header_panel.ResumeLayout(False)
-        Panel1.ResumeLayout(False)
-        Panel1.PerformLayout()
+        date_panel.ResumeLayout(False)
+        date_panel.PerformLayout()
         CType(date_icon, ComponentModel.ISupportInitialize).EndInit()
         search_panel.ResumeLayout(False)
         search_panel.PerformLayout()
         nav_panel.ResumeLayout(False)
+        receipt_panel.ResumeLayout(False)
+        receipttotal_panel.ResumeLayout(False)
+        receipttotal_panel.PerformLayout()
+        guesttable_panel.ResumeLayout(False)
+        guesttable_panel.PerformLayout()
+        CType(table_icon, ComponentModel.ISupportInitialize).EndInit()
+        CType(guest_icon, ComponentModel.ISupportInitialize).EndInit()
+        orderno_panel.ResumeLayout(False)
+        orderno_panel.PerformLayout()
         ResumeLayout(False)
     End Sub
     Friend WithEvents Mainform_panel As Panel
@@ -335,7 +636,27 @@ Partial Class Mainform
     Friend WithEvents search_panel As Panel
     Friend WithEvents search_icon As Button
     Friend WithEvents search_text As TextBox
-    Friend WithEvents Panel1 As Panel
+    Friend WithEvents date_panel As Panel
     Friend WithEvents current_datelabel As Label
     Friend WithEvents date_icon As PictureBox
+    Friend WithEvents orderno_label As Label
+    Friend WithEvents order_label As Label
+    Friend WithEvents orderno_panel As Panel
+    Friend WithEvents receiptmenu_panel As FlowLayoutPanel
+    Friend WithEvents btn_cancelorder As CircularButton
+    Friend WithEvents btn_sendorder As CircularButton
+    Friend WithEvents servicecharge_label As Label
+    Friend WithEvents subtotal_label As Label
+    Friend WithEvents total_label As Label
+    Friend WithEvents servicechargeno_label As Label
+    Friend WithEvents subtotalno_label As Label
+    Friend WithEvents totalno_label As Label
+    Friend WithEvents guesttable_panel As Panel
+    Friend WithEvents tableno_label As Label
+    Friend WithEvents table_label As Label
+    Friend WithEvents table_icon As PictureBox
+    Friend WithEvents guestno_label As Label
+    Friend WithEvents guest_label As Label
+    Friend WithEvents guest_icon As PictureBox
+    Friend WithEvents receipttotal_panel As Panel
 End Class
