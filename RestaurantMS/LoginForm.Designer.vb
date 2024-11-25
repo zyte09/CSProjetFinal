@@ -50,7 +50,7 @@ Partial Class LoginForm
         cbtn_connect.Name = "cbtn_connect"
         cbtn_connect.Size = New Size(365, 50)
         cbtn_connect.TabIndex = 8
-        cbtn_connect.Text = "Connection"
+        cbtn_connect.Text = "Sign up"
         cbtn_connect.TextColor = Color.FromArgb(CByte(25), CByte(24), CByte(24))
         cbtn_connect.UseVisualStyleBackColor = False
         ' 
@@ -65,7 +65,7 @@ Partial Class LoginForm
         cbtn_login.FlatAppearance.MouseDownBackColor = Color.FromArgb(CByte(62), CByte(60), CByte(60))
         cbtn_login.FlatAppearance.MouseOverBackColor = Color.FromArgb(CByte(125), CByte(120), CByte(120))
         cbtn_login.FlatStyle = FlatStyle.Flat
-        cbtn_login.Font = New Font("Lato", 16.1999989F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        cbtn_login.Font = New Font("Microsoft Sans Serif", 16.1999989F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         cbtn_login.ForeColor = Color.White
         cbtn_login.Location = New Point(450, 426)
         cbtn_login.Name = "cbtn_login"
@@ -79,11 +79,11 @@ Partial Class LoginForm
         ' 
         Label1.AutoSize = True
         Label1.BackColor = Color.Transparent
-        Label1.Font = New Font("Lato", 12.0F)
+        Label1.Font = New Font("Microsoft Sans Serif", 12F)
         Label1.ForeColor = Color.White
         Label1.Location = New Point(450, 217)
         Label1.Name = "Label1"
-        Label1.Size = New Size(99, 24)
+        Label1.Size = New Size(83, 20)
         Label1.TabIndex = 1
         Label1.Text = "Username"
         ' 
@@ -91,11 +91,11 @@ Partial Class LoginForm
         ' 
         txt_Welcome.AutoSize = True
         txt_Welcome.BackColor = Color.Transparent
-        txt_Welcome.Font = New Font("Lato", 28.1999989F, FontStyle.Bold Or FontStyle.Italic, GraphicsUnit.Point, CByte(0))
+        txt_Welcome.Font = New Font("Microsoft Sans Serif", 28.1999989F, FontStyle.Bold Or FontStyle.Italic, GraphicsUnit.Point, CByte(0))
         txt_Welcome.ForeColor = Color.White
         txt_Welcome.Location = New Point(450, 124)
         txt_Welcome.Name = "txt_Welcome"
-        txt_Welcome.Size = New Size(219, 56)
+        txt_Welcome.Size = New Size(198, 44)
         txt_Welcome.TabIndex = 7
         txt_Welcome.Text = "Welcome!"
         ' 
@@ -103,11 +103,11 @@ Partial Class LoginForm
         ' 
         Label2.AutoSize = True
         Label2.BackColor = Color.Transparent
-        Label2.Font = New Font("Lato", 12.0F)
+        Label2.Font = New Font("Microsoft Sans Serif", 12F)
         Label2.ForeColor = Color.White
         Label2.Location = New Point(450, 304)
         Label2.Name = "Label2"
-        Label2.Size = New Size(95, 24)
+        Label2.Size = New Size(78, 20)
         Label2.TabIndex = 2
         Label2.Text = "Password"
         ' 
@@ -115,23 +115,23 @@ Partial Class LoginForm
         ' 
         txtbox_password.BackColor = Color.FromArgb(CByte(44), CByte(41), CByte(41))
         txtbox_password.BorderStyle = BorderStyle.FixedSingle
-        txtbox_password.Font = New Font("Lato", 12.0F)
+        txtbox_password.Font = New Font("Microsoft Sans Serif", 12F)
         txtbox_password.ForeColor = Color.White
         txtbox_password.Location = New Point(450, 344)
         txtbox_password.Name = "txtbox_password"
         txtbox_password.PasswordChar = "*"c
-        txtbox_password.Size = New Size(365, 31)
+        txtbox_password.Size = New Size(365, 26)
         txtbox_password.TabIndex = 4
         ' 
         ' txtbox_username
         ' 
         txtbox_username.BackColor = Color.FromArgb(CByte(44), CByte(41), CByte(41))
         txtbox_username.BorderStyle = BorderStyle.FixedSingle
-        txtbox_username.Font = New Font("Lato", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        txtbox_username.Font = New Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         txtbox_username.ForeColor = Color.White
         txtbox_username.Location = New Point(450, 257)
         txtbox_username.Name = "txtbox_username"
-        txtbox_username.Size = New Size(365, 31)
+        txtbox_username.Size = New Size(365, 26)
         txtbox_username.TabIndex = 3
         ' 
         ' LoginForm
