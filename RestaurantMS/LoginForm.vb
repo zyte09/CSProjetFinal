@@ -5,7 +5,7 @@ Public Class LoginForm
     Dim COMMAND As MySqlCommand
     Private Sub cbtn_connect_Click(sender As Object, e As EventArgs) Handles cbtn_connect.Click
         conn = New MySqlConnection
-        conn.ConnectionString = "server=127.0.0.1;userid=root;password='';database=CSProject2"
+        conn.ConnectionString = "server=127.0.0.1;userid=root;password='';database=restaurantmsdb"
 
         Try
             conn.Open()
@@ -19,12 +19,12 @@ Public Class LoginForm
 
     Private Sub cbtn_login_Click(sender As Object, e As EventArgs) Handles cbtn_login.Click
         conn = New MySqlConnection
-        conn.ConnectionString = "server=127.0.0.1;userid=root;password='';database=CSProject2"
+        conn.ConnectionString = "server=127.0.0.1;userid=root;password='';database=restaurantmsdb"
         Dim READER As MySqlDataReader
         Try
             conn.Open()
             Dim Query As String
-            Query = "SELECT * FROM Accounts WHERE username = '" & txtbox_username.Text & "' AND password = '" & txtbox_password.Text & "'"
+            Query = "SELECT * FROM users WHERE username = '" & txtbox_username.Text & "' AND password = '" & txtbox_password.Text & "'"
             COMMAND = New MySqlCommand(Query, conn)
             READER = COMMAND.ExecuteReader
             Dim count As Integer
