@@ -6,7 +6,7 @@ Public Class LoginForm
 
     Private Sub cbtn_login_Click(sender As Object, e As EventArgs) Handles cbtn_login.Click
         conn = New MySqlConnection
-        conn.ConnectionString = "server=127.0.0.1;userid=root;password='';database=restaurantmsdb"
+        conn.ConnectionString = "server=sql12.freesqldatabase.com;userid=sql12747542;password='g8UBST1eU4';database=sql12747542"
         Dim READER As MySqlDataReader
         Try
             conn.Open()
