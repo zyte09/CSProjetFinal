@@ -7,7 +7,7 @@ Partial Class LoginForm
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(LoginForm))
         Panel1 = New Panel()
-        cbtn_connect = New CircularButton()
+        cbtn_signup = New CircularButton()
         cbtn_login = New CircularButton()
         Label1 = New Label()
         txt_Welcome = New Label()
@@ -21,7 +21,7 @@ Partial Class LoginForm
         ' 
         Panel1.BackgroundImage = CType(resources.GetObject("Panel1.BackgroundImage"), Image)
         Panel1.BackgroundImageLayout = ImageLayout.Center
-        Panel1.Controls.Add(cbtn_connect)
+        Panel1.Controls.Add(cbtn_signup)
         Panel1.Controls.Add(cbtn_login)
         Panel1.Controls.Add(Label1)
         Panel1.Controls.Add(txt_Welcome)
@@ -33,26 +33,26 @@ Partial Class LoginForm
         Panel1.Size = New Size(1265, 680)
         Panel1.TabIndex = 8
         ' 
-        ' cbtn_connect
+        ' cbtn_signup
         ' 
-        cbtn_connect.BackColor = Color.FromArgb(CByte(226), CByte(226), CByte(226))
-        cbtn_connect.BackgroundColor = Color.FromArgb(CByte(226), CByte(226), CByte(226))
-        cbtn_connect.BorderColor = Color.PaleVioletRed
-        cbtn_connect.BorderRadius = 40
-        cbtn_connect.BorderSize = 0
-        cbtn_connect.FlatAppearance.BorderSize = 0
-        cbtn_connect.FlatAppearance.MouseDownBackColor = Color.FromArgb(CByte(94), CByte(90), CByte(90))
-        cbtn_connect.FlatAppearance.MouseOverBackColor = Color.FromArgb(CByte(205), CByte(203), CByte(203))
-        cbtn_connect.FlatStyle = FlatStyle.Flat
-        cbtn_connect.Font = New Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        cbtn_connect.ForeColor = Color.FromArgb(CByte(25), CByte(24), CByte(24))
-        cbtn_connect.Location = New Point(450, 496)
-        cbtn_connect.Name = "cbtn_connect"
-        cbtn_connect.Size = New Size(365, 50)
-        cbtn_connect.TabIndex = 8
-        cbtn_connect.Text = "Sign up"
-        cbtn_connect.TextColor = Color.FromArgb(CByte(25), CByte(24), CByte(24))
-        cbtn_connect.UseVisualStyleBackColor = False
+        cbtn_signup.BackColor = Color.FromArgb(CByte(226), CByte(226), CByte(226))
+        cbtn_signup.BackgroundColor = Color.FromArgb(CByte(226), CByte(226), CByte(226))
+        cbtn_signup.BorderColor = Color.PaleVioletRed
+        cbtn_signup.BorderRadius = 40
+        cbtn_signup.BorderSize = 0
+        cbtn_signup.FlatAppearance.BorderSize = 0
+        cbtn_signup.FlatAppearance.MouseDownBackColor = Color.FromArgb(CByte(94), CByte(90), CByte(90))
+        cbtn_signup.FlatAppearance.MouseOverBackColor = Color.FromArgb(CByte(205), CByte(203), CByte(203))
+        cbtn_signup.FlatStyle = FlatStyle.Flat
+        cbtn_signup.Font = New Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        cbtn_signup.ForeColor = Color.FromArgb(CByte(25), CByte(24), CByte(24))
+        cbtn_signup.Location = New Point(450, 496)
+        cbtn_signup.Name = "cbtn_signup"
+        cbtn_signup.Size = New Size(365, 50)
+        cbtn_signup.TabIndex = 8
+        cbtn_signup.Text = "Sign up"
+        cbtn_signup.TextColor = Color.FromArgb(CByte(25), CByte(24), CByte(24))
+        cbtn_signup.UseVisualStyleBackColor = False
         ' 
         ' cbtn_login
         ' 
@@ -156,6 +156,6 @@ Partial Class LoginForm
     Friend WithEvents txt_Welcome As Label
     Friend WithEvents btn_connect As CircularButton
     Friend WithEvents btn_login As CircularButton
-    Friend WithEvents cbtn_connect As CircularButton
+    Friend WithEvents cbtn_signup As CircularButton
     Friend WithEvents cbtn_login As CircularButton
 End Class

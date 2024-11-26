@@ -35,4 +35,11 @@ Public Class LoginForm
             conn.Close()
         End Try
     End Sub
+
+    Private Sub cbtn_signup_Click(sender As Object, e As EventArgs) Handles cbtn_signup.Click
+        Dim registrationForm As New RegistrationForm
+        Me.Hide()
+        registrationForm.Show()
+
+    End Sub
 End Class
