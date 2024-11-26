@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 22, 2024 at 07:30 AM
+-- Generation Time: Nov 26, 2024 at 04:54 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -103,7 +103,6 @@ CREATE TABLE `reservations` (
 CREATE TABLE `users` (
   `user_id` int(25) NOT NULL,
   `first_name` varchar(20) NOT NULL,
-  `middle_name` varchar(20) NOT NULL,
   `last_name` varchar(20) NOT NULL,
   `username` varchar(20) NOT NULL,
   `password` varchar(20) NOT NULL,
@@ -113,6 +112,13 @@ CREATE TABLE `users` (
   `date_updated` date NOT NULL DEFAULT current_timestamp(),
   `account_type` enum('customer','admin') DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `username`, `password`, `phone_number`, `email`, `date_created`, `date_updated`, `account_type`) VALUES
+(1, 'John Patrick', 'Piamonte', 'jabulking', 'patrick', 912345678, 'jabulking@pornhub.co', '2024-11-26', '2024-11-26', 'admin');
 
 --
 -- Indexes for dumped tables
@@ -192,7 +198,7 @@ ALTER TABLE `reservations`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(25) NOT NULL AUTO_INCREMENT;
+  MODIFY `user_id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
