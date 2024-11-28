@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class Mainform
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()>
+    <System.Diagnostics.DebuggerNonUserCode()> _
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class Mainform
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()>
+    <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Mainform))
         Mainform_panel = New Panel()
@@ -112,7 +112,7 @@ Partial Class Mainform
         Mainform_panel.Dock = DockStyle.Fill
         Mainform_panel.Location = New Point(0, 0)
         Mainform_panel.Name = "Mainform_panel"
-        Mainform_panel.Size = New Size(1370, 749)
+        Mainform_panel.Size = New Size(1494, 935)
         Mainform_panel.TabIndex = 1
         ' 
         ' header_panel
@@ -123,7 +123,7 @@ Partial Class Mainform
         header_panel.Dock = DockStyle.Top
         header_panel.Location = New Point(0, 0)
         header_panel.Name = "header_panel"
-        header_panel.Size = New Size(1370, 97)
+        header_panel.Size = New Size(1494, 97)
         header_panel.TabIndex = 2
         ' 
         ' date_panel
@@ -189,7 +189,7 @@ Partial Class Mainform
         search_text.Location = New Point(8, 16)
         search_text.Name = "search_text"
         search_text.PlaceholderText = "Search any product..."
-        search_text.Size = New Size(262, 22)
+        search_text.Size = New Size(262, 27)
         search_text.TabIndex = 1
         ' 
         ' navbtn_panel
@@ -204,7 +204,7 @@ Partial Class Mainform
         navbtn_panel.Controls.Add(btn_home)
         navbtn_panel.Location = New Point(0, 0)
         navbtn_panel.Name = "navbtn_panel"
-        navbtn_panel.Size = New Size(115, 749)
+        navbtn_panel.Size = New Size(115, 935)
         navbtn_panel.TabIndex = 1
         ' 
         ' btn_logout
@@ -358,7 +358,7 @@ Partial Class Mainform
         receipt_panel.Controls.Add(receiptmenu_panel)
         receipt_panel.Controls.Add(guesttable_panel)
         receipt_panel.Controls.Add(orderno_panel)
-        receipt_panel.Location = New Point(922, -88)
+        receipt_panel.Location = New Point(1046, 98)
         receipt_panel.Name = "receipt_panel"
         receipt_panel.Size = New Size(448, 837)
         receipt_panel.TabIndex = 3
@@ -386,7 +386,7 @@ Partial Class Mainform
         subtotal_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
         subtotal_label.Location = New Point(4, 29)
         subtotal_label.Name = "subtotal_label"
-        subtotal_label.Size = New Size(71, 19)
+        subtotal_label.Size = New Size(87, 23)
         subtotal_label.TabIndex = 11
         subtotal_label.Text = "SUBTOTAL"
         ' 
@@ -398,7 +398,7 @@ Partial Class Mainform
         servicechargeno_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
         servicechargeno_label.Location = New Point(348, 29)
         servicechargeno_label.Name = "servicechargeno_label"
-        servicechargeno_label.Size = New Size(25, 19)
+        servicechargeno_label.Size = New Size(30, 23)
         servicechargeno_label.TabIndex = 14
         servicechargeno_label.Text = "99"
         ' 
@@ -410,7 +410,7 @@ Partial Class Mainform
         servicecharge_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
         servicecharge_label.Location = New Point(4, 72)
         servicecharge_label.Name = "servicecharge_label"
-        servicecharge_label.Size = New Size(117, 19)
+        servicecharge_label.Size = New Size(144, 23)
         servicecharge_label.TabIndex = 12
         servicecharge_label.Text = "SERVICE CHARGE"
         ' 
@@ -422,7 +422,7 @@ Partial Class Mainform
         totalno_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
         totalno_label.Location = New Point(305, 121)
         totalno_label.Name = "totalno_label"
-        totalno_label.Size = New Size(62, 37)
+        totalno_label.Size = New Size(74, 46)
         totalno_label.TabIndex = 16
         totalno_label.Text = "999"
         ' 
@@ -434,7 +434,7 @@ Partial Class Mainform
         total_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
         total_label.Location = New Point(7, 121)
         total_label.Name = "total_label"
-        total_label.Size = New Size(91, 37)
+        total_label.Size = New Size(114, 46)
         total_label.TabIndex = 15
         total_label.Text = "TOTAL"
         ' 
@@ -494,7 +494,7 @@ Partial Class Mainform
         subtotalno_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
         subtotalno_label.Location = New Point(349, 72)
         subtotalno_label.Name = "subtotalno_label"
-        subtotalno_label.Size = New Size(25, 19)
+        subtotalno_label.Size = New Size(30, 23)
         subtotalno_label.TabIndex = 13
         subtotalno_label.Text = "99"
         ' 
@@ -529,7 +529,7 @@ Partial Class Mainform
         tableno_label.ForeColor = Color.FromArgb(CByte(118), CByte(171), CByte(174))
         tableno_label.Location = New Point(331, 7)
         tableno_label.Name = "tableno_label"
-        tableno_label.Size = New Size(17, 19)
+        tableno_label.Size = New Size(19, 23)
         tableno_label.TabIndex = 5
         tableno_label.Text = "2"
         ' 
@@ -541,7 +541,7 @@ Partial Class Mainform
         table_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
         table_label.Location = New Point(277, 7)
         table_label.Name = "table_label"
-        table_label.Size = New Size(53, 19)
+        table_label.Size = New Size(65, 23)
         table_label.TabIndex = 4
         table_label.Text = "TABLE: "
         ' 
@@ -564,7 +564,7 @@ Partial Class Mainform
         guestno_label.ForeColor = Color.FromArgb(CByte(118), CByte(171), CByte(174))
         guestno_label.Location = New Point(113, 7)
         guestno_label.Name = "guestno_label"
-        guestno_label.Size = New Size(17, 19)
+        guestno_label.Size = New Size(19, 23)
         guestno_label.TabIndex = 2
         guestno_label.Text = "5"
         ' 
@@ -576,7 +576,7 @@ Partial Class Mainform
         guest_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
         guest_label.Location = New Point(49, 7)
         guest_label.Name = "guest_label"
-        guest_label.Size = New Size(57, 19)
+        guest_label.Size = New Size(70, 23)
         guest_label.TabIndex = 1
         guest_label.Text = "GUEST: "
         ' 
@@ -609,7 +609,7 @@ Partial Class Mainform
         order_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
         order_label.Location = New Point(0, 0)
         order_label.Name = "order_label"
-        order_label.Size = New Size(125, 37)
+        order_label.Size = New Size(156, 46)
         order_label.TabIndex = 0
         order_label.Text = "ORDER #"
         ' 
@@ -621,7 +621,7 @@ Partial Class Mainform
         orderno_label.ForeColor = Color.FromArgb(CByte(118), CByte(171), CByte(174))
         orderno_label.Location = New Point(392, 0)
         orderno_label.Name = "orderno_label"
-        orderno_label.Size = New Size(0, 37)
+        orderno_label.Size = New Size(0, 46)
         orderno_label.TabIndex = 0
         ' 
         ' nav_panel
@@ -846,7 +846,7 @@ Partial Class Mainform
         Label4.Font = New Font("Segoe UI", 60.0F)
         Label4.Location = New Point(160, 273)
         Label4.Name = "Label4"
-        Label4.Size = New Size(645, 106)
+        Label4.Size = New Size(805, 133)
         Label4.TabIndex = 0
         Label4.Text = "SETTIGNS PANEL"
         ' 
@@ -866,7 +866,7 @@ Partial Class Mainform
         Label3.Font = New Font("Segoe UI", 80.0F)
         Label3.Location = New Point(70, 229)
         Label3.Name = "Label3"
-        Label3.Size = New Size(809, 142)
+        Label3.Size = New Size(1013, 177)
         Label3.TabIndex = 0
         Label3.Text = "payment PANEL"
         ' 
@@ -886,7 +886,7 @@ Partial Class Mainform
         Label1.Font = New Font("Segoe UI", 60.0F)
         Label1.Location = New Point(186, 171)
         Label1.Name = "Label1"
-        Label1.Size = New Size(526, 106)
+        Label1.Size = New Size(658, 133)
         Label1.TabIndex = 0
         Label1.Text = "HOME PANEL"
         ' 
@@ -894,7 +894,7 @@ Partial Class Mainform
         ' 
         AutoScaleMode = AutoScaleMode.Inherit
         BackColor = Color.FromArgb(CByte(238), CByte(238), CByte(238))
-        ClientSize = New Size(1370, 749)
+        ClientSize = New Size(1494, 935)
         Controls.Add(Mainform_panel)
         FormBorderStyle = FormBorderStyle.FixedSingle
         Name = "Mainform"
