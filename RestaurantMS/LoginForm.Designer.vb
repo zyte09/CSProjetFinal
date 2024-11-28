@@ -83,7 +83,7 @@ Partial Class LoginForm
         Label1.ForeColor = Color.White
         Label1.Location = New Point(450, 217)
         Label1.Name = "Label1"
-        Label1.Size = New Size(83, 20)
+        Label1.Size = New Size(102, 25)
         Label1.TabIndex = 1
         Label1.Text = "Username"
         ' 
@@ -95,7 +95,7 @@ Partial Class LoginForm
         txt_Welcome.ForeColor = Color.White
         txt_Welcome.Location = New Point(450, 124)
         txt_Welcome.Name = "txt_Welcome"
-        txt_Welcome.Size = New Size(198, 44)
+        txt_Welcome.Size = New Size(239, 54)
         txt_Welcome.TabIndex = 7
         txt_Welcome.Text = "Welcome!"
         ' 
@@ -107,7 +107,7 @@ Partial Class LoginForm
         Label2.ForeColor = Color.White
         Label2.Location = New Point(450, 304)
         Label2.Name = "Label2"
-        Label2.Size = New Size(78, 20)
+        Label2.Size = New Size(98, 25)
         Label2.TabIndex = 2
         Label2.Text = "Password"
         ' 
@@ -119,8 +119,8 @@ Partial Class LoginForm
         txtbox_password.ForeColor = Color.White
         txtbox_password.Location = New Point(450, 344)
         txtbox_password.Name = "txtbox_password"
-        txtbox_password.PasswordChar = "*"c
-        txtbox_password.Size = New Size(365, 26)
+        txtbox_password.PasswordChar = "●"c
+        txtbox_password.Size = New Size(365, 30)
         txtbox_password.TabIndex = 4
         ' 
         ' txtbox_username
@@ -131,7 +131,7 @@ Partial Class LoginForm
         txtbox_username.ForeColor = Color.White
         txtbox_username.Location = New Point(450, 257)
         txtbox_username.Name = "txtbox_username"
-        txtbox_username.Size = New Size(365, 26)
+        txtbox_username.Size = New Size(365, 30)
         txtbox_username.TabIndex = 3
         ' 
         ' LoginForm

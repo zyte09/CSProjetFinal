@@ -149,7 +149,7 @@ Partial Class Mainform
         ' current_datelabel
         ' 
         current_datelabel.AutoSize = True
-        current_datelabel.Font = New Font("Segoe UI", 14.0F)
+        current_datelabel.Font = New Font("Segoe UI", 14F)
         current_datelabel.ForeColor = Color.FromArgb(CByte(238), CByte(238), CByte(238))
         current_datelabel.Location = New Point(51, 6)
         current_datelabel.Name = "current_datelabel"
@@ -184,7 +184,7 @@ Partial Class Mainform
         ' 
         search_text.BackColor = Color.FromArgb(CByte(238), CByte(238), CByte(238))
         search_text.BorderStyle = BorderStyle.None
-        search_text.Font = New Font("Segoe UI", 12.0F)
+        search_text.Font = New Font("Segoe UI", 12F)
         search_text.ForeColor = Color.FromArgb(CByte(49), CByte(54), CByte(63))
         search_text.Location = New Point(8, 16)
         search_text.Name = "search_text"
@@ -382,7 +382,7 @@ Partial Class Mainform
         ' 
         subtotal_label.Anchor = AnchorStyles.None
         subtotal_label.AutoSize = True
-        subtotal_label.Font = New Font("Segoe UI", 10.0F)
+        subtotal_label.Font = New Font("Segoe UI", 10F)
         subtotal_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
         subtotal_label.Location = New Point(4, 29)
         subtotal_label.Name = "subtotal_label"
@@ -406,7 +406,7 @@ Partial Class Mainform
         ' 
         servicecharge_label.Anchor = AnchorStyles.None
         servicecharge_label.AutoSize = True
-        servicecharge_label.Font = New Font("Segoe UI", 10.0F)
+        servicecharge_label.Font = New Font("Segoe UI", 10F)
         servicecharge_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
         servicecharge_label.Location = New Point(4, 72)
         servicecharge_label.Name = "servicecharge_label"
@@ -418,7 +418,7 @@ Partial Class Mainform
         ' 
         totalno_label.Anchor = AnchorStyles.None
         totalno_label.AutoSize = True
-        totalno_label.Font = New Font("Segoe UI", 20.0F)
+        totalno_label.Font = New Font("Segoe UI", 20F)
         totalno_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
         totalno_label.Location = New Point(305, 121)
         totalno_label.Name = "totalno_label"
@@ -430,7 +430,7 @@ Partial Class Mainform
         ' 
         total_label.Anchor = AnchorStyles.None
         total_label.AutoSize = True
-        total_label.Font = New Font("Segoe UI", 20.0F)
+        total_label.Font = New Font("Segoe UI", 20F)
         total_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
         total_label.Location = New Point(7, 121)
         total_label.Name = "total_label"
@@ -452,7 +452,7 @@ Partial Class Mainform
         btn_cancelorder.FlatAppearance.MouseDownBackColor = Color.FromArgb(CByte(49), CByte(54), CByte(63))
         btn_cancelorder.FlatAppearance.MouseOverBackColor = Color.FromArgb(CByte(118), CByte(171), CByte(174))
         btn_cancelorder.FlatStyle = FlatStyle.Flat
-        btn_cancelorder.Font = New Font("Segoe UI", 13.0F, FontStyle.Bold)
+        btn_cancelorder.Font = New Font("Segoe UI", 13F, FontStyle.Bold)
         btn_cancelorder.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
         btn_cancelorder.Location = New Point(5, 170)
         btn_cancelorder.Name = "btn_cancelorder"
@@ -476,7 +476,7 @@ Partial Class Mainform
         btn_sendorder.FlatAppearance.MouseDownBackColor = Color.FromArgb(CByte(49), CByte(54), CByte(63))
         btn_sendorder.FlatAppearance.MouseOverBackColor = Color.FromArgb(CByte(118), CByte(171), CByte(174))
         btn_sendorder.FlatStyle = FlatStyle.Flat
-        btn_sendorder.Font = New Font("Segoe UI", 13.0F, FontStyle.Bold)
+        btn_sendorder.Font = New Font("Segoe UI", 13F, FontStyle.Bold)
         btn_sendorder.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
         btn_sendorder.Location = New Point(207, 170)
         btn_sendorder.Name = "btn_sendorder"
@@ -525,7 +525,7 @@ Partial Class Mainform
         ' 
         tableno_label.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Right
         tableno_label.AutoSize = True
-        tableno_label.Font = New Font("Segoe UI", 10.0F)
+        tableno_label.Font = New Font("Segoe UI", 10F)
         tableno_label.ForeColor = Color.FromArgb(CByte(118), CByte(171), CByte(174))
         tableno_label.Location = New Point(331, 7)
         tableno_label.Name = "tableno_label"
@@ -537,7 +537,7 @@ Partial Class Mainform
         ' 
         table_label.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Right
         table_label.AutoSize = True
-        table_label.Font = New Font("Segoe UI", 10.0F)
+        table_label.Font = New Font("Segoe UI", 10F)
         table_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
         table_label.Location = New Point(277, 7)
         table_label.Name = "table_label"
@@ -560,7 +560,7 @@ Partial Class Mainform
         ' 
         guestno_label.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left
         guestno_label.AutoSize = True
-        guestno_label.Font = New Font("Segoe UI", 10.0F)
+        guestno_label.Font = New Font("Segoe UI", 10F)
         guestno_label.ForeColor = Color.FromArgb(CByte(118), CByte(171), CByte(174))
         guestno_label.Location = New Point(113, 7)
         guestno_label.Name = "guestno_label"
@@ -572,7 +572,7 @@ Partial Class Mainform
         ' 
         guest_label.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left
         guest_label.AutoSize = True
-        guest_label.Font = New Font("Segoe UI", 10.0F)
+        guest_label.Font = New Font("Segoe UI", 10F)
         guest_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
         guest_label.Location = New Point(49, 7)
         guest_label.Name = "guest_label"
@@ -605,7 +605,7 @@ Partial Class Mainform
         ' 
         order_label.AutoSize = True
         order_label.Dock = DockStyle.Left
-        order_label.Font = New Font("Segoe UI", 20.0F)
+        order_label.Font = New Font("Segoe UI", 20F)
         order_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
         order_label.Location = New Point(0, 0)
         order_label.Name = "order_label"
@@ -617,7 +617,7 @@ Partial Class Mainform
         ' 
         orderno_label.AutoSize = True
         orderno_label.Dock = DockStyle.Right
-        orderno_label.Font = New Font("Segoe UI", 20.0F)
+        orderno_label.Font = New Font("Segoe UI", 20F)
         orderno_label.ForeColor = Color.FromArgb(CByte(118), CByte(171), CByte(174))
         orderno_label.Location = New Point(392, 0)
         orderno_label.Name = "orderno_label"
@@ -665,7 +665,7 @@ Partial Class Mainform
         btn_maincourse.FlatAppearance.BorderSize = 0
         btn_maincourse.FlatAppearance.MouseOverBackColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
         btn_maincourse.FlatStyle = FlatStyle.Flat
-        btn_maincourse.Font = New Font("Segoe UI", 15.0F)
+        btn_maincourse.Font = New Font("Segoe UI", 15F)
         btn_maincourse.ForeColor = Color.FromArgb(CByte(238), CByte(238), CByte(238))
         btn_maincourse.Location = New Point(241, 604)
         btn_maincourse.Name = "btn_maincourse"
@@ -687,7 +687,7 @@ Partial Class Mainform
         btn_starter.FlatAppearance.BorderSize = 0
         btn_starter.FlatAppearance.MouseOverBackColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
         btn_starter.FlatStyle = FlatStyle.Flat
-        btn_starter.Font = New Font("Segoe UI Semibold", 15.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        btn_starter.Font = New Font("Segoe UI Semibold", 15F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         btn_starter.ForeColor = Color.FromArgb(CByte(238), CByte(238), CByte(238))
         btn_starter.Location = New Point(10, 604)
         btn_starter.Name = "btn_starter"
@@ -709,7 +709,7 @@ Partial Class Mainform
         btn_drinks.FlatAppearance.BorderSize = 0
         btn_drinks.FlatAppearance.MouseOverBackColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
         btn_drinks.FlatStyle = FlatStyle.Flat
-        btn_drinks.Font = New Font("Segoe UI", 15.0F)
+        btn_drinks.Font = New Font("Segoe UI", 15F)
         btn_drinks.ForeColor = Color.FromArgb(CByte(238), CByte(238), CByte(238))
         btn_drinks.Location = New Point(472, 604)
         btn_drinks.Name = "btn_drinks"
@@ -731,7 +731,7 @@ Partial Class Mainform
         btn_desserts.FlatAppearance.BorderSize = 0
         btn_desserts.FlatAppearance.MouseOverBackColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
         btn_desserts.FlatStyle = FlatStyle.Flat
-        btn_desserts.Font = New Font("Segoe UI", 15.0F)
+        btn_desserts.Font = New Font("Segoe UI", 15F)
         btn_desserts.ForeColor = Color.FromArgb(CByte(238), CByte(238), CByte(238))
         btn_desserts.Location = New Point(703, 604)
         btn_desserts.Name = "btn_desserts"
@@ -754,7 +754,7 @@ Partial Class Mainform
         ' Label7
         ' 
         Label7.AutoSize = True
-        Label7.Font = New Font("Segoe UI", 30.0F)
+        Label7.Font = New Font("Segoe UI", 30F)
         Label7.Location = New Point(3, 0)
         Label7.Name = "Label7"
         Label7.Size = New Size(377, 67)
@@ -774,7 +774,7 @@ Partial Class Mainform
         ' Label6
         ' 
         Label6.AutoSize = True
-        Label6.Font = New Font("Segoe UI", 30.0F)
+        Label6.Font = New Font("Segoe UI", 30F)
         Label6.Location = New Point(3, 0)
         Label6.Name = "Label6"
         Label6.Size = New Size(511, 67)
@@ -794,7 +794,7 @@ Partial Class Mainform
         ' Label5
         ' 
         Label5.AutoSize = True
-        Label5.Font = New Font("Segoe UI", 30.0F)
+        Label5.Font = New Font("Segoe UI", 30F)
         Label5.Location = New Point(3, 0)
         Label5.Name = "Label5"
         Label5.Size = New Size(357, 67)
@@ -814,7 +814,7 @@ Partial Class Mainform
         ' Label2
         ' 
         Label2.AutoSize = True
-        Label2.Font = New Font("Segoe UI", 30.0F)
+        Label2.Font = New Font("Segoe UI", 30F)
         Label2.Location = New Point(3, 0)
         Label2.Name = "Label2"
         Label2.Size = New Size(405, 67)
@@ -843,7 +843,7 @@ Partial Class Mainform
         ' Label4
         ' 
         Label4.AutoSize = True
-        Label4.Font = New Font("Segoe UI", 60.0F)
+        Label4.Font = New Font("Segoe UI", 60F)
         Label4.Location = New Point(160, 273)
         Label4.Name = "Label4"
         Label4.Size = New Size(805, 133)
@@ -863,7 +863,7 @@ Partial Class Mainform
         ' Label3
         ' 
         Label3.AutoSize = True
-        Label3.Font = New Font("Segoe UI", 80.0F)
+        Label3.Font = New Font("Segoe UI", 80F)
         Label3.Location = New Point(70, 229)
         Label3.Name = "Label3"
         Label3.Size = New Size(1013, 177)
@@ -883,7 +883,7 @@ Partial Class Mainform
         ' Label1
         ' 
         Label1.AutoSize = True
-        Label1.Font = New Font("Segoe UI", 60.0F)
+        Label1.Font = New Font("Segoe UI", 60F)
         Label1.Location = New Point(186, 171)
         Label1.Name = "Label1"
         Label1.Size = New Size(658, 133)
