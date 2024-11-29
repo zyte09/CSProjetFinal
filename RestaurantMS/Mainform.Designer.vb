@@ -24,6 +24,27 @@ Partial Class Mainform
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Mainform))
         Mainform_panel = New Panel()
+        nav_panel = New Panel()
+        foodmenu_panel = New Panel()
+        btn_maincourse = New CircularButton()
+        btn_starter = New CircularButton()
+        btn_drinks = New CircularButton()
+        btn_desserts = New CircularButton()
+        startermenu_panel = New FlowLayoutPanel()
+        Label7 = New Label()
+        maincoursemenu_panel = New FlowLayoutPanel()
+        Label6 = New Label()
+        drinksmenu_panel = New FlowLayoutPanel()
+        Label5 = New Label()
+        dessertsmenu_panel = New FlowLayoutPanel()
+        Label2 = New Label()
+        home_panel = New Panel()
+        Label1 = New Label()
+        orders_panel = New Panel()
+        settings_panel = New Panel()
+        Label4 = New Label()
+        payment_panel = New Panel()
+        Label3 = New Label()
         header_panel = New Panel()
         date_panel = New Panel()
         date_icon = New PictureBox()
@@ -59,28 +80,16 @@ Partial Class Mainform
         orderno_panel = New Panel()
         order_label = New Label()
         orderno_label = New Label()
-        nav_panel = New Panel()
-        home_panel = New Panel()
-        Label1 = New Label()
-        foodmenu_panel = New Panel()
-        btn_maincourse = New CircularButton()
-        btn_starter = New CircularButton()
-        btn_drinks = New CircularButton()
-        btn_desserts = New CircularButton()
-        startermenu_panel = New FlowLayoutPanel()
-        Label7 = New Label()
-        maincoursemenu_panel = New FlowLayoutPanel()
-        Label6 = New Label()
-        drinksmenu_panel = New FlowLayoutPanel()
-        Label5 = New Label()
-        dessertsmenu_panel = New FlowLayoutPanel()
-        Label2 = New Label()
-        orders_panel = New Panel()
-        settings_panel = New Panel()
-        Label4 = New Label()
-        payment_panel = New Panel()
-        Label3 = New Label()
         Mainform_panel.SuspendLayout()
+        nav_panel.SuspendLayout()
+        foodmenu_panel.SuspendLayout()
+        startermenu_panel.SuspendLayout()
+        maincoursemenu_panel.SuspendLayout()
+        drinksmenu_panel.SuspendLayout()
+        dessertsmenu_panel.SuspendLayout()
+        home_panel.SuspendLayout()
+        settings_panel.SuspendLayout()
+        payment_panel.SuspendLayout()
         header_panel.SuspendLayout()
         date_panel.SuspendLayout()
         CType(date_icon, ComponentModel.ISupportInitialize).BeginInit()
@@ -92,28 +101,285 @@ Partial Class Mainform
         CType(table_icon, ComponentModel.ISupportInitialize).BeginInit()
         CType(guest_icon, ComponentModel.ISupportInitialize).BeginInit()
         orderno_panel.SuspendLayout()
-        nav_panel.SuspendLayout()
-        home_panel.SuspendLayout()
-        foodmenu_panel.SuspendLayout()
-        startermenu_panel.SuspendLayout()
-        maincoursemenu_panel.SuspendLayout()
-        drinksmenu_panel.SuspendLayout()
-        dessertsmenu_panel.SuspendLayout()
-        settings_panel.SuspendLayout()
-        payment_panel.SuspendLayout()
         SuspendLayout()
         ' 
         ' Mainform_panel
         ' 
+        Mainform_panel.Controls.Add(nav_panel)
         Mainform_panel.Controls.Add(header_panel)
         Mainform_panel.Controls.Add(navbtn_panel)
         Mainform_panel.Controls.Add(receipt_panel)
-        Mainform_panel.Controls.Add(nav_panel)
         Mainform_panel.Dock = DockStyle.Fill
         Mainform_panel.Location = New Point(0, 0)
         Mainform_panel.Name = "Mainform_panel"
         Mainform_panel.Size = New Size(1494, 935)
         Mainform_panel.TabIndex = 1
+        ' 
+        ' nav_panel
+        ' 
+        nav_panel.Controls.Add(foodmenu_panel)
+        nav_panel.Controls.Add(home_panel)
+        nav_panel.Controls.Add(orders_panel)
+        nav_panel.Controls.Add(settings_panel)
+        nav_panel.Controls.Add(payment_panel)
+        nav_panel.Location = New Point(111, 98)
+        nav_panel.Name = "nav_panel"
+        nav_panel.Size = New Size(929, 837)
+        nav_panel.TabIndex = 4
+        ' 
+        ' foodmenu_panel
+        ' 
+        foodmenu_panel.BackColor = Color.FromArgb(CByte(238), CByte(238), CByte(238))
+        foodmenu_panel.Controls.Add(btn_maincourse)
+        foodmenu_panel.Controls.Add(btn_starter)
+        foodmenu_panel.Controls.Add(btn_drinks)
+        foodmenu_panel.Controls.Add(btn_desserts)
+        foodmenu_panel.Controls.Add(startermenu_panel)
+        foodmenu_panel.Controls.Add(maincoursemenu_panel)
+        foodmenu_panel.Controls.Add(drinksmenu_panel)
+        foodmenu_panel.Controls.Add(dessertsmenu_panel)
+        foodmenu_panel.Dock = DockStyle.Fill
+        foodmenu_panel.Location = New Point(0, 0)
+        foodmenu_panel.Name = "foodmenu_panel"
+        foodmenu_panel.Size = New Size(929, 837)
+        foodmenu_panel.TabIndex = 2
+        ' 
+        ' btn_maincourse
+        ' 
+        btn_maincourse.BackColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
+        btn_maincourse.BackgroundColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
+        btn_maincourse.BackgroundImageLayout = ImageLayout.Center
+        btn_maincourse.BorderColor = Color.PaleVioletRed
+        btn_maincourse.BorderRadius = 40
+        btn_maincourse.BorderSize = 0
+        btn_maincourse.Cursor = Cursors.Hand
+        btn_maincourse.FlatAppearance.BorderSize = 0
+        btn_maincourse.FlatAppearance.MouseOverBackColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
+        btn_maincourse.FlatStyle = FlatStyle.Flat
+        btn_maincourse.Font = New Font("Segoe UI", 15.0F)
+        btn_maincourse.ForeColor = Color.FromArgb(CByte(238), CByte(238), CByte(238))
+        btn_maincourse.Location = New Point(245, 745)
+        btn_maincourse.Name = "btn_maincourse"
+        btn_maincourse.Size = New Size(207, 80)
+        btn_maincourse.TabIndex = 6
+        btn_maincourse.Text = "Main Course"
+        btn_maincourse.TextColor = Color.FromArgb(CByte(238), CByte(238), CByte(238))
+        btn_maincourse.UseVisualStyleBackColor = False
+        ' 
+        ' btn_starter
+        ' 
+        btn_starter.BackColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
+        btn_starter.BackgroundColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
+        btn_starter.BackgroundImageLayout = ImageLayout.Center
+        btn_starter.BorderColor = Color.PaleVioletRed
+        btn_starter.BorderRadius = 40
+        btn_starter.BorderSize = 0
+        btn_starter.Cursor = Cursors.Hand
+        btn_starter.FlatAppearance.BorderSize = 0
+        btn_starter.FlatAppearance.MouseOverBackColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
+        btn_starter.FlatStyle = FlatStyle.Flat
+        btn_starter.Font = New Font("Segoe UI Semibold", 15.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        btn_starter.ForeColor = Color.FromArgb(CByte(238), CByte(238), CByte(238))
+        btn_starter.Location = New Point(14, 745)
+        btn_starter.Name = "btn_starter"
+        btn_starter.Size = New Size(207, 80)
+        btn_starter.TabIndex = 5
+        btn_starter.Text = "Starter"
+        btn_starter.TextColor = Color.FromArgb(CByte(238), CByte(238), CByte(238))
+        btn_starter.UseVisualStyleBackColor = False
+        ' 
+        ' btn_drinks
+        ' 
+        btn_drinks.BackColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
+        btn_drinks.BackgroundColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
+        btn_drinks.BackgroundImageLayout = ImageLayout.Center
+        btn_drinks.BorderColor = Color.PaleVioletRed
+        btn_drinks.BorderRadius = 40
+        btn_drinks.BorderSize = 0
+        btn_drinks.Cursor = Cursors.Hand
+        btn_drinks.FlatAppearance.BorderSize = 0
+        btn_drinks.FlatAppearance.MouseOverBackColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
+        btn_drinks.FlatStyle = FlatStyle.Flat
+        btn_drinks.Font = New Font("Segoe UI", 15.0F)
+        btn_drinks.ForeColor = Color.FromArgb(CByte(238), CByte(238), CByte(238))
+        btn_drinks.Location = New Point(476, 745)
+        btn_drinks.Name = "btn_drinks"
+        btn_drinks.Size = New Size(207, 80)
+        btn_drinks.TabIndex = 7
+        btn_drinks.Text = "Drinks"
+        btn_drinks.TextColor = Color.FromArgb(CByte(238), CByte(238), CByte(238))
+        btn_drinks.UseVisualStyleBackColor = False
+        ' 
+        ' btn_desserts
+        ' 
+        btn_desserts.BackColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
+        btn_desserts.BackgroundColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
+        btn_desserts.BackgroundImageLayout = ImageLayout.Center
+        btn_desserts.BorderColor = Color.PaleVioletRed
+        btn_desserts.BorderRadius = 40
+        btn_desserts.BorderSize = 0
+        btn_desserts.Cursor = Cursors.Hand
+        btn_desserts.FlatAppearance.BorderSize = 0
+        btn_desserts.FlatAppearance.MouseOverBackColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
+        btn_desserts.FlatStyle = FlatStyle.Flat
+        btn_desserts.Font = New Font("Segoe UI", 15.0F)
+        btn_desserts.ForeColor = Color.FromArgb(CByte(238), CByte(238), CByte(238))
+        btn_desserts.Location = New Point(707, 745)
+        btn_desserts.Name = "btn_desserts"
+        btn_desserts.Size = New Size(207, 80)
+        btn_desserts.TabIndex = 8
+        btn_desserts.Text = "Desserts"
+        btn_desserts.TextColor = Color.FromArgb(CByte(238), CByte(238), CByte(238))
+        btn_desserts.UseVisualStyleBackColor = False
+        ' 
+        ' startermenu_panel
+        ' 
+        startermenu_panel.AutoScroll = True
+        startermenu_panel.BackColor = Color.FromArgb(CByte(238), CByte(238), CByte(238))
+        startermenu_panel.Controls.Add(Label7)
+        startermenu_panel.Location = New Point(0, 0)
+        startermenu_panel.Name = "startermenu_panel"
+        startermenu_panel.Size = New Size(929, 739)
+        startermenu_panel.TabIndex = 1
+        ' 
+        ' Label7
+        ' 
+        Label7.AutoSize = True
+        Label7.Font = New Font("Segoe UI", 30.0F)
+        Label7.Location = New Point(3, 0)
+        Label7.Name = "Label7"
+        Label7.Size = New Size(377, 67)
+        Label7.TabIndex = 0
+        Label7.Text = "STARTER PANEL"
+        ' 
+        ' maincoursemenu_panel
+        ' 
+        maincoursemenu_panel.AutoScroll = True
+        maincoursemenu_panel.BackColor = Color.FromArgb(CByte(238), CByte(238), CByte(238))
+        maincoursemenu_panel.Controls.Add(Label6)
+        maincoursemenu_panel.Location = New Point(0, 0)
+        maincoursemenu_panel.Name = "maincoursemenu_panel"
+        maincoursemenu_panel.Size = New Size(929, 739)
+        maincoursemenu_panel.TabIndex = 2
+        ' 
+        ' Label6
+        ' 
+        Label6.AutoSize = True
+        Label6.Font = New Font("Segoe UI", 30.0F)
+        Label6.Location = New Point(3, 0)
+        Label6.Name = "Label6"
+        Label6.Size = New Size(511, 67)
+        Label6.TabIndex = 0
+        Label6.Text = "MAIN COURSE PANEL"
+        ' 
+        ' drinksmenu_panel
+        ' 
+        drinksmenu_panel.AutoScroll = True
+        drinksmenu_panel.BackColor = Color.FromArgb(CByte(238), CByte(238), CByte(238))
+        drinksmenu_panel.Controls.Add(Label5)
+        drinksmenu_panel.Location = New Point(0, 0)
+        drinksmenu_panel.Name = "drinksmenu_panel"
+        drinksmenu_panel.Size = New Size(929, 739)
+        drinksmenu_panel.TabIndex = 2
+        ' 
+        ' Label5
+        ' 
+        Label5.AutoSize = True
+        Label5.Font = New Font("Segoe UI", 30.0F)
+        Label5.Location = New Point(3, 0)
+        Label5.Name = "Label5"
+        Label5.Size = New Size(357, 67)
+        Label5.TabIndex = 0
+        Label5.Text = "DRINKS PANEL"
+        ' 
+        ' dessertsmenu_panel
+        ' 
+        dessertsmenu_panel.AutoScroll = True
+        dessertsmenu_panel.BackColor = Color.FromArgb(CByte(238), CByte(238), CByte(238))
+        dessertsmenu_panel.Controls.Add(Label2)
+        dessertsmenu_panel.Location = New Point(0, 0)
+        dessertsmenu_panel.Name = "dessertsmenu_panel"
+        dessertsmenu_panel.Size = New Size(929, 739)
+        dessertsmenu_panel.TabIndex = 2
+        ' 
+        ' Label2
+        ' 
+        Label2.AutoSize = True
+        Label2.Font = New Font("Segoe UI", 30.0F)
+        Label2.Location = New Point(3, 0)
+        Label2.Name = "Label2"
+        Label2.Size = New Size(405, 67)
+        Label2.TabIndex = 0
+        Label2.Text = "DESSERTS PANEL"
+        ' 
+        ' home_panel
+        ' 
+        home_panel.BackColor = Color.FromArgb(CByte(238), CByte(238), CByte(238))
+        home_panel.Controls.Add(Label1)
+        home_panel.Dock = DockStyle.Fill
+        home_panel.Location = New Point(0, 0)
+        home_panel.Name = "home_panel"
+        home_panel.Size = New Size(929, 837)
+        home_panel.TabIndex = 0
+        ' 
+        ' Label1
+        ' 
+        Label1.AutoSize = True
+        Label1.Font = New Font("Segoe UI", 60.0F)
+        Label1.Location = New Point(186, 171)
+        Label1.Name = "Label1"
+        Label1.Size = New Size(658, 133)
+        Label1.TabIndex = 0
+        Label1.Text = "HOME PANEL"
+        ' 
+        ' orders_panel
+        ' 
+        orders_panel.BackColor = Color.LightSteelBlue
+        orders_panel.Dock = DockStyle.Fill
+        orders_panel.Location = New Point(0, 0)
+        orders_panel.Name = "orders_panel"
+        orders_panel.Size = New Size(929, 837)
+        orders_panel.TabIndex = 1
+        ' 
+        ' settings_panel
+        ' 
+        settings_panel.BackColor = Color.FromArgb(CByte(0), CByte(64), CByte(64))
+        settings_panel.Controls.Add(Label4)
+        settings_panel.Dock = DockStyle.Fill
+        settings_panel.Location = New Point(0, 0)
+        settings_panel.Name = "settings_panel"
+        settings_panel.Size = New Size(929, 837)
+        settings_panel.TabIndex = 1
+        ' 
+        ' Label4
+        ' 
+        Label4.AutoSize = True
+        Label4.Font = New Font("Segoe UI", 60.0F)
+        Label4.Location = New Point(160, 273)
+        Label4.Name = "Label4"
+        Label4.Size = New Size(805, 133)
+        Label4.TabIndex = 0
+        Label4.Text = "SETTIGNS PANEL"
+        ' 
+        ' payment_panel
+        ' 
+        payment_panel.BackColor = Color.Fuchsia
+        payment_panel.Controls.Add(Label3)
+        payment_panel.Dock = DockStyle.Fill
+        payment_panel.Location = New Point(0, 0)
+        payment_panel.Name = "payment_panel"
+        payment_panel.Size = New Size(929, 837)
+        payment_panel.TabIndex = 1
+        ' 
+        ' Label3
+        ' 
+        Label3.AutoSize = True
+        Label3.Font = New Font("Segoe UI", 80.0F)
+        Label3.Location = New Point(70, 229)
+        Label3.Name = "Label3"
+        Label3.Size = New Size(1013, 177)
+        Label3.TabIndex = 0
+        Label3.Text = "payment PANEL"
         ' 
         ' header_panel
         ' 
@@ -149,11 +415,11 @@ Partial Class Mainform
         ' current_datelabel
         ' 
         current_datelabel.AutoSize = True
-        current_datelabel.Font = New Font("Segoe UI", 14F)
+        current_datelabel.Font = New Font("Segoe UI", 14.0F)
         current_datelabel.ForeColor = Color.FromArgb(CByte(238), CByte(238), CByte(238))
         current_datelabel.Location = New Point(51, 6)
         current_datelabel.Name = "current_datelabel"
-        current_datelabel.Size = New Size(51, 25)
+        current_datelabel.Size = New Size(64, 32)
         current_datelabel.TabIndex = 0
         current_datelabel.Text = "Date"
         ' 
@@ -184,12 +450,12 @@ Partial Class Mainform
         ' 
         search_text.BackColor = Color.FromArgb(CByte(238), CByte(238), CByte(238))
         search_text.BorderStyle = BorderStyle.None
-        search_text.Font = New Font("Segoe UI", 12F)
+        search_text.Font = New Font("Segoe UI", 12.0F)
         search_text.ForeColor = Color.FromArgb(CByte(49), CByte(54), CByte(63))
         search_text.Location = New Point(8, 16)
         search_text.Name = "search_text"
         search_text.PlaceholderText = "Search any product..."
-        search_text.Size = New Size(262, 22)
+        search_text.Size = New Size(262, 27)
         search_text.TabIndex = 1
         ' 
         ' navbtn_panel
@@ -383,11 +649,11 @@ Partial Class Mainform
         ' 
         subtotal_label.Anchor = AnchorStyles.None
         subtotal_label.AutoSize = True
-        subtotal_label.Font = New Font("Segoe UI", 10F)
+        subtotal_label.Font = New Font("Segoe UI", 10.0F)
         subtotal_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
         subtotal_label.Location = New Point(4, 29)
         subtotal_label.Name = "subtotal_label"
-        subtotal_label.Size = New Size(71, 19)
+        subtotal_label.Size = New Size(87, 23)
         subtotal_label.TabIndex = 11
         subtotal_label.Text = "SUBTOTAL"
         ' 
@@ -399,7 +665,7 @@ Partial Class Mainform
         servicechargeno_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
         servicechargeno_label.Location = New Point(348, 29)
         servicechargeno_label.Name = "servicechargeno_label"
-        servicechargeno_label.Size = New Size(25, 19)
+        servicechargeno_label.Size = New Size(30, 23)
         servicechargeno_label.TabIndex = 14
         servicechargeno_label.Text = "99"
         ' 
@@ -407,11 +673,11 @@ Partial Class Mainform
         ' 
         servicecharge_label.Anchor = AnchorStyles.None
         servicecharge_label.AutoSize = True
-        servicecharge_label.Font = New Font("Segoe UI", 10F)
+        servicecharge_label.Font = New Font("Segoe UI", 10.0F)
         servicecharge_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
         servicecharge_label.Location = New Point(4, 72)
         servicecharge_label.Name = "servicecharge_label"
-        servicecharge_label.Size = New Size(117, 19)
+        servicecharge_label.Size = New Size(144, 23)
         servicecharge_label.TabIndex = 12
         servicecharge_label.Text = "SERVICE CHARGE"
         ' 
@@ -419,11 +685,11 @@ Partial Class Mainform
         ' 
         totalno_label.Anchor = AnchorStyles.None
         totalno_label.AutoSize = True
-        totalno_label.Font = New Font("Segoe UI", 20F)
+        totalno_label.Font = New Font("Segoe UI", 20.0F)
         totalno_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
         totalno_label.Location = New Point(305, 121)
         totalno_label.Name = "totalno_label"
-        totalno_label.Size = New Size(62, 37)
+        totalno_label.Size = New Size(74, 46)
         totalno_label.TabIndex = 16
         totalno_label.Text = "999"
         ' 
@@ -431,11 +697,11 @@ Partial Class Mainform
         ' 
         total_label.Anchor = AnchorStyles.None
         total_label.AutoSize = True
-        total_label.Font = New Font("Segoe UI", 20F)
+        total_label.Font = New Font("Segoe UI", 20.0F)
         total_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
         total_label.Location = New Point(7, 121)
         total_label.Name = "total_label"
-        total_label.Size = New Size(91, 37)
+        total_label.Size = New Size(114, 46)
         total_label.TabIndex = 15
         total_label.Text = "TOTAL"
         ' 
@@ -453,7 +719,7 @@ Partial Class Mainform
         btn_cancelorder.FlatAppearance.MouseDownBackColor = Color.FromArgb(CByte(49), CByte(54), CByte(63))
         btn_cancelorder.FlatAppearance.MouseOverBackColor = Color.FromArgb(CByte(118), CByte(171), CByte(174))
         btn_cancelorder.FlatStyle = FlatStyle.Flat
-        btn_cancelorder.Font = New Font("Segoe UI", 13F, FontStyle.Bold)
+        btn_cancelorder.Font = New Font("Segoe UI", 13.0F, FontStyle.Bold)
         btn_cancelorder.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
         btn_cancelorder.Location = New Point(5, 170)
         btn_cancelorder.Name = "btn_cancelorder"
@@ -477,7 +743,7 @@ Partial Class Mainform
         btn_sendorder.FlatAppearance.MouseDownBackColor = Color.FromArgb(CByte(49), CByte(54), CByte(63))
         btn_sendorder.FlatAppearance.MouseOverBackColor = Color.FromArgb(CByte(118), CByte(171), CByte(174))
         btn_sendorder.FlatStyle = FlatStyle.Flat
-        btn_sendorder.Font = New Font("Segoe UI", 13F, FontStyle.Bold)
+        btn_sendorder.Font = New Font("Segoe UI", 13.0F, FontStyle.Bold)
         btn_sendorder.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
         btn_sendorder.Location = New Point(207, 170)
         btn_sendorder.Name = "btn_sendorder"
@@ -495,7 +761,7 @@ Partial Class Mainform
         subtotalno_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
         subtotalno_label.Location = New Point(349, 72)
         subtotalno_label.Name = "subtotalno_label"
-        subtotalno_label.Size = New Size(25, 19)
+        subtotalno_label.Size = New Size(30, 23)
         subtotalno_label.TabIndex = 13
         subtotalno_label.Text = "99"
         ' 
@@ -526,11 +792,11 @@ Partial Class Mainform
         ' 
         tableno_label.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Right
         tableno_label.AutoSize = True
-        tableno_label.Font = New Font("Segoe UI", 10F)
+        tableno_label.Font = New Font("Segoe UI", 10.0F)
         tableno_label.ForeColor = Color.FromArgb(CByte(118), CByte(171), CByte(174))
         tableno_label.Location = New Point(331, 7)
         tableno_label.Name = "tableno_label"
-        tableno_label.Size = New Size(17, 19)
+        tableno_label.Size = New Size(19, 23)
         tableno_label.TabIndex = 5
         tableno_label.Text = "2"
         ' 
@@ -538,11 +804,11 @@ Partial Class Mainform
         ' 
         table_label.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Right
         table_label.AutoSize = True
-        table_label.Font = New Font("Segoe UI", 10F)
+        table_label.Font = New Font("Segoe UI", 10.0F)
         table_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
         table_label.Location = New Point(277, 7)
         table_label.Name = "table_label"
-        table_label.Size = New Size(53, 19)
+        table_label.Size = New Size(65, 23)
         table_label.TabIndex = 4
         table_label.Text = "TABLE: "
         ' 
@@ -561,11 +827,11 @@ Partial Class Mainform
         ' 
         guestno_label.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left
         guestno_label.AutoSize = True
-        guestno_label.Font = New Font("Segoe UI", 10F)
+        guestno_label.Font = New Font("Segoe UI", 10.0F)
         guestno_label.ForeColor = Color.FromArgb(CByte(118), CByte(171), CByte(174))
         guestno_label.Location = New Point(113, 7)
         guestno_label.Name = "guestno_label"
-        guestno_label.Size = New Size(17, 19)
+        guestno_label.Size = New Size(19, 23)
         guestno_label.TabIndex = 2
         guestno_label.Text = "5"
         ' 
@@ -573,11 +839,11 @@ Partial Class Mainform
         ' 
         guest_label.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left
         guest_label.AutoSize = True
-        guest_label.Font = New Font("Segoe UI", 10F)
+        guest_label.Font = New Font("Segoe UI", 10.0F)
         guest_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
         guest_label.Location = New Point(49, 7)
         guest_label.Name = "guest_label"
-        guest_label.Size = New Size(57, 19)
+        guest_label.Size = New Size(70, 23)
         guest_label.TabIndex = 1
         guest_label.Text = "GUEST: "
         ' 
@@ -606,11 +872,11 @@ Partial Class Mainform
         ' 
         order_label.AutoSize = True
         order_label.Dock = DockStyle.Left
-        order_label.Font = New Font("Segoe UI", 20F)
+        order_label.Font = New Font("Segoe UI", 20.0F)
         order_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
         order_label.Location = New Point(0, 0)
         order_label.Name = "order_label"
-        order_label.Size = New Size(125, 37)
+        order_label.Size = New Size(156, 46)
         order_label.TabIndex = 0
         order_label.Text = "ORDER #"
         ' 
@@ -618,278 +884,12 @@ Partial Class Mainform
         ' 
         orderno_label.AutoSize = True
         orderno_label.Dock = DockStyle.Right
-        orderno_label.Font = New Font("Segoe UI", 20F)
+        orderno_label.Font = New Font("Segoe UI", 20.0F)
         orderno_label.ForeColor = Color.FromArgb(CByte(118), CByte(171), CByte(174))
         orderno_label.Location = New Point(392, 0)
         orderno_label.Name = "orderno_label"
-        orderno_label.Size = New Size(0, 37)
+        orderno_label.Size = New Size(0, 46)
         orderno_label.TabIndex = 0
-        ' 
-        ' nav_panel
-        ' 
-        nav_panel.Controls.Add(home_panel)
-        nav_panel.Controls.Add(foodmenu_panel)
-        nav_panel.Controls.Add(orders_panel)
-        nav_panel.Controls.Add(settings_panel)
-        nav_panel.Controls.Add(payment_panel)
-        nav_panel.Location = New Point(111, 98)
-        nav_panel.Name = "nav_panel"
-        nav_panel.Size = New Size(929, 837)
-        nav_panel.TabIndex = 4
-        ' 
-        ' home_panel
-        ' 
-        home_panel.BackColor = Color.FromArgb(CByte(238), CByte(238), CByte(238))
-        home_panel.Controls.Add(Label1)
-        home_panel.Dock = DockStyle.Fill
-        home_panel.Location = New Point(0, 0)
-        home_panel.Name = "home_panel"
-        home_panel.Size = New Size(929, 837)
-        home_panel.TabIndex = 0
-        ' 
-        ' Label1
-        ' 
-        Label1.AutoSize = True
-        Label1.Font = New Font("Segoe UI", 60F)
-        Label1.Location = New Point(186, 171)
-        Label1.Name = "Label1"
-        Label1.Size = New Size(526, 106)
-        Label1.TabIndex = 0
-        Label1.Text = "HOME PANEL"
-        ' 
-        ' foodmenu_panel
-        ' 
-        foodmenu_panel.BackColor = Color.FromArgb(CByte(238), CByte(238), CByte(238))
-        foodmenu_panel.Controls.Add(btn_maincourse)
-        foodmenu_panel.Controls.Add(btn_starter)
-        foodmenu_panel.Controls.Add(btn_drinks)
-        foodmenu_panel.Controls.Add(btn_desserts)
-        foodmenu_panel.Controls.Add(startermenu_panel)
-        foodmenu_panel.Controls.Add(maincoursemenu_panel)
-        foodmenu_panel.Controls.Add(drinksmenu_panel)
-        foodmenu_panel.Controls.Add(dessertsmenu_panel)
-        foodmenu_panel.Dock = DockStyle.Fill
-        foodmenu_panel.Location = New Point(0, 0)
-        foodmenu_panel.Name = "foodmenu_panel"
-        foodmenu_panel.Size = New Size(929, 837)
-        foodmenu_panel.TabIndex = 2
-        ' 
-        ' btn_maincourse
-        ' 
-        btn_maincourse.BackColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
-        btn_maincourse.BackgroundColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
-        btn_maincourse.BackgroundImageLayout = ImageLayout.Center
-        btn_maincourse.BorderColor = Color.PaleVioletRed
-        btn_maincourse.BorderRadius = 40
-        btn_maincourse.BorderSize = 0
-        btn_maincourse.Cursor = Cursors.Hand
-        btn_maincourse.FlatAppearance.BorderSize = 0
-        btn_maincourse.FlatAppearance.MouseOverBackColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
-        btn_maincourse.FlatStyle = FlatStyle.Flat
-        btn_maincourse.Font = New Font("Segoe UI", 15F)
-        btn_maincourse.ForeColor = Color.FromArgb(CByte(238), CByte(238), CByte(238))
-        btn_maincourse.Location = New Point(245, 745)
-        btn_maincourse.Name = "btn_maincourse"
-        btn_maincourse.Size = New Size(207, 80)
-        btn_maincourse.TabIndex = 6
-        btn_maincourse.Text = "Main Course"
-        btn_maincourse.TextColor = Color.FromArgb(CByte(238), CByte(238), CByte(238))
-        btn_maincourse.UseVisualStyleBackColor = False
-        ' 
-        ' btn_starter
-        ' 
-        btn_starter.BackColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
-        btn_starter.BackgroundColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
-        btn_starter.BackgroundImageLayout = ImageLayout.Center
-        btn_starter.BorderColor = Color.PaleVioletRed
-        btn_starter.BorderRadius = 40
-        btn_starter.BorderSize = 0
-        btn_starter.Cursor = Cursors.Hand
-        btn_starter.FlatAppearance.BorderSize = 0
-        btn_starter.FlatAppearance.MouseOverBackColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
-        btn_starter.FlatStyle = FlatStyle.Flat
-        btn_starter.Font = New Font("Segoe UI Semibold", 15F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        btn_starter.ForeColor = Color.FromArgb(CByte(238), CByte(238), CByte(238))
-        btn_starter.Location = New Point(14, 745)
-        btn_starter.Name = "btn_starter"
-        btn_starter.Size = New Size(207, 80)
-        btn_starter.TabIndex = 5
-        btn_starter.Text = "Starter"
-        btn_starter.TextColor = Color.FromArgb(CByte(238), CByte(238), CByte(238))
-        btn_starter.UseVisualStyleBackColor = False
-        ' 
-        ' btn_drinks
-        ' 
-        btn_drinks.BackColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
-        btn_drinks.BackgroundColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
-        btn_drinks.BackgroundImageLayout = ImageLayout.Center
-        btn_drinks.BorderColor = Color.PaleVioletRed
-        btn_drinks.BorderRadius = 40
-        btn_drinks.BorderSize = 0
-        btn_drinks.Cursor = Cursors.Hand
-        btn_drinks.FlatAppearance.BorderSize = 0
-        btn_drinks.FlatAppearance.MouseOverBackColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
-        btn_drinks.FlatStyle = FlatStyle.Flat
-        btn_drinks.Font = New Font("Segoe UI", 15F)
-        btn_drinks.ForeColor = Color.FromArgb(CByte(238), CByte(238), CByte(238))
-        btn_drinks.Location = New Point(476, 745)
-        btn_drinks.Name = "btn_drinks"
-        btn_drinks.Size = New Size(207, 80)
-        btn_drinks.TabIndex = 7
-        btn_drinks.Text = "Drinks"
-        btn_drinks.TextColor = Color.FromArgb(CByte(238), CByte(238), CByte(238))
-        btn_drinks.UseVisualStyleBackColor = False
-        ' 
-        ' btn_desserts
-        ' 
-        btn_desserts.BackColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
-        btn_desserts.BackgroundColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
-        btn_desserts.BackgroundImageLayout = ImageLayout.Center
-        btn_desserts.BorderColor = Color.PaleVioletRed
-        btn_desserts.BorderRadius = 40
-        btn_desserts.BorderSize = 0
-        btn_desserts.Cursor = Cursors.Hand
-        btn_desserts.FlatAppearance.BorderSize = 0
-        btn_desserts.FlatAppearance.MouseOverBackColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
-        btn_desserts.FlatStyle = FlatStyle.Flat
-        btn_desserts.Font = New Font("Segoe UI", 15F)
-        btn_desserts.ForeColor = Color.FromArgb(CByte(238), CByte(238), CByte(238))
-        btn_desserts.Location = New Point(707, 745)
-        btn_desserts.Name = "btn_desserts"
-        btn_desserts.Size = New Size(207, 80)
-        btn_desserts.TabIndex = 8
-        btn_desserts.Text = "Desserts"
-        btn_desserts.TextColor = Color.FromArgb(CByte(238), CByte(238), CByte(238))
-        btn_desserts.UseVisualStyleBackColor = False
-        ' 
-        ' startermenu_panel
-        ' 
-        startermenu_panel.AutoScroll = True
-        startermenu_panel.BackColor = Color.FromArgb(CByte(238), CByte(238), CByte(238))
-        startermenu_panel.Controls.Add(Label7)
-        startermenu_panel.Location = New Point(0, 0)
-        startermenu_panel.Name = "startermenu_panel"
-        startermenu_panel.Size = New Size(929, 739)
-        startermenu_panel.TabIndex = 1
-        ' 
-        ' Label7
-        ' 
-        Label7.AutoSize = True
-        Label7.Font = New Font("Segoe UI", 30F)
-        Label7.Location = New Point(3, 0)
-        Label7.Name = "Label7"
-        Label7.Size = New Size(300, 54)
-        Label7.TabIndex = 0
-        Label7.Text = "STARTER PANEL"
-        ' 
-        ' maincoursemenu_panel
-        ' 
-        maincoursemenu_panel.AutoScroll = True
-        maincoursemenu_panel.BackColor = Color.FromArgb(CByte(238), CByte(238), CByte(238))
-        maincoursemenu_panel.Controls.Add(Label6)
-        maincoursemenu_panel.Location = New Point(0, 0)
-        maincoursemenu_panel.Name = "maincoursemenu_panel"
-        maincoursemenu_panel.Size = New Size(929, 739)
-        maincoursemenu_panel.TabIndex = 2
-        ' 
-        ' Label6
-        ' 
-        Label6.AutoSize = True
-        Label6.Font = New Font("Segoe UI", 30F)
-        Label6.Location = New Point(3, 0)
-        Label6.Name = "Label6"
-        Label6.Size = New Size(408, 54)
-        Label6.TabIndex = 0
-        Label6.Text = "MAIN COURSE PANEL"
-        ' 
-        ' drinksmenu_panel
-        ' 
-        drinksmenu_panel.AutoScroll = True
-        drinksmenu_panel.BackColor = Color.FromArgb(CByte(238), CByte(238), CByte(238))
-        drinksmenu_panel.Controls.Add(Label5)
-        drinksmenu_panel.Location = New Point(0, 0)
-        drinksmenu_panel.Name = "drinksmenu_panel"
-        drinksmenu_panel.Size = New Size(929, 739)
-        drinksmenu_panel.TabIndex = 2
-        ' 
-        ' Label5
-        ' 
-        Label5.AutoSize = True
-        Label5.Font = New Font("Segoe UI", 30F)
-        Label5.Location = New Point(3, 0)
-        Label5.Name = "Label5"
-        Label5.Size = New Size(285, 54)
-        Label5.TabIndex = 0
-        Label5.Text = "DRINKS PANEL"
-        ' 
-        ' dessertsmenu_panel
-        ' 
-        dessertsmenu_panel.AutoScroll = True
-        dessertsmenu_panel.BackColor = Color.FromArgb(CByte(238), CByte(238), CByte(238))
-        dessertsmenu_panel.Controls.Add(Label2)
-        dessertsmenu_panel.Location = New Point(0, 0)
-        dessertsmenu_panel.Name = "dessertsmenu_panel"
-        dessertsmenu_panel.Size = New Size(929, 739)
-        dessertsmenu_panel.TabIndex = 2
-        ' 
-        ' Label2
-        ' 
-        Label2.AutoSize = True
-        Label2.Font = New Font("Segoe UI", 30F)
-        Label2.Location = New Point(3, 0)
-        Label2.Name = "Label2"
-        Label2.Size = New Size(321, 54)
-        Label2.TabIndex = 0
-        Label2.Text = "DESSERTS PANEL"
-        ' 
-        ' orders_panel
-        ' 
-        orders_panel.BackColor = Color.LightSteelBlue
-        orders_panel.Dock = DockStyle.Fill
-        orders_panel.Location = New Point(0, 0)
-        orders_panel.Name = "orders_panel"
-        orders_panel.Size = New Size(929, 837)
-        orders_panel.TabIndex = 1
-        ' 
-        ' settings_panel
-        ' 
-        settings_panel.BackColor = Color.FromArgb(CByte(0), CByte(64), CByte(64))
-        settings_panel.Controls.Add(Label4)
-        settings_panel.Dock = DockStyle.Fill
-        settings_panel.Location = New Point(0, 0)
-        settings_panel.Name = "settings_panel"
-        settings_panel.Size = New Size(929, 837)
-        settings_panel.TabIndex = 1
-        ' 
-        ' Label4
-        ' 
-        Label4.AutoSize = True
-        Label4.Font = New Font("Segoe UI", 60F)
-        Label4.Location = New Point(160, 273)
-        Label4.Name = "Label4"
-        Label4.Size = New Size(645, 106)
-        Label4.TabIndex = 0
-        Label4.Text = "SETTIGNS PANEL"
-        ' 
-        ' payment_panel
-        ' 
-        payment_panel.BackColor = Color.Fuchsia
-        payment_panel.Controls.Add(Label3)
-        payment_panel.Dock = DockStyle.Fill
-        payment_panel.Location = New Point(0, 0)
-        payment_panel.Name = "payment_panel"
-        payment_panel.Size = New Size(929, 837)
-        payment_panel.TabIndex = 1
-        ' 
-        ' Label3
-        ' 
-        Label3.AutoSize = True
-        Label3.Font = New Font("Segoe UI", 80F)
-        Label3.Location = New Point(70, 229)
-        Label3.Name = "Label3"
-        Label3.Size = New Size(809, 142)
-        Label3.TabIndex = 0
-        Label3.Text = "payment PANEL"
         ' 
         ' Mainform
         ' 
@@ -903,6 +903,22 @@ Partial Class Mainform
         StartPosition = FormStartPosition.CenterScreen
         Text = "Mainform"
         Mainform_panel.ResumeLayout(False)
+        nav_panel.ResumeLayout(False)
+        foodmenu_panel.ResumeLayout(False)
+        startermenu_panel.ResumeLayout(False)
+        startermenu_panel.PerformLayout()
+        maincoursemenu_panel.ResumeLayout(False)
+        maincoursemenu_panel.PerformLayout()
+        drinksmenu_panel.ResumeLayout(False)
+        drinksmenu_panel.PerformLayout()
+        dessertsmenu_panel.ResumeLayout(False)
+        dessertsmenu_panel.PerformLayout()
+        home_panel.ResumeLayout(False)
+        home_panel.PerformLayout()
+        settings_panel.ResumeLayout(False)
+        settings_panel.PerformLayout()
+        payment_panel.ResumeLayout(False)
+        payment_panel.PerformLayout()
         header_panel.ResumeLayout(False)
         date_panel.ResumeLayout(False)
         date_panel.PerformLayout()
@@ -919,22 +935,6 @@ Partial Class Mainform
         CType(guest_icon, ComponentModel.ISupportInitialize).EndInit()
         orderno_panel.ResumeLayout(False)
         orderno_panel.PerformLayout()
-        nav_panel.ResumeLayout(False)
-        home_panel.ResumeLayout(False)
-        home_panel.PerformLayout()
-        foodmenu_panel.ResumeLayout(False)
-        startermenu_panel.ResumeLayout(False)
-        startermenu_panel.PerformLayout()
-        maincoursemenu_panel.ResumeLayout(False)
-        maincoursemenu_panel.PerformLayout()
-        drinksmenu_panel.ResumeLayout(False)
-        drinksmenu_panel.PerformLayout()
-        dessertsmenu_panel.ResumeLayout(False)
-        dessertsmenu_panel.PerformLayout()
-        settings_panel.ResumeLayout(False)
-        settings_panel.PerformLayout()
-        payment_panel.ResumeLayout(False)
-        payment_panel.PerformLayout()
         ResumeLayout(False)
     End Sub
     Friend WithEvents Mainform_panel As Panel

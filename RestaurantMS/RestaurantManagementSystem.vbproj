@@ -40,6 +40,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Images\Food_Menu\" />
     <Folder Include="My Project\NewFolder\" />
   </ItemGroup>
 
