@@ -1,6 +1,10 @@
-﻿Public Class Mainform
+﻿Imports MySql.Data.MySqlClient
+Imports System.IO
+
+Public Class Mainform
     Private SelectedButton As Button = Nothing
     Private isExiting As Boolean = False
+    Private connectionString As String = "Server=127.0.0.1;userid=root;password='';Database=RestaurantMBDB"
 
     Private Sub Mainform_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         UpdateCurrentDate()
@@ -12,7 +16,6 @@
         receiptmenu_panel.Visible = True
         receipt_panel.Visible = True
         receipt_panel.Location = New Point(1046, 97)
-
     End Sub
 
     Private Sub Mainform_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
@@ -48,6 +51,7 @@
         button.BackColor = Color.Transparent
         button.ForeColor = Color.FromArgb(238, 238, 238)
     End Sub
+
     Private Sub btn_logout_Click_1(sender As Object, e As EventArgs) Handles btn_logout.Click
         LoginForm.Show()
         Hide()
@@ -144,8 +148,6 @@
         Debug.WriteLine($"Main Course Button Visible: {btn_maincourse.Visible}")
         Debug.WriteLine($"Drinks Button Visible: {btn_drinks.Visible}")
         Debug.WriteLine($"Desserts Button Visible: {btn_desserts.Visible}")
-
-
     End Sub
 
     Private Sub btn_home_Click(sender As Object, e As EventArgs) Handles btn_home.Click
@@ -174,6 +176,7 @@
         HighlightButton(btn_settings)
         ShowPanel(settings_panel)
     End Sub
+
     Private Sub HighlightMenuButton(button As Button)
         ' Reset all menu buttons
         Dim menuButtons() As Button = {btn_starter, btn_maincourse, btn_drinks, btn_desserts}
@@ -187,24 +190,62 @@
         button.ForeColor = Color.FromArgb(238, 238, 238)
     End Sub
 
-
     Private Sub btn_starter_Click(sender As Object, e As EventArgs) Handles btn_starter.Click
         HighlightMenuButton(btn_starter)
         ShowPanel(startermenu_panel)
+        LoadFoodItems("Starter", startermenu_panel)
     End Sub
 
     Private Sub btn_maincourse_Click(sender As Object, e As EventArgs) Handles btn_maincourse.Click
         HighlightMenuButton(btn_maincourse)
         ShowPanel(maincoursemenu_panel)
+        LoadFoodItems("Main Course", maincoursemenu_panel)
     End Sub
 
     Private Sub btn_drinks_Click(sender As Object, e As EventArgs) Handles btn_drinks.Click
         HighlightMenuButton(btn_drinks)
         ShowPanel(drinksmenu_panel)
+        LoadFoodItems("Drinks", drinksmenu_panel)
     End Sub
 
     Private Sub btn_desserts_Click(sender As Object, e As EventArgs) Handles btn_desserts.Click
         HighlightMenuButton(btn_desserts)
         ShowPanel(dessertsmenu_panel)
+        LoadFoodItems("Desserts", dessertsmenu_panel)
     End Sub
+
+    Private Sub LoadFoodItems(category As String, panel As FlowLayoutPanel)
+        Dim foodItems As DataTable = GetFoodItems(category)
+        panel.Controls.Clear()
+        For Each row As DataRow In foodItems.Rows
+            Dim foodItemControl As New FoodItemControl()
+            foodItemControl.FoodName = row("name").ToString()
+            If Not IsDBNull(row("image")) Then
+                foodItemControl.FoodImage = ByteArrayToImage(CType(row("image"), Byte()))
+            End If
+            panel.Controls.Add(foodItemControl)
+        Next
+    End Sub
+
+    Private Function GetFoodItems(category As String) As DataTable
+        Dim dt As New DataTable()
+        Using conn As New MySqlConnection(connectionString)
+            Dim query As String = "SELECT * FROM menu_items WHERE category = @Category"
+            Using cmd As New MySqlCommand(query, conn)
+                cmd.Parameters.AddWithValue("@Category", category)
+                conn.Open()
+                Using reader As MySqlDataReader = cmd.ExecuteReader()
+                    dt.Load(reader)
+                End Using
+            End Using
+        End Using
+        Return dt
+    End Function
+
+    Private Function ByteArrayToImage(byteArray As Byte()) As Image
+        Using ms As New MemoryStream(byteArray)
+            Return Image.FromStream(ms)
+        End Using
+    End Function
+
 End Class
