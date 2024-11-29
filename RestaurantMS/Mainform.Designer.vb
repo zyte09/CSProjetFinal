@@ -60,6 +60,8 @@ Partial Class Mainform
         order_label = New Label()
         orderno_label = New Label()
         nav_panel = New Panel()
+        home_panel = New Panel()
+        Label1 = New Label()
         foodmenu_panel = New Panel()
         btn_maincourse = New CircularButton()
         btn_starter = New CircularButton()
@@ -78,8 +80,6 @@ Partial Class Mainform
         Label4 = New Label()
         payment_panel = New Panel()
         Label3 = New Label()
-        home_panel = New Panel()
-        Label1 = New Label()
         Mainform_panel.SuspendLayout()
         header_panel.SuspendLayout()
         date_panel.SuspendLayout()
@@ -93,6 +93,7 @@ Partial Class Mainform
         CType(guest_icon, ComponentModel.ISupportInitialize).BeginInit()
         orderno_panel.SuspendLayout()
         nav_panel.SuspendLayout()
+        home_panel.SuspendLayout()
         foodmenu_panel.SuspendLayout()
         startermenu_panel.SuspendLayout()
         maincoursemenu_panel.SuspendLayout()
@@ -100,7 +101,6 @@ Partial Class Mainform
         dessertsmenu_panel.SuspendLayout()
         settings_panel.SuspendLayout()
         payment_panel.SuspendLayout()
-        home_panel.SuspendLayout()
         SuspendLayout()
         ' 
         ' Mainform_panel
@@ -153,7 +153,7 @@ Partial Class Mainform
         current_datelabel.ForeColor = Color.FromArgb(CByte(238), CByte(238), CByte(238))
         current_datelabel.Location = New Point(51, 6)
         current_datelabel.Name = "current_datelabel"
-        current_datelabel.Size = New Size(64, 32)
+        current_datelabel.Size = New Size(51, 25)
         current_datelabel.TabIndex = 0
         current_datelabel.Text = "Date"
         ' 
@@ -189,12 +189,11 @@ Partial Class Mainform
         search_text.Location = New Point(8, 16)
         search_text.Name = "search_text"
         search_text.PlaceholderText = "Search any product..."
-        search_text.Size = New Size(262, 27)
+        search_text.Size = New Size(262, 22)
         search_text.TabIndex = 1
         ' 
         ' navbtn_panel
         ' 
-        navbtn_panel.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left
         navbtn_panel.BackColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
         navbtn_panel.Controls.Add(btn_logout)
         navbtn_panel.Controls.Add(btn_settings)
@@ -209,6 +208,7 @@ Partial Class Mainform
         ' 
         ' btn_logout
         ' 
+        btn_logout.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
         btn_logout.BackColor = Color.Transparent
         btn_logout.BackgroundColor = Color.Transparent
         btn_logout.BackgroundImage = CType(resources.GetObject("btn_logout.BackgroundImage"), Image)
@@ -222,7 +222,7 @@ Partial Class Mainform
         btn_logout.FlatAppearance.MouseOverBackColor = Color.FromArgb(CByte(118), CByte(171), CByte(174))
         btn_logout.FlatStyle = FlatStyle.Flat
         btn_logout.ForeColor = Color.FromArgb(CByte(238), CByte(238), CByte(238))
-        btn_logout.Location = New Point(5, 688)
+        btn_logout.Location = New Point(5, 823)
         btn_logout.Name = "btn_logout"
         btn_logout.Size = New Size(100, 100)
         btn_logout.TabIndex = 9
@@ -365,6 +365,7 @@ Partial Class Mainform
         ' 
         ' receipttotal_panel
         ' 
+        receipttotal_panel.Anchor = AnchorStyles.Bottom Or AnchorStyles.Right
         receipttotal_panel.Controls.Add(subtotal_label)
         receipttotal_panel.Controls.Add(servicechargeno_label)
         receipttotal_panel.Controls.Add(servicecharge_label)
@@ -373,7 +374,7 @@ Partial Class Mainform
         receipttotal_panel.Controls.Add(btn_cancelorder)
         receipttotal_panel.Controls.Add(btn_sendorder)
         receipttotal_panel.Controls.Add(subtotalno_label)
-        receipttotal_panel.Location = New Point(27, 448)
+        receipttotal_panel.Location = New Point(28, 554)
         receipttotal_panel.Name = "receipttotal_panel"
         receipttotal_panel.Size = New Size(392, 271)
         receipttotal_panel.TabIndex = 16
@@ -386,7 +387,7 @@ Partial Class Mainform
         subtotal_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
         subtotal_label.Location = New Point(4, 29)
         subtotal_label.Name = "subtotal_label"
-        subtotal_label.Size = New Size(87, 23)
+        subtotal_label.Size = New Size(71, 19)
         subtotal_label.TabIndex = 11
         subtotal_label.Text = "SUBTOTAL"
         ' 
@@ -398,7 +399,7 @@ Partial Class Mainform
         servicechargeno_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
         servicechargeno_label.Location = New Point(348, 29)
         servicechargeno_label.Name = "servicechargeno_label"
-        servicechargeno_label.Size = New Size(30, 23)
+        servicechargeno_label.Size = New Size(25, 19)
         servicechargeno_label.TabIndex = 14
         servicechargeno_label.Text = "99"
         ' 
@@ -410,7 +411,7 @@ Partial Class Mainform
         servicecharge_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
         servicecharge_label.Location = New Point(4, 72)
         servicecharge_label.Name = "servicecharge_label"
-        servicecharge_label.Size = New Size(144, 23)
+        servicecharge_label.Size = New Size(117, 19)
         servicecharge_label.TabIndex = 12
         servicecharge_label.Text = "SERVICE CHARGE"
         ' 
@@ -422,7 +423,7 @@ Partial Class Mainform
         totalno_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
         totalno_label.Location = New Point(305, 121)
         totalno_label.Name = "totalno_label"
-        totalno_label.Size = New Size(74, 46)
+        totalno_label.Size = New Size(62, 37)
         totalno_label.TabIndex = 16
         totalno_label.Text = "999"
         ' 
@@ -434,7 +435,7 @@ Partial Class Mainform
         total_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
         total_label.Location = New Point(7, 121)
         total_label.Name = "total_label"
-        total_label.Size = New Size(114, 46)
+        total_label.Size = New Size(91, 37)
         total_label.TabIndex = 15
         total_label.Text = "TOTAL"
         ' 
@@ -494,7 +495,7 @@ Partial Class Mainform
         subtotalno_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
         subtotalno_label.Location = New Point(349, 72)
         subtotalno_label.Name = "subtotalno_label"
-        subtotalno_label.Size = New Size(30, 23)
+        subtotalno_label.Size = New Size(25, 19)
         subtotalno_label.TabIndex = 13
         subtotalno_label.Text = "99"
         ' 
@@ -504,7 +505,7 @@ Partial Class Mainform
         receiptmenu_panel.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
         receiptmenu_panel.Location = New Point(27, 114)
         receiptmenu_panel.Name = "receiptmenu_panel"
-        receiptmenu_panel.Size = New Size(392, 320)
+        receiptmenu_panel.Size = New Size(392, 420)
         receiptmenu_panel.TabIndex = 4
         ' 
         ' guesttable_panel
@@ -529,7 +530,7 @@ Partial Class Mainform
         tableno_label.ForeColor = Color.FromArgb(CByte(118), CByte(171), CByte(174))
         tableno_label.Location = New Point(331, 7)
         tableno_label.Name = "tableno_label"
-        tableno_label.Size = New Size(19, 23)
+        tableno_label.Size = New Size(17, 19)
         tableno_label.TabIndex = 5
         tableno_label.Text = "2"
         ' 
@@ -541,7 +542,7 @@ Partial Class Mainform
         table_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
         table_label.Location = New Point(277, 7)
         table_label.Name = "table_label"
-        table_label.Size = New Size(65, 23)
+        table_label.Size = New Size(53, 19)
         table_label.TabIndex = 4
         table_label.Text = "TABLE: "
         ' 
@@ -564,7 +565,7 @@ Partial Class Mainform
         guestno_label.ForeColor = Color.FromArgb(CByte(118), CByte(171), CByte(174))
         guestno_label.Location = New Point(113, 7)
         guestno_label.Name = "guestno_label"
-        guestno_label.Size = New Size(19, 23)
+        guestno_label.Size = New Size(17, 19)
         guestno_label.TabIndex = 2
         guestno_label.Text = "5"
         ' 
@@ -576,7 +577,7 @@ Partial Class Mainform
         guest_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
         guest_label.Location = New Point(49, 7)
         guest_label.Name = "guest_label"
-        guest_label.Size = New Size(70, 23)
+        guest_label.Size = New Size(57, 19)
         guest_label.TabIndex = 1
         guest_label.Text = "GUEST: "
         ' 
@@ -609,7 +610,7 @@ Partial Class Mainform
         order_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
         order_label.Location = New Point(0, 0)
         order_label.Name = "order_label"
-        order_label.Size = New Size(156, 46)
+        order_label.Size = New Size(125, 37)
         order_label.TabIndex = 0
         order_label.Text = "ORDER #"
         ' 
@@ -621,20 +622,40 @@ Partial Class Mainform
         orderno_label.ForeColor = Color.FromArgb(CByte(118), CByte(171), CByte(174))
         orderno_label.Location = New Point(392, 0)
         orderno_label.Name = "orderno_label"
-        orderno_label.Size = New Size(0, 46)
+        orderno_label.Size = New Size(0, 37)
         orderno_label.TabIndex = 0
         ' 
         ' nav_panel
         ' 
+        nav_panel.Controls.Add(home_panel)
         nav_panel.Controls.Add(foodmenu_panel)
         nav_panel.Controls.Add(orders_panel)
         nav_panel.Controls.Add(settings_panel)
         nav_panel.Controls.Add(payment_panel)
-        nav_panel.Controls.Add(home_panel)
         nav_panel.Location = New Point(111, 98)
         nav_panel.Name = "nav_panel"
         nav_panel.Size = New Size(929, 837)
         nav_panel.TabIndex = 4
+        ' 
+        ' home_panel
+        ' 
+        home_panel.BackColor = Color.FromArgb(CByte(238), CByte(238), CByte(238))
+        home_panel.Controls.Add(Label1)
+        home_panel.Dock = DockStyle.Fill
+        home_panel.Location = New Point(0, 0)
+        home_panel.Name = "home_panel"
+        home_panel.Size = New Size(929, 837)
+        home_panel.TabIndex = 0
+        ' 
+        ' Label1
+        ' 
+        Label1.AutoSize = True
+        Label1.Font = New Font("Segoe UI", 60F)
+        Label1.Location = New Point(186, 171)
+        Label1.Name = "Label1"
+        Label1.Size = New Size(526, 106)
+        Label1.TabIndex = 0
+        Label1.Text = "HOME PANEL"
         ' 
         ' foodmenu_panel
         ' 
@@ -667,7 +688,7 @@ Partial Class Mainform
         btn_maincourse.FlatStyle = FlatStyle.Flat
         btn_maincourse.Font = New Font("Segoe UI", 15F)
         btn_maincourse.ForeColor = Color.FromArgb(CByte(238), CByte(238), CByte(238))
-        btn_maincourse.Location = New Point(241, 604)
+        btn_maincourse.Location = New Point(245, 745)
         btn_maincourse.Name = "btn_maincourse"
         btn_maincourse.Size = New Size(207, 80)
         btn_maincourse.TabIndex = 6
@@ -689,7 +710,7 @@ Partial Class Mainform
         btn_starter.FlatStyle = FlatStyle.Flat
         btn_starter.Font = New Font("Segoe UI Semibold", 15F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         btn_starter.ForeColor = Color.FromArgb(CByte(238), CByte(238), CByte(238))
-        btn_starter.Location = New Point(10, 604)
+        btn_starter.Location = New Point(14, 745)
         btn_starter.Name = "btn_starter"
         btn_starter.Size = New Size(207, 80)
         btn_starter.TabIndex = 5
@@ -711,7 +732,7 @@ Partial Class Mainform
         btn_drinks.FlatStyle = FlatStyle.Flat
         btn_drinks.Font = New Font("Segoe UI", 15F)
         btn_drinks.ForeColor = Color.FromArgb(CByte(238), CByte(238), CByte(238))
-        btn_drinks.Location = New Point(472, 604)
+        btn_drinks.Location = New Point(476, 745)
         btn_drinks.Name = "btn_drinks"
         btn_drinks.Size = New Size(207, 80)
         btn_drinks.TabIndex = 7
@@ -733,7 +754,7 @@ Partial Class Mainform
         btn_desserts.FlatStyle = FlatStyle.Flat
         btn_desserts.Font = New Font("Segoe UI", 15F)
         btn_desserts.ForeColor = Color.FromArgb(CByte(238), CByte(238), CByte(238))
-        btn_desserts.Location = New Point(703, 604)
+        btn_desserts.Location = New Point(707, 745)
         btn_desserts.Name = "btn_desserts"
         btn_desserts.Size = New Size(207, 80)
         btn_desserts.TabIndex = 8
@@ -748,7 +769,7 @@ Partial Class Mainform
         startermenu_panel.Controls.Add(Label7)
         startermenu_panel.Location = New Point(0, 0)
         startermenu_panel.Name = "startermenu_panel"
-        startermenu_panel.Size = New Size(929, 598)
+        startermenu_panel.Size = New Size(929, 739)
         startermenu_panel.TabIndex = 1
         ' 
         ' Label7
@@ -757,7 +778,7 @@ Partial Class Mainform
         Label7.Font = New Font("Segoe UI", 30F)
         Label7.Location = New Point(3, 0)
         Label7.Name = "Label7"
-        Label7.Size = New Size(377, 67)
+        Label7.Size = New Size(300, 54)
         Label7.TabIndex = 0
         Label7.Text = "STARTER PANEL"
         ' 
@@ -768,7 +789,7 @@ Partial Class Mainform
         maincoursemenu_panel.Controls.Add(Label6)
         maincoursemenu_panel.Location = New Point(0, 0)
         maincoursemenu_panel.Name = "maincoursemenu_panel"
-        maincoursemenu_panel.Size = New Size(929, 598)
+        maincoursemenu_panel.Size = New Size(929, 739)
         maincoursemenu_panel.TabIndex = 2
         ' 
         ' Label6
@@ -777,7 +798,7 @@ Partial Class Mainform
         Label6.Font = New Font("Segoe UI", 30F)
         Label6.Location = New Point(3, 0)
         Label6.Name = "Label6"
-        Label6.Size = New Size(511, 67)
+        Label6.Size = New Size(408, 54)
         Label6.TabIndex = 0
         Label6.Text = "MAIN COURSE PANEL"
         ' 
@@ -788,7 +809,7 @@ Partial Class Mainform
         drinksmenu_panel.Controls.Add(Label5)
         drinksmenu_panel.Location = New Point(0, 0)
         drinksmenu_panel.Name = "drinksmenu_panel"
-        drinksmenu_panel.Size = New Size(929, 598)
+        drinksmenu_panel.Size = New Size(929, 739)
         drinksmenu_panel.TabIndex = 2
         ' 
         ' Label5
@@ -797,7 +818,7 @@ Partial Class Mainform
         Label5.Font = New Font("Segoe UI", 30F)
         Label5.Location = New Point(3, 0)
         Label5.Name = "Label5"
-        Label5.Size = New Size(357, 67)
+        Label5.Size = New Size(285, 54)
         Label5.TabIndex = 0
         Label5.Text = "DRINKS PANEL"
         ' 
@@ -808,7 +829,7 @@ Partial Class Mainform
         dessertsmenu_panel.Controls.Add(Label2)
         dessertsmenu_panel.Location = New Point(0, 0)
         dessertsmenu_panel.Name = "dessertsmenu_panel"
-        dessertsmenu_panel.Size = New Size(929, 598)
+        dessertsmenu_panel.Size = New Size(929, 739)
         dessertsmenu_panel.TabIndex = 2
         ' 
         ' Label2
@@ -817,7 +838,7 @@ Partial Class Mainform
         Label2.Font = New Font("Segoe UI", 30F)
         Label2.Location = New Point(3, 0)
         Label2.Name = "Label2"
-        Label2.Size = New Size(405, 67)
+        Label2.Size = New Size(321, 54)
         Label2.TabIndex = 0
         Label2.Text = "DESSERTS PANEL"
         ' 
@@ -846,7 +867,7 @@ Partial Class Mainform
         Label4.Font = New Font("Segoe UI", 60F)
         Label4.Location = New Point(160, 273)
         Label4.Name = "Label4"
-        Label4.Size = New Size(805, 133)
+        Label4.Size = New Size(645, 106)
         Label4.TabIndex = 0
         Label4.Text = "SETTIGNS PANEL"
         ' 
@@ -866,29 +887,9 @@ Partial Class Mainform
         Label3.Font = New Font("Segoe UI", 80F)
         Label3.Location = New Point(70, 229)
         Label3.Name = "Label3"
-        Label3.Size = New Size(1013, 177)
+        Label3.Size = New Size(809, 142)
         Label3.TabIndex = 0
         Label3.Text = "payment PANEL"
-        ' 
-        ' home_panel
-        ' 
-        home_panel.BackColor = Color.Maroon
-        home_panel.Controls.Add(Label1)
-        home_panel.Dock = DockStyle.Fill
-        home_panel.Location = New Point(0, 0)
-        home_panel.Name = "home_panel"
-        home_panel.Size = New Size(929, 837)
-        home_panel.TabIndex = 0
-        ' 
-        ' Label1
-        ' 
-        Label1.AutoSize = True
-        Label1.Font = New Font("Segoe UI", 60F)
-        Label1.Location = New Point(186, 171)
-        Label1.Name = "Label1"
-        Label1.Size = New Size(658, 133)
-        Label1.TabIndex = 0
-        Label1.Text = "HOME PANEL"
         ' 
         ' Mainform
         ' 
@@ -897,10 +898,10 @@ Partial Class Mainform
         ClientSize = New Size(1494, 935)
         Controls.Add(Mainform_panel)
         FormBorderStyle = FormBorderStyle.FixedSingle
+        MaximizeBox = False
         Name = "Mainform"
         StartPosition = FormStartPosition.CenterScreen
         Text = "Mainform"
-        WindowState = FormWindowState.Maximized
         Mainform_panel.ResumeLayout(False)
         header_panel.ResumeLayout(False)
         date_panel.ResumeLayout(False)
@@ -919,6 +920,8 @@ Partial Class Mainform
         orderno_panel.ResumeLayout(False)
         orderno_panel.PerformLayout()
         nav_panel.ResumeLayout(False)
+        home_panel.ResumeLayout(False)
+        home_panel.PerformLayout()
         foodmenu_panel.ResumeLayout(False)
         startermenu_panel.ResumeLayout(False)
         startermenu_panel.PerformLayout()
@@ -932,8 +935,6 @@ Partial Class Mainform
         settings_panel.PerformLayout()
         payment_panel.ResumeLayout(False)
         payment_panel.PerformLayout()
-        home_panel.ResumeLayout(False)
-        home_panel.PerformLayout()
         ResumeLayout(False)
     End Sub
     Friend WithEvents Mainform_panel As Panel
