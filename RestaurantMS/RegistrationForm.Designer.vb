@@ -37,12 +37,14 @@ Partial Class RegistrationForm
         lbl_password = New Label()
         txt_Welcome = New Label()
         txtbox_username = New TextBox()
+        btnCancel = New CircularButton()
         Panel1.SuspendLayout()
         SuspendLayout()
         ' 
         ' Panel1
         ' 
         Panel1.BackColor = Color.FromArgb(CByte(44), CByte(41), CByte(41))
+        Panel1.Controls.Add(btnCancel)
         Panel1.Controls.Add(cbtn_submit)
         Panel1.Controls.Add(txtbox_email)
         Panel1.Controls.Add(Label1)
@@ -234,6 +236,28 @@ Partial Class RegistrationForm
         txtbox_username.Size = New Size(365, 26)
         txtbox_username.TabIndex = 2
         ' 
+        ' btnCancel
+        ' 
+        btnCancel.BackColor = Color.FromArgb(CByte(226), CByte(226), CByte(226))
+        btnCancel.BackgroundColor = Color.FromArgb(CByte(226), CByte(226), CByte(226))
+        btnCancel.BorderColor = Color.PaleVioletRed
+        btnCancel.BorderRadius = 33
+        btnCancel.BorderSize = 0
+        btnCancel.FlatAppearance.BorderSize = 0
+        btnCancel.FlatAppearance.MouseDownBackColor = Color.FromArgb(CByte(94), CByte(90), CByte(90))
+        btnCancel.FlatAppearance.MouseOverBackColor = Color.FromArgb(CByte(205), CByte(203), CByte(203))
+        btnCancel.FlatStyle = FlatStyle.Flat
+        btnCancel.Font = New Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        btnCancel.ForeColor = Color.FromArgb(CByte(25), CByte(24), CByte(24))
+        btnCancel.Location = New Point(710, 29)
+        btnCancel.Name = "btnCancel"
+        btnCancel.RightToLeft = RightToLeft.Yes
+        btnCancel.Size = New Size(110, 43)
+        btnCancel.TabIndex = 18
+        btnCancel.Text = "Cancel"
+        btnCancel.TextColor = Color.FromArgb(CByte(25), CByte(24), CByte(24))
+        btnCancel.UseVisualStyleBackColor = False
+        ' 
         ' RegistrationForm
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
@@ -269,4 +293,5 @@ Partial Class RegistrationForm
     Friend WithEvents txtbox_phone_number As TextBox
     Friend WithEvents txtbox_first_name As TextBox
     Friend WithEvents txtbox_last_name As TextBox
+    Private WithEvents btnCancel As CircularButton
 End Class

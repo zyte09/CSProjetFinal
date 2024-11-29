@@ -3,12 +3,12 @@ Imports Mysqlx
 
 Public Class RegistrationForm
     Private Sub cbtn_submit_Click(sender As Object, e As EventArgs) Handles cbtn_submit.Click
-        Dim connectionString As String = "server=sql12.freesqldatabase.com;userid=sql12747542;password='g8UBST1eU4';database=sql12747542"
+        Dim connectionString = "server=sql12.freesqldatabase.com;userid=sql12747542;password='g8UBST1eU4';database=sql12747542"
         Dim conn As New MySqlConnection(connectionString)
         Dim login As New LoginForm
         Try
             conn.Open()
-            Dim query As String = "INSERT INTO users (first_name, last_name, username, password, phone_number, email, account_type) VALUES (@fName, @lName, @username, @password, @phoneNumber, @email, @accountType)"
+            Dim query = "INSERT INTO users (first_name, last_name, username, password, phone_number, email, account_type) VALUES (@fName, @lName, @username, @password, @phoneNumber, @email, @accountType)"
             Dim cmd As New MySqlCommand(query, conn)
 
             cmd.Parameters.AddWithValue("@fName", txtbox_first_name.Text)
@@ -19,7 +19,7 @@ Public Class RegistrationForm
             cmd.Parameters.AddWithValue("@email", txtbox_email.Text)
             cmd.Parameters.AddWithValue("@accountType", "user")
 
-            Dim result As Integer = cmd.ExecuteNonQuery()
+            Dim result = cmd.ExecuteNonQuery
 
             If result > 0 Then
                 MessageBox.Show("Data inserted successfully!")
@@ -31,8 +31,13 @@ Public Class RegistrationForm
             MessageBox.Show("Error: " & ex.Message)
         Finally
             conn.Close()
-            Me.Hide()
+            Hide()
             login.Show()
         End Try
+    End Sub
+
+    Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
+        Close()
+        LoginForm.Show()
     End Sub
 End Class
