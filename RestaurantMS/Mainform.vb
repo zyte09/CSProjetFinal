@@ -5,6 +5,7 @@ Public Class Mainform
     Private SelectedButton As Button = Nothing
     Private isExiting As Boolean = False
     Private connectionString As String = "Server=127.0.0.1;userid=root;password='';Database=RestaurantMSDB"
+    Private Const ServiceCharge As Decimal = CDec(50)
 
     Private Sub Mainform_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         UpdateCurrentDate()
@@ -261,23 +262,35 @@ Public Class Mainform
 
             receiptmenu_panel.Controls.Add(receiptItemControl)
         End If
+
+        'Update total
+        UpdateTotalPrice()
     End Sub
 
     Private Sub OnItemIncremented(sender As Object, e As EventArgs)
         Dim receiptItemControl As ReceiptItemControl = CType(sender, ReceiptItemControl)
         Dim itemPrice As Decimal = GetItemPrice(receiptItemControl.ItemName)
         receiptItemControl.Price = itemPrice * receiptItemControl.Quantity
+
+        'Update total
+        UpdateTotalPrice()
     End Sub
 
     Private Sub OnItemDecremented(sender As Object, e As EventArgs)
         Dim receiptItemControl As ReceiptItemControl = CType(sender, ReceiptItemControl)
         Dim itemPrice As Decimal = GetItemPrice(receiptItemControl.ItemName)
         receiptItemControl.Price = itemPrice * receiptItemControl.Quantity
+
+        'Update total
+        UpdateTotalPrice()
     End Sub
 
     Private Sub OnItemCancelled(sender As Object, e As EventArgs)
         Dim receiptItemControl As ReceiptItemControl = CType(sender, ReceiptItemControl)
         receiptmenu_panel.Controls.Remove(receiptItemControl)
+
+        'Update total
+        UpdateTotalPrice()
     End Sub
 
     Private Function GetItemPrice(itemName As String) As Decimal
@@ -318,4 +331,43 @@ Public Class Mainform
             Return Image.FromStream(ms)
         End Using
     End Function
+
+    Private Function CalcuTotalPrice() As Decimal
+        Dim total As Decimal = 0
+
+        For Each receiptItem As ReceiptItemControl In receiptmenu_panel.Controls.OfType(Of ReceiptItemControl)()
+            Dim price As Decimal = receiptItem.Price
+            Dim quantity As Integer = receiptItem.Quantity
+            total += price * quantity
+        Next
+
+        Return total
+    End Function
+
+    Private Sub UpdateTotalPrice()
+        Dim totalPrice As Decimal = CalcuTotalPrice()
+        totalno_label.Text = $"Php{totalPrice:F2}"
+        Debug.WriteLine($"Total Price: Php{totalPrice:F2}")
+        UpdateLabels(totalPrice)
+    End Sub
+
+    Private Sub UpdateLabels(totalPrice As Decimal)
+        ' Update the subtotal label
+        subtotalno_label.Text = "Php " & totalPrice.ToString("N2")
+
+        ' Update the service charge label
+        servicechargeno_label.Text = "Php " & ServiceCharge.ToString("N2")
+
+        ' Calculate and update the total label
+        Dim total As Decimal = totalPrice + ServiceCharge
+        totalno_label.Text = "Php " & total.ToString("N2")
+    End Sub
+
+    Private Sub btn_cancelorder_Click(sender As Object, e As EventArgs) Handles btn_cancelorder.Click
+        'Clear items in receiptmenu_panel
+        receiptmenu_panel.Controls.Clear()
+
+        'Update total
+        UpdateTotalPrice()
+    End Sub
 End Class
