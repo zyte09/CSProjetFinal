@@ -23,11 +23,17 @@
 
     Public Property Price As Decimal
         Get
-            Return Decimal.Parse(lbl_price.Text, Globalization.NumberStyles.Currency)
+            Return Decimal.Parse(lbl_price.Text.Replace("Php ", ""), Globalization.NumberStyles.Currency)
         End Get
         Set(value As Decimal)
-            lbl_price.Text = value.ToString("C2")
+            lbl_price.Text = "Php " & value.ToString("N2")
         End Set
+    End Property
+
+    Public ReadOnly Property Subtotal As Decimal
+        Get
+            Return Price * Quantity
+        End Get
     End Property
 
     Public Property FoodImage As Image

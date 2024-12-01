@@ -17,6 +17,10 @@ Public Class Mainform
         receiptmenu_panel.Visible = True
         receipt_panel.Visible = True
         receipt_panel.Location = New Point(1046, 97)
+
+        'Disble button at start
+        btn_cancelorder.Enabled = False
+        btn_sendorder.Enabled = False
     End Sub
 
     Private Sub Mainform_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
@@ -33,6 +37,7 @@ Public Class Mainform
 
     Private Sub UpdateCurrentDate()
         current_datelabel.Text = DateTime.Now.ToString("dddd, dd MMMM yyyy | h:mm tt")
+        time_label.Text = DateTime.Now.ToString("h:mm tt")
     End Sub
 
     Private Sub HighlightButton(button As Button)
@@ -72,6 +77,13 @@ Public Class Mainform
         orders_panel.Visible = False
         settings_panel.Visible = False
 
+        'Always show receipt panel in panel needed
+        Select Case panel.Name
+            Case "home_panel", "foodmenu_panel", "startermenu_panel", "maincoursemenu_panel", "drinksmenu_panel", "dessertsmenu_panel", "orders_panel"
+                receipt_panel.Visible = True
+                receipt_panel.Location = New Point(1046, 97)
+        End Select
+
         ' Show specific panel
         Select Case panel.Name
             Case "home_panel"
@@ -105,6 +117,7 @@ Public Class Mainform
             Case "payment_panel"
                 payment_panel.Visible = True
                 HighlightButton(btn_payment)
+                receipt_panel.Visible = False
 
             Case "orders_panel"
                 orders_panel.Visible = True
@@ -261,6 +274,10 @@ Public Class Mainform
             AddHandler receiptItemControl.ItemCancelled, AddressOf OnItemCancelled
 
             receiptmenu_panel.Controls.Add(receiptItemControl)
+
+            ' Enable button when an order added
+            btn_cancelorder.Enabled = True
+            btn_sendorder.Enabled = True
         End If
 
         'Update total
@@ -334,13 +351,9 @@ Public Class Mainform
 
     Private Function CalcuTotalPrice() As Decimal
         Dim total As Decimal = 0
-
         For Each receiptItem As ReceiptItemControl In receiptmenu_panel.Controls.OfType(Of ReceiptItemControl)()
-            Dim price As Decimal = receiptItem.Price
-            Dim quantity As Integer = receiptItem.Quantity
-            total += price * quantity
+            total += receiptItem.Price
         Next
-
         Return total
     End Function
 
@@ -364,10 +377,77 @@ Public Class Mainform
     End Sub
 
     Private Sub btn_cancelorder_Click(sender As Object, e As EventArgs) Handles btn_cancelorder.Click
-        'Clear items in receiptmenu_panel
-        receiptmenu_panel.Controls.Clear()
+        Dim result As DialogResult = MessageBox.Show("Do you want to cancel the order?", "Confirm Cancel", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+        If result = DialogResult.Yes Then
+            ' Clear items in receiptmenu_panel
+            receiptmenu_panel.Controls.Clear()
 
-        'Update total
+            ' Update total
+            UpdateTotalPrice()
+
+            'Disable buttons after cancel
+            btn_cancelorder.Enabled = False
+            btn_sendorder.Enabled = False
+        End If
+    End Sub
+
+    Private Sub btn_sendorder_Click(sender As Object, e As EventArgs) Handles btn_sendorder.Click
+        Dim result As DialogResult = MessageBox.Show("Do you want to proceed to payment?", "Confirm Payment", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+        If result = DialogResult.Yes Then
+            HighlightButton(btn_payment)
+            ShowPanel(payment_panel)
+
+            ' Clear existing payment items
+            paymentItem_panel.Controls.Clear()
+
+            ' Add items to payment panel
+            For Each receiptItem As ReceiptItemControl In receiptmenu_panel.Controls.OfType(Of ReceiptItemControl)()
+                Dim paymentItemControl As New PaymentItemControl()
+                paymentItemControl.ItemName = receiptItem.ItemName
+                paymentItemControl.Category = GetItemCategory(receiptItem.ItemName)
+                paymentItemControl.Price = GetItemPrice(receiptItem.ItemName)
+                paymentItemControl.Quantity = receiptItem.Quantity
+                paymentItemControl.Subtotal = paymentItemControl.Price * paymentItemControl.Quantity
+                AddHandler paymentItemControl.ItemDeleted, AddressOf OnPaymentItemDeleted
+                paymentItem_panel.Controls.Add(paymentItemControl)
+            Next
+        End If
+    End Sub
+
+    Private Sub OnPaymentItemDeleted(sender As Object, e As EventArgs)
+        Dim paymentItemControl As PaymentItemControl = CType(sender, PaymentItemControl)
+
+        ' Remove the item from receiptmenu_panel
+        For Each receiptItem As ReceiptItemControl In receiptmenu_panel.Controls.OfType(Of ReceiptItemControl)()
+            If receiptItem.ItemName = paymentItemControl.ItemName Then
+                receiptmenu_panel.Controls.Remove(receiptItem)
+                Exit For
+            End If
+        Next
+
+        ' Remove the item from payment panel
+        paymentItem_panel.Controls.Remove(paymentItemControl)
+
+        ' Update total
         UpdateTotalPrice()
     End Sub
+
+    Private Function GetItemCategory(itemName As String) As String
+        Try
+            Using conn As New MySqlConnection(connectionString)
+                Dim query As String = "SELECT category FROM menu_items WHERE name = @name"
+                Using cmd As New MySqlCommand(query, conn)
+                    cmd.Parameters.AddWithValue("@name", itemName)
+                    conn.Open()
+                    Dim result As Object = cmd.ExecuteScalar()
+                    If result IsNot Nothing Then
+                        Return result.ToString()
+                    End If
+                End Using
+            End Using
+        Catch ex As Exception
+            MessageBox.Show("Error retrieving category: " & ex.Message)
+        End Try
+        Return String.Empty ' Default category if not found
+    End Function
 End Class
