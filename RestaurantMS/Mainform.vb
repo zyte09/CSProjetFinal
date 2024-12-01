@@ -4,7 +4,7 @@ Imports System.IO
 Public Class Mainform
     Private SelectedButton As Button = Nothing
     Private isExiting As Boolean = False
-    Private connectionString As String = "Server=127.0.0.1;userid=root;password='';Database=RestaurantMBDB"
+    Private connectionString As String = "Server=127.0.0.1;userid=root;password='';Database=RestaurantMSDB"
 
     Private Sub Mainform_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         UpdateCurrentDate()
@@ -223,10 +223,81 @@ Public Class Mainform
             If Not IsDBNull(row("image")) Then
                 foodItemControl.FoodImage = ByteArrayToImage(CType(row("image"), Byte()))
             End If
+            AddHandler foodItemControl.FoodItemClicked, AddressOf OnFoodItemClicked
             panel.Controls.Add(foodItemControl)
         Next
     End Sub
 
+    Private Sub OnFoodItemClicked(sender As Object, e As EventArgs)
+        Dim foodItemControl As FoodItemControl = CType(sender, FoodItemControl)
+        ' Check if the item already exists in the receiptmenu_panel
+        Dim existingItem As ReceiptItemControl = Nothing
+        For Each control As Control In receiptmenu_panel.Controls
+            If TypeOf control Is ReceiptItemControl Then
+                Dim receiptItem As ReceiptItemControl = CType(control, ReceiptItemControl)
+                If receiptItem.ItemName = foodItemControl.FoodName Then
+                    existingItem = receiptItem
+                    Exit For
+                End If
+            End If
+        Next
+
+        If existingItem IsNot Nothing Then
+            ' Item exists, increment quantity
+            Dim itemPrice As Decimal = GetItemPrice(foodItemControl.FoodName)
+            existingItem.Price = itemPrice * existingItem.Quantity
+        Else
+            ' Add new item with quantity 1
+            Dim itemPrice As Decimal = GetItemPrice(foodItemControl.FoodName)
+            Dim receiptItemControl As New ReceiptItemControl()
+            receiptItemControl.ItemName = foodItemControl.FoodName
+            receiptItemControl.Quantity = 1
+            receiptItemControl.Price = itemPrice
+            receiptItemControl.FoodImage = foodItemControl.FoodImage
+
+            AddHandler receiptItemControl.ItemIncremented, AddressOf OnItemIncremented
+            AddHandler receiptItemControl.ItemDecremented, AddressOf OnItemDecremented
+            AddHandler receiptItemControl.ItemCancelled, AddressOf OnItemCancelled
+
+            receiptmenu_panel.Controls.Add(receiptItemControl)
+        End If
+    End Sub
+
+    Private Sub OnItemIncremented(sender As Object, e As EventArgs)
+        Dim receiptItemControl As ReceiptItemControl = CType(sender, ReceiptItemControl)
+        Dim itemPrice As Decimal = GetItemPrice(receiptItemControl.ItemName)
+        receiptItemControl.Price = itemPrice * receiptItemControl.Quantity
+    End Sub
+
+    Private Sub OnItemDecremented(sender As Object, e As EventArgs)
+        Dim receiptItemControl As ReceiptItemControl = CType(sender, ReceiptItemControl)
+        Dim itemPrice As Decimal = GetItemPrice(receiptItemControl.ItemName)
+        receiptItemControl.Price = itemPrice * receiptItemControl.Quantity
+    End Sub
+
+    Private Sub OnItemCancelled(sender As Object, e As EventArgs)
+        Dim receiptItemControl As ReceiptItemControl = CType(sender, ReceiptItemControl)
+        receiptmenu_panel.Controls.Remove(receiptItemControl)
+    End Sub
+
+    Private Function GetItemPrice(itemName As String) As Decimal
+        Try
+            Using conn As New MySqlConnection(connectionString)
+                Dim query As String = "SELECT price FROM menu_items WHERE name = @name"
+                Using cmd As New MySqlCommand(query, conn)
+                    cmd.Parameters.AddWithValue("@name", itemName)
+                    conn.Open()
+                    Dim result As Object = cmd.ExecuteScalar()
+                    If result IsNot Nothing Then
+                        Return Convert.ToDecimal(result)
+                    End If
+                End Using
+            End Using
+        Catch ex As Exception
+            MessageBox.Show("Error retrieving price: " & ex.Message)
+        End Try
+        Return 0 ' Default price if not found
+    End Function
     Private Function GetFoodItems(category As String) As DataTable
         Dim dt As New DataTable()
         Using conn As New MySqlConnection(connectionString)
@@ -247,5 +318,4 @@ Public Class Mainform
             Return Image.FromStream(ms)
         End Using
     End Function
-
 End Class

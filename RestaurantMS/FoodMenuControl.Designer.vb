@@ -1,4 +1,6 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
+﻿Imports System.IO
+
+<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class FoodItemControl
     Inherits System.Windows.Forms.UserControl
 
@@ -30,9 +32,10 @@ Partial Class FoodItemControl
         ' 
         ' food_image
         ' 
-        food_image.BackgroundImageLayout = ImageLayout.Zoom
-        food_image.Dock = DockStyle.Top
+        food_image.BackColor = Color.Transparent
+        food_image.BackgroundImageLayout = ImageLayout.None
         food_image.Image = CType(resources.GetObject("food_image.Image"), Image)
+        food_image.SizeMode = PictureBoxSizeMode.Zoom
         food_image.Location = New Point(0, 0)
         food_image.Name = "food_image"
         food_image.Size = New Size(203, 143)
@@ -42,7 +45,8 @@ Partial Class FoodItemControl
         ' lbl_FoodName
         ' 
         lbl_FoodName.AutoSize = True
-        lbl_FoodName.Font = New Font("Segoe UI", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        lbl_FoodName.BackColor = Color.Transparent
+        lbl_FoodName.Font = New Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         lbl_FoodName.Location = New Point(67, 162)
         lbl_FoodName.Name = "lbl_FoodName"
         lbl_FoodName.Size = New Size(68, 28)
@@ -51,12 +55,15 @@ Partial Class FoodItemControl
         ' 
         ' FoodItemControl
         ' 
-        AutoScaleDimensions = New SizeF(8.0F, 20.0F)
+        AutoScaleDimensions = New SizeF(8F, 20F)
         AutoScaleMode = AutoScaleMode.Font
+        BackColor = Color.Azure
+        BorderStyle = BorderStyle.Fixed3D
         Controls.Add(lbl_FoodName)
         Controls.Add(food_image)
+        Cursor = Cursors.Hand
         Name = "FoodItemControl"
-        Size = New Size(203, 214)
+        Size = New Size(199, 210)
         CType(food_image, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
         PerformLayout()
