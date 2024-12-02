@@ -5,7 +5,11 @@ Public Class Mainform
     Private SelectedButton As Button = Nothing
     Private isExiting As Boolean = False
     Private connectionString As String = "Server=127.0.0.1;userid=root;password='';Database=RestaurantMSDB"
-    Private Const ServiceCharge As Decimal = CDec(50)
+    Private Const Tip0Amount As Decimal = CDec(0)
+    Private Const Tip1Amount As Decimal = CDec(20)
+    Private Const Tip2Amount As Decimal = CDec(30)
+    Private Const Tip3Amount As Decimal = CDec(40)
+    Private Const Tip4Amount As Decimal = CDec(50)
 
     Private Sub Mainform_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         UpdateCurrentDate()
@@ -21,6 +25,9 @@ Public Class Mainform
         'Disble button at start
         btn_cancelorder.Enabled = False
         btn_sendorder.Enabled = False
+
+        ' Set default tip amount
+        HighlightTipButton(btn_tip1, Tip1Amount)
     End Sub
 
     Private Sub Mainform_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
@@ -76,6 +83,7 @@ Public Class Mainform
         payment_panel.Visible = False
         orders_panel.Visible = False
         settings_panel.Visible = False
+        paymentreceipt_panel.Visible = False
 
         'Always show receipt panel in panel needed
         Select Case panel.Name
@@ -116,6 +124,7 @@ Public Class Mainform
 
             Case "payment_panel"
                 payment_panel.Visible = True
+                paymentreceipt_panel.Visible = True
                 HighlightButton(btn_payment)
                 receipt_panel.Visible = False
 
@@ -367,13 +376,30 @@ Public Class Mainform
     Private Sub UpdateLabels(totalPrice As Decimal)
         ' Update the subtotal label
         subtotalno_label.Text = "Php " & totalPrice.ToString("N2")
+        prSubtotalno_label.Text = subtotalno_label.Text ' Update prSubtotalno_label
 
-        ' Update the service charge label
-        servicechargeno_label.Text = "Php " & ServiceCharge.ToString("N2")
+        ' Calcu service charge 10% of subtotal
+        Dim serviceCharge As Decimal = totalPrice * 0.1
 
-        ' Calculate and update the total label
-        Dim total As Decimal = totalPrice + ServiceCharge
+        ' Update the service charge labels
+        servicechargeno_label.Text = "Php " & serviceCharge.ToString("N2")
+        prServiceno_label.Text = servicechargeno_label.Text ' Update prServiceno_label
+
+        ' Calcu and update total label (subtotal + service charge)
+        Dim total As Decimal = totalPrice + serviceCharge
         totalno_label.Text = "Php " & total.ToString("N2")
+
+        ' Update paytotal_label total amount (subtotal + service charge)
+        paytotal_label.Text = "Php " & total.ToString("N2")
+
+        ' Get tip amount from prTipsno_label
+        Dim tipAmount As Decimal = Decimal.Parse(prTipsno_label.Text.Replace("Php ", ""), Globalization.NumberStyles.Currency)
+
+        ' Calcu and update total label for payment (subtotal + service charge + tip)
+        Dim paymentTotal As Decimal = total + tipAmount
+
+        ' Update prTotalno_label total amount
+        prTotalno_label.Text = "Php " & paymentTotal.ToString("N2")
     End Sub
 
     Private Sub btn_cancelorder_Click(sender As Object, e As EventArgs) Handles btn_cancelorder.Click
@@ -392,7 +418,7 @@ Public Class Mainform
     End Sub
 
     Private Sub btn_sendorder_Click(sender As Object, e As EventArgs) Handles btn_sendorder.Click
-        Dim result As DialogResult = MessageBox.Show("Do you want to proceed to payment?", "Confirm Payment", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+        Dim result = MessageBox.Show("Do you want to proceed to payment?", "Confirm Payment", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
         If result = DialogResult.Yes Then
             HighlightButton(btn_payment)
             ShowPanel(payment_panel)
@@ -401,8 +427,8 @@ Public Class Mainform
             paymentItem_panel.Controls.Clear()
 
             ' Add items to payment panel
-            For Each receiptItem As ReceiptItemControl In receiptmenu_panel.Controls.OfType(Of ReceiptItemControl)()
-                Dim paymentItemControl As New PaymentItemControl()
+            For Each receiptItem In receiptmenu_panel.Controls.OfType(Of ReceiptItemControl)
+                Dim paymentItemControl As New PaymentItemControl
                 paymentItemControl.ItemName = receiptItem.ItemName
                 paymentItemControl.Category = GetItemCategory(receiptItem.ItemName)
                 paymentItemControl.Price = GetItemPrice(receiptItem.ItemName)
@@ -431,7 +457,6 @@ Public Class Mainform
         ' Update total
         UpdateTotalPrice()
     End Sub
-
     Private Function GetItemCategory(itemName As String) As String
         Try
             Using conn As New MySqlConnection(connectionString)
@@ -450,4 +475,48 @@ Public Class Mainform
         End Try
         Return String.Empty ' Default category if not found
     End Function
+
+    Private Sub HighlightTipButton(button As Button, tipAmount As Decimal)
+        ' Reset all tip buttons
+        Dim tipButtons() As Button = {btn_tip0, btn_tip1, btn_tip2, btn_tip3, btn_tip4}
+        For Each tipButton In tipButtons
+            tipButton.BackColor = Color.LightGray
+            tipButton.ForeColor = Color.FromArgb(0, 0, 0) ' Default text color
+        Next
+
+        ' Highlight the selected button
+        button.BackColor = Color.FromArgb(34, 40, 49) ' Highlight color
+        button.ForeColor = Color.FromArgb(238, 238, 238) ' Highlight text color
+
+        ' Update the prTipsno_label with the selected tip amount
+        prTipsno_label.Text = "Php " & tipAmount.ToString("N2")
+
+        ' Update total
+        UpdateTotalPrice()
+    End Sub
+
+    Private Sub btn_tip0_Click(sender As Object, e As EventArgs) Handles btn_tip0.Click
+        HighlightTipButton(btn_tip0, Tip0Amount)
+    End Sub
+
+    Private Sub btn_tip1_Click(sender As Object, e As EventArgs) Handles btn_tip1.Click
+        HighlightTipButton(btn_tip1, Tip1Amount)
+    End Sub
+    Private Sub btn_tip2_Click(sender As Object, e As EventArgs) Handles btn_tip2.Click
+        HighlightTipButton(btn_tip2, Tip2Amount)
+    End Sub
+    Private Sub btn_tip3_Click(sender As Object, e As EventArgs) Handles btn_tip3.Click
+        HighlightTipButton(btn_tip3, Tip3Amount)
+    End Sub
+    Private Sub btn_tip4_Click(sender As Object, e As EventArgs) Handles btn_tip4.Click
+        HighlightTipButton(btn_tip4, Tip4Amount)
+    End Sub
+
+    Private Sub cashinput_text_KeyPress(sender As Object, e As KeyPressEventArgs) Handles cashinput_text.KeyPress
+        ' Check if digit
+        If Not Char.IsDigit(e.KeyChar) AndAlso Not Char.IsControl(e.KeyChar) Then
+            ' If not digit or control key, cancel the key press event
+            e.Handled = True
+        End If
+    End Sub
 End Class
