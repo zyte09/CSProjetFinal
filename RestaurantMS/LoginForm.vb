@@ -4,31 +4,38 @@ Public Class LoginForm
     Dim conn As MySqlConnection
     Dim COMMAND As MySqlCommand
 
+    Private Sub LoginForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Me.KeyPreview = True
+    End Sub
+    Private Sub LoginForm_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
+        If e.KeyCode = Keys.Enter Then
+            e.SuppressKeyPress = True
+            cbtn_login_Click(sender, e)
+        End If
+    End Sub
+
     Private Sub cbtn_login_Click(sender As Object, e As EventArgs) Handles cbtn_login.Click
         conn = New MySqlConnection
-        conn.ConnectionString = "server=sql12.freesqldatabase.com;userid=sql12747542;password='g8UBST1eU4';database=sql12747542"
+        conn.ConnectionString = "server=127.0.0.1;userid=root;password='';database=RestaurantMSDB"
         Dim READER As MySqlDataReader
         Try
             conn.Open()
             Dim Query As String
-            Query = "SELECT * FROM users WHERE username = '" & txtbox_username.Text & "' AND password = '" & txtbox_password.Text & "'"
+            Query = "SELECT user_id FROM users WHERE username = @username AND password = @password"
             COMMAND = New MySqlCommand(Query, conn)
+            COMMAND.Parameters.AddWithValue("@username", txtbox_username.Text)
+            COMMAND.Parameters.AddWithValue("@password", txtbox_password.Text)
             READER = COMMAND.ExecuteReader
-            Dim count As Integer
-            count = 0
-            While READER.Read
-                count = count + 1
-            End While
-            If count = 1 Then
+            If READER.Read() Then
+                Dim userID As Integer = READER("user_id")
                 MessageBox.Show("Login successful!")
-                Mainform.Show()
+                Dim mainForm As New Mainform()
+                mainForm.UserID = userID
+                mainForm.Show()
                 Me.Hide()
-            ElseIf count > 1 Then
-                MessageBox.Show("Username and password are duplicate!")
             Else
                 MessageBox.Show("Username and password are incorrect!")
             End If
-
             conn.Close()
         Catch ex As Exception
             MsgBox(ex.Message)
@@ -40,6 +47,5 @@ Public Class LoginForm
         Dim registrationForm As New RegistrationForm
         Me.Hide()
         registrationForm.Show()
-
     End Sub
 End Class

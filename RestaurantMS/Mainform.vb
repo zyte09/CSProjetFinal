@@ -2,6 +2,7 @@
 Imports System.IO
 
 Public Class Mainform
+    Public Property UserID As Integer
     Private SelectedButton As Button = Nothing
     Private isExiting As Boolean = False
     Private connectionString As String = "Server=127.0.0.1;userid=root;password='';Database=RestaurantMSDB"
@@ -28,6 +29,8 @@ Public Class Mainform
 
         ' Set default tip amount
         HighlightTipButton(btn_tip1, Tip1Amount)
+        HighlightPaymentButton(btn_cash)
+        LoadOrderHistory()
     End Sub
 
     Private Sub Mainform_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
@@ -87,7 +90,7 @@ Public Class Mainform
 
         'Always show receipt panel in panel needed
         Select Case panel.Name
-            Case "home_panel", "foodmenu_panel", "startermenu_panel", "maincoursemenu_panel", "drinksmenu_panel", "dessertsmenu_panel", "orders_panel"
+            Case "home_panel", "foodmenu_panel", "startermenu_panel", "maincoursemenu_panel", "drinksmenu_panel", "dessertsmenu_panel"
                 receipt_panel.Visible = True
                 receipt_panel.Location = New Point(1046, 97)
         End Select
@@ -130,10 +133,12 @@ Public Class Mainform
 
             Case "orders_panel"
                 orders_panel.Visible = True
-                HighlightButton(btn_orders)
+                receipt_panel.Visible = False
+                HighlightButton(btn_history)
 
             Case "settings_panel"
                 settings_panel.Visible = True
+                receipt_panel.Visible = False
                 HighlightButton(btn_settings)
 
             Case Else
@@ -171,6 +176,8 @@ Public Class Mainform
         Debug.WriteLine($"Main Course Button Visible: {btn_maincourse.Visible}")
         Debug.WriteLine($"Drinks Button Visible: {btn_drinks.Visible}")
         Debug.WriteLine($"Desserts Button Visible: {btn_desserts.Visible}")
+        Debug.WriteLine($"OrderHistoryControl Size: {orderhistory_panel.Size}")
+        Debug.WriteLine($"OrderHistoryControl Location: {orderhistory_panel.Location}")
     End Sub
 
     Private Sub btn_home_Click(sender As Object, e As EventArgs) Handles btn_home.Click
@@ -190,9 +197,10 @@ Public Class Mainform
         ShowPanel(payment_panel)
     End Sub
 
-    Private Sub btn_orders_Click(sender As Object, e As EventArgs) Handles btn_orders.Click
-        HighlightButton(btn_orders)
+    Private Sub btn_history_Click(sender As Object, e As EventArgs) Handles btn_history.Click
+        HighlightButton(btn_history)
         ShowPanel(orders_panel)
+        LoadOrderHistory()
     End Sub
 
     Private Sub btn_settings_Click(sender As Object, e As EventArgs) Handles btn_settings.Click
@@ -322,7 +330,7 @@ Public Class Mainform
     Private Function GetItemPrice(itemName As String) As Decimal
         Try
             Using conn As New MySqlConnection(connectionString)
-                Dim query As String = "SELECT price FROM menu_items WHERE name = @name"
+                Dim query As String = "Select price FROM menu_items WHERE name = @name"
                 Using cmd As New MySqlCommand(query, conn)
                     cmd.Parameters.AddWithValue("@name", itemName)
                     conn.Open()
@@ -458,22 +466,23 @@ Public Class Mainform
         UpdateTotalPrice()
     End Sub
     Private Function GetItemCategory(itemName As String) As String
+        Dim connectionString = "server=127.0.0.1;userid=root;password='';database=RestaurantMSDB"
+        Dim conn As New MySqlConnection(connectionString)
         Try
-            Using conn As New MySqlConnection(connectionString)
-                Dim query As String = "SELECT category FROM menu_items WHERE name = @name"
-                Using cmd As New MySqlCommand(query, conn)
-                    cmd.Parameters.AddWithValue("@name", itemName)
-                    conn.Open()
-                    Dim result As Object = cmd.ExecuteScalar()
-                    If result IsNot Nothing Then
-                        Return result.ToString()
-                    End If
-                End Using
-            End Using
+            conn.Open()
+            Dim query = "SELECT category FROM menu_items WHERE name = @name"
+            Dim cmd As New MySqlCommand(query, conn)
+            cmd.Parameters.AddWithValue("@name", itemName)
+            Dim result As Object = cmd.ExecuteScalar()
+            If result IsNot Nothing Then
+                Return result.ToString()
+            End If
         Catch ex As Exception
-            MessageBox.Show("Error retrieving category: " & ex.Message)
+            MessageBox.Show("Error: " & ex.Message)
+        Finally
+            conn.Close()
         End Try
-        Return String.Empty ' Default category if not found
+        Return String.Empty
     End Function
 
     Private Sub HighlightTipButton(button As Button, tipAmount As Decimal)
@@ -519,4 +528,168 @@ Public Class Mainform
             e.Handled = True
         End If
     End Sub
+
+    Private Sub HighlightPaymentButton(button As Button)
+        ' Reset all payment buttons
+        Dim paymentButtons() As Button = {btn_cash, btn_creditcard, btn_gcash}
+        For Each paymentButton In paymentButtons
+            paymentButton.BackColor = Color.LightGray
+            paymentButton.ForeColor = Color.FromArgb(0, 0, 0) ' Default text color
+        Next
+
+        ' Highlight the selected button
+        button.BackColor = Color.FromArgb(34, 40, 49) ' Highlight color
+        button.ForeColor = Color.FromArgb(238, 238, 238) ' Highlight text color
+    End Sub
+
+    Private Sub btn_cash_Click(sender As Object, e As EventArgs) Handles btn_cash.Click
+        HighlightPaymentButton(btn_cash)
+    End Sub
+
+    Private Sub btn_creditcard_Click(sender As Object, e As EventArgs) Handles btn_creditcard.Click
+        HighlightPaymentButton(btn_creditcard)
+    End Sub
+
+    Private Sub btn_gcash_Click(sender As Object, e As EventArgs) Handles btn_gcash.Click
+        HighlightPaymentButton(btn_gcash)
+    End Sub
+
+    Private Sub LoadOrderHistory()
+        Using conn As New MySqlConnection(connectionString)
+            Try
+                conn.Open()
+                Dim query = "SELECT order_id FROM order_history ORDER BY order_date DESC"
+                Using cmd As New MySqlCommand(query, conn)
+                    Using reader As MySqlDataReader = cmd.ExecuteReader()
+                        orderhistory_panel.Controls.Clear()
+                        Dim yOffset As Integer = 10
+
+                        While reader.Read()
+                            Dim orderID As Integer = reader("order_id")
+                            Dim orderHistoryControl As New OrderHistoryControl()
+
+                            orderHistoryControl.Location = New Point(10, yOffset)
+                            orderHistoryControl.Size = New Size(509, 116)
+                            orderHistoryControl.LoadOrderDetails(orderID)
+
+                            AddHandler orderHistoryControl.OrderHistoryClicked, Sub(id) LoadOrderDetails(id)
+                            orderhistory_panel.Controls.Add(orderHistoryControl)
+
+                            yOffset += orderHistoryControl.Height + 10
+                        End While
+                    End Using
+                End Using
+            Catch ex As Exception
+                MessageBox.Show("Error loading order history: " & ex.Message)
+            End Try
+        End Using
+    End Sub
+
+    Private Sub btn_pay_Click(sender As Object, e As EventArgs) Handles btn_pay.Click
+        Dim cashInput As Decimal
+        If Decimal.TryParse(cashinput_text.Text, cashInput) Then
+            Dim totalAmount As Decimal = CalcuTotalPrice() + (CalcuTotalPrice() * 0.1) + Decimal.Parse(prTipsno_label.Text.Replace("Php ", ""), Globalization.NumberStyles.Currency)
+            If cashInput >= totalAmount Then
+                Dim change As Decimal = cashInput - totalAmount
+                If SaveOrderToDatabase() Then
+                    MessageBox.Show($"Order has been successfully saved to the order history. Your change is Php {change:F2}.", "Order Saved", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    ' Clear the receipt panel after saving the order
+                    receiptmenu_panel.Controls.Clear()
+                    UpdateTotalPrice()
+                    btn_cancelorder.Enabled = False
+                    btn_sendorder.Enabled = False
+                    ' Hide receipt panel and show order history panel
+                    receipt_panel.Visible = False
+                    ShowPanel(orders_panel)
+                    LoadOrderHistory()
+                Else
+                    MessageBox.Show("Failed to save the order. Please try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End If
+            Else
+                MessageBox.Show("Insufficient cash input. Please enter an amount greater than or equal to the total amount.", "Insufficient Cash", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            End If
+        Else
+            MessageBox.Show("Invalid cash input. Please enter a valid amount.", "Invalid Input", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        End If
+    End Sub
+
+    Private Function SaveOrderToDatabase() As Boolean
+        Dim connectionString = "server=127.0.0.1;userid=root;password='';database=RestaurantMSDB"
+        Dim conn As New MySqlConnection(connectionString)
+        Try
+            conn.Open()
+            Dim query = "INSERT INTO order_history (user_id, order_date, items, total_amount) VALUES (@userID, @orderDate, @items, @totalAmount)"
+            Dim cmd As New MySqlCommand(query, conn)
+
+            ' Format items with quantity
+            Dim items As String = String.Join(",", receiptmenu_panel.Controls.OfType(Of ReceiptItemControl)() _
+            .Select(Function(c) $"{c.ItemName}:{c.Quantity}"))
+
+            Dim userID As Integer = Me.UserID
+            Dim orderDate As DateTime = DateTime.Now
+            Dim totalAmount As Decimal = CalcuTotalPrice() + (CalcuTotalPrice() * 0.1) +
+            Decimal.Parse(prTipsno_label.Text.Replace("Php ", ""), Globalization.NumberStyles.Currency)
+
+            cmd.Parameters.AddWithValue("@userID", userID)
+            cmd.Parameters.AddWithValue("@orderDate", orderDate)
+            cmd.Parameters.AddWithValue("@items", items)
+            cmd.Parameters.AddWithValue("@totalAmount", totalAmount)
+
+            Dim result As Integer = cmd.ExecuteNonQuery()
+            Return result > 0
+        Catch ex As Exception
+            MessageBox.Show("Error: " & ex.Message)
+            Return False
+        Finally
+            conn.Close()
+        End Try
+    End Function
+
+    Private Sub LoadOrderDetails(orderID As Integer)
+        orderID_label.Text = "Order #" & orderID.ToString()
+        Dim connectionString = "server=127.0.0.1;userid=root;password='';database=RestaurantMSDB"
+        Dim conn As New MySqlConnection(connectionString)
+        Try
+            conn.Open()
+            Dim query = "SELECT items FROM order_history WHERE order_id = @orderID"
+            Dim cmd As New MySqlCommand(query, conn)
+            cmd.Parameters.AddWithValue("@orderID", orderID)
+            Dim reader As MySqlDataReader = cmd.ExecuteReader()
+
+            If reader.Read() Then
+                Dim items As String = reader("items").ToString()
+                Dim itemList As String() = items.Split(","c)
+                orderdetail_panel.Controls.Clear()
+
+                For Each item As String In itemList
+                    Try
+                        Dim itemParts As String() = item.Split(":"c)
+                        If itemParts.Length = 2 Then
+                            Dim orderDetailControl As New OrderDetailControl()
+                            orderDetailControl.FoodName = itemParts(0).Trim()
+                            orderDetailControl.Quantity = itemParts(1).Trim()
+                            orderDetailControl.Category = GetItemCategory(itemParts(0).Trim())
+                            orderdetail_panel.Controls.Add(orderDetailControl)
+                        Else
+                            ' Log malformed item for debugging
+                            Debug.WriteLine($"Malformed item format: {item}")
+                        End If
+                    Catch ex As Exception
+                        Debug.WriteLine($"Error processing item {item}: {ex.Message}")
+                    End Try
+                Next
+            End If
+
+            reader.Close()
+        Catch ex As Exception
+            MessageBox.Show("Error loading order details: " & ex.Message)
+        Finally
+            conn.Close()
+        End Try
+    End Sub
+
+    Private Sub OnOrderHistoryClicked(orderID As Integer)
+        LoadOrderDetails(orderID)
+    End Sub
+
 End Class
