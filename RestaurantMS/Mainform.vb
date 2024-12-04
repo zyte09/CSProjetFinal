@@ -864,4 +864,125 @@ Public Class Mainform
             End Using
         End Using
     End Sub
+
+    Private Sub btn_changepass_Click(sender As Object, e As EventArgs) Handles btn_changepass.Click
+        ' Validate input fields
+        If String.IsNullOrWhiteSpace(currentpass_text.Text) Then
+            MessageBox.Show("Current password cannot be empty.")
+            currentpass_text.Focus()
+            Return
+        End If
+
+        If String.IsNullOrWhiteSpace(newpass_text.Text) Then
+            MessageBox.Show("New password cannot be empty.")
+            newpass_text.Focus()
+            Return
+        End If
+
+        If newpass_text.Text.Length < 8 Then
+            MessageBox.Show("New password must be at least 8 characters long.")
+            newpass_text.Focus()
+            Return
+        End If
+
+        If String.IsNullOrWhiteSpace(retype_text.Text) Then
+            MessageBox.Show("Retype password cannot be empty.")
+            retype_text.Focus()
+            Return
+        End If
+
+        If newpass_text.Text <> retype_text.Text Then
+            MessageBox.Show("New password and retype password do not match.")
+            retype_text.Focus()
+            Return
+        End If
+
+        Dim connectionString = "server=127.0.0.1;userid=root;password='';database=RestaurantMSDB"
+        Dim query = "SELECT password FROM users WHERE user_id = @userID"
+
+        Using conn As New MySqlConnection(connectionString)
+            Try
+                conn.Open()
+                Using cmd As New MySqlCommand(query, conn)
+                    cmd.Parameters.AddWithValue("@userID", UserID)
+                    Dim currentPassword As String = cmd.ExecuteScalar().ToString()
+
+                    If currentPassword <> currentpass_text.Text Then
+                        MessageBox.Show("Current password is incorrect.")
+                        currentpass_text.Focus()
+                        Return
+                    End If
+                End Using
+
+                ' Update the pass
+                query = "UPDATE users SET password = @newPassword WHERE user_id = @userID"
+                Using cmd As New MySqlCommand(query, conn)
+                    cmd.Parameters.AddWithValue("@newPassword", newpass_text.Text)
+                    cmd.Parameters.AddWithValue("@userID", UserID)
+
+                    Dim result As Integer = cmd.ExecuteNonQuery()
+                    If result > 0 Then
+                        MessageBox.Show("Password updated successfully!")
+                        ShowPanel(profileedit_panel)
+                    Else
+                        MessageBox.Show("Failed to update password. Please try again.")
+                    End If
+                End Using
+            Catch ex As Exception
+                MessageBox.Show("Error: " & ex.Message)
+            End Try
+        End Using
+    End Sub
+
+    Private Sub currentpass_text_KeyPress(sender As Object, e As KeyPressEventArgs) Handles currentpass_text.KeyPress
+        If Not Char.IsLetterOrDigit(e.KeyChar) AndAlso Not Char.IsControl(e.KeyChar) Then
+            e.Handled = True
+        End If
+    End Sub
+
+    Private Sub newpass_text_KeyPress(sender As Object, e As KeyPressEventArgs) Handles newpass_text.KeyPress
+        If Not Char.IsLetterOrDigit(e.KeyChar) AndAlso Not Char.IsControl(e.KeyChar) Then
+            e.Handled = True
+        End If
+    End Sub
+
+    Private Sub retype_text_KeyPress(sender As Object, e As KeyPressEventArgs) Handles retype_text.KeyPress
+        If Not Char.IsLetterOrDigit(e.KeyChar) AndAlso Not Char.IsControl(e.KeyChar) Then
+            e.Handled = True
+        End If
+    End Sub
+
+    Private Sub TogglePasswordVisibility(textBox As TextBox, button As Button, isVisible As Boolean)
+        If isVisible Then
+            textBox.PasswordChar = ControlChars.NullChar
+            button.Image = My.Resources.visibility_on
+        Else
+            textBox.PasswordChar = "●"c
+            button.Image = My.Resources.visibility_off
+        End If
+    End Sub
+
+    Private Sub btn_visibility_current_MouseDown(sender As Object, e As MouseEventArgs) Handles btn_visibility_current.MouseDown
+        TogglePasswordVisibility(currentpass_text, btn_visibility_current, True)
+    End Sub
+
+    Private Sub btn_visibility_current_MouseUp(sender As Object, e As MouseEventArgs) Handles btn_visibility_current.MouseUp
+        TogglePasswordVisibility(currentpass_text, btn_visibility_current, False)
+    End Sub
+
+    Private Sub btn_visibility_new_MouseDown(sender As Object, e As MouseEventArgs) Handles btn_visibility_new.MouseDown
+        TogglePasswordVisibility(newpass_text, btn_visibility_new, True)
+    End Sub
+
+    Private Sub btn_visibility_new_MouseUp(sender As Object, e As MouseEventArgs) Handles btn_visibility_new.MouseUp
+        TogglePasswordVisibility(newpass_text, btn_visibility_new, False)
+    End Sub
+
+    Private Sub btn_visibility_retype_MouseDown(sender As Object, e As MouseEventArgs) Handles btn_visibility_retype.MouseDown
+        TogglePasswordVisibility(retype_text, btn_visibility_retype, True)
+    End Sub
+
+    Private Sub btn_visibility_retype_MouseUp(sender As Object, e As MouseEventArgs) Handles btn_visibility_retype.MouseUp
+        TogglePasswordVisibility(retype_text, btn_visibility_retype, False)
+    End Sub
 End Class

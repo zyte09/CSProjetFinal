@@ -23,6 +23,9 @@ Partial Class RegistrationForm
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Panel1 = New Panel()
+        btn_visibility = New CircularButton()
+        txtbox_address = New TextBox()
+        Label5 = New Label()
         btnCancel = New CircularButton()
         cbtn_submit = New CircularButton()
         txtbox_email = New TextBox()
@@ -38,14 +41,13 @@ Partial Class RegistrationForm
         lbl_password = New Label()
         txt_Welcome = New Label()
         txtbox_username = New TextBox()
-        txtbox_address = New TextBox()
-        Label5 = New Label()
         Panel1.SuspendLayout()
         SuspendLayout()
         ' 
         ' Panel1
         ' 
         Panel1.BackColor = Color.FromArgb(CByte(44), CByte(41), CByte(41))
+        Panel1.Controls.Add(btn_visibility)
         Panel1.Controls.Add(txtbox_address)
         Panel1.Controls.Add(Label5)
         Panel1.Controls.Add(btnCancel)
@@ -68,6 +70,51 @@ Partial Class RegistrationForm
         Panel1.Name = "Panel1"
         Panel1.Size = New Size(784, 584)
         Panel1.TabIndex = 0
+        ' 
+        ' btn_visibility
+        ' 
+        btn_visibility.BackColor = Color.Transparent
+        btn_visibility.BackgroundColor = Color.Transparent
+        btn_visibility.BackgroundImageLayout = ImageLayout.None
+        btn_visibility.BorderColor = Color.PaleVioletRed
+        btn_visibility.BorderRadius = 28
+        btn_visibility.BorderSize = 0
+        btn_visibility.FlatAppearance.BorderSize = 0
+        btn_visibility.FlatAppearance.MouseDownBackColor = Color.FromArgb(CByte(44), CByte(41), CByte(41))
+        btn_visibility.FlatAppearance.MouseOverBackColor = Color.FromArgb(CByte(44), CByte(41), CByte(41))
+        btn_visibility.FlatStyle = FlatStyle.Flat
+        btn_visibility.ForeColor = Color.Transparent
+        btn_visibility.Image = My.Resources.Resources.Wvisibility_off
+        btn_visibility.Location = New Point(637, 280)
+        btn_visibility.Name = "btn_visibility"
+        btn_visibility.Size = New Size(46, 37)
+        btn_visibility.TabIndex = 38
+        btn_visibility.TextColor = Color.Transparent
+        btn_visibility.UseVisualStyleBackColor = False
+        ' 
+        ' txtbox_address
+        ' 
+        txtbox_address.BackColor = Color.FromArgb(CByte(44), CByte(41), CByte(41))
+        txtbox_address.BorderStyle = BorderStyle.FixedSingle
+        txtbox_address.Font = New Font("Segoe UI", 15F)
+        txtbox_address.ForeColor = Color.White
+        txtbox_address.Location = New Point(267, 453)
+        txtbox_address.Margin = New Padding(3, 4, 3, 4)
+        txtbox_address.Name = "txtbox_address"
+        txtbox_address.Size = New Size(417, 41)
+        txtbox_address.TabIndex = 19
+        ' 
+        ' Label5
+        ' 
+        Label5.AutoSize = True
+        Label5.BackColor = Color.Transparent
+        Label5.Font = New Font("Microsoft Sans Serif", 12F)
+        Label5.ForeColor = Color.White
+        Label5.Location = New Point(85, 463)
+        Label5.Name = "Label5"
+        Label5.Size = New Size(85, 25)
+        Label5.TabIndex = 20
+        Label5.Text = "Address"
         ' 
         ' btnCancel
         ' 
@@ -118,12 +165,12 @@ Partial Class RegistrationForm
         ' 
         txtbox_email.BackColor = Color.FromArgb(CByte(44), CByte(41), CByte(41))
         txtbox_email.BorderStyle = BorderStyle.FixedSingle
-        txtbox_email.Font = New Font("Microsoft Sans Serif", 12F)
+        txtbox_email.Font = New Font("Segoe UI", 15F)
         txtbox_email.ForeColor = Color.White
-        txtbox_email.Location = New Point(267, 399)
+        txtbox_email.Location = New Point(267, 395)
         txtbox_email.Margin = New Padding(3, 4, 3, 4)
         txtbox_email.Name = "txtbox_email"
-        txtbox_email.Size = New Size(417, 30)
+        txtbox_email.Size = New Size(417, 41)
         txtbox_email.TabIndex = 5
         ' 
         ' Label1
@@ -132,7 +179,7 @@ Partial Class RegistrationForm
         Label1.BackColor = Color.Transparent
         Label1.Font = New Font("Microsoft Sans Serif", 12F)
         Label1.ForeColor = Color.White
-        Label1.Location = New Point(81, 343)
+        Label1.Location = New Point(85, 347)
         Label1.Name = "Label1"
         Label1.Size = New Size(143, 25)
         Label1.TabIndex = 16
@@ -144,7 +191,7 @@ Partial Class RegistrationForm
         Label4.BackColor = Color.Transparent
         Label4.Font = New Font("Microsoft Sans Serif", 12F)
         Label4.ForeColor = Color.White
-        Label4.Location = New Point(81, 401)
+        Label4.Location = New Point(85, 405)
         Label4.Name = "Label4"
         Label4.Size = New Size(60, 25)
         Label4.TabIndex = 17
@@ -154,12 +201,12 @@ Partial Class RegistrationForm
         ' 
         txtbox_phone_number.BackColor = Color.FromArgb(CByte(44), CByte(41), CByte(41))
         txtbox_phone_number.BorderStyle = BorderStyle.FixedSingle
-        txtbox_phone_number.Font = New Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        txtbox_phone_number.Font = New Font("Segoe UI", 15F)
         txtbox_phone_number.ForeColor = Color.White
-        txtbox_phone_number.Location = New Point(267, 341)
+        txtbox_phone_number.Location = New Point(267, 337)
         txtbox_phone_number.Margin = New Padding(3, 4, 3, 4)
         txtbox_phone_number.Name = "txtbox_phone_number"
-        txtbox_phone_number.Size = New Size(417, 30)
+        txtbox_phone_number.Size = New Size(417, 41)
         txtbox_phone_number.TabIndex = 4
         ' 
         ' Label3
@@ -168,7 +215,7 @@ Partial Class RegistrationForm
         Label3.BackColor = Color.Transparent
         Label3.Font = New Font("Microsoft Sans Serif", 12F)
         Label3.ForeColor = Color.White
-        Label3.Location = New Point(77, 114)
+        Label3.Location = New Point(81, 115)
         Label3.Name = "Label3"
         Label3.Size = New Size(106, 25)
         Label3.TabIndex = 14
@@ -178,24 +225,24 @@ Partial Class RegistrationForm
         ' 
         txtbox_first_name.BackColor = Color.FromArgb(CByte(44), CByte(41), CByte(41))
         txtbox_first_name.BorderStyle = BorderStyle.FixedSingle
-        txtbox_first_name.Font = New Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        txtbox_first_name.Font = New Font("Segoe UI", 15F)
         txtbox_first_name.ForeColor = Color.White
-        txtbox_first_name.Location = New Point(267, 109)
+        txtbox_first_name.Location = New Point(266, 105)
         txtbox_first_name.Margin = New Padding(3, 4, 3, 4)
         txtbox_first_name.Name = "txtbox_first_name"
-        txtbox_first_name.Size = New Size(417, 30)
+        txtbox_first_name.Size = New Size(417, 41)
         txtbox_first_name.TabIndex = 0
         ' 
         ' txtbox_last_name
         ' 
         txtbox_last_name.BackColor = Color.FromArgb(CByte(44), CByte(41), CByte(41))
         txtbox_last_name.BorderStyle = BorderStyle.FixedSingle
-        txtbox_last_name.Font = New Font("Microsoft Sans Serif", 12F)
+        txtbox_last_name.Font = New Font("Segoe UI", 15F)
         txtbox_last_name.ForeColor = Color.White
-        txtbox_last_name.Location = New Point(267, 167)
+        txtbox_last_name.Location = New Point(266, 163)
         txtbox_last_name.Margin = New Padding(3, 4, 3, 4)
         txtbox_last_name.Name = "txtbox_last_name"
-        txtbox_last_name.Size = New Size(417, 30)
+        txtbox_last_name.Size = New Size(417, 41)
         txtbox_last_name.TabIndex = 1
         ' 
         ' Label2
@@ -204,7 +251,7 @@ Partial Class RegistrationForm
         Label2.BackColor = Color.Transparent
         Label2.Font = New Font("Microsoft Sans Serif", 12F)
         Label2.ForeColor = Color.White
-        Label2.Location = New Point(77, 169)
+        Label2.Location = New Point(81, 173)
         Label2.Name = "Label2"
         Label2.Size = New Size(106, 25)
         Label2.TabIndex = 11
@@ -214,13 +261,13 @@ Partial Class RegistrationForm
         ' 
         txtbox_password.BackColor = Color.FromArgb(CByte(44), CByte(41), CByte(41))
         txtbox_password.BorderStyle = BorderStyle.FixedSingle
-        txtbox_password.Font = New Font("Microsoft Sans Serif", 12F)
+        txtbox_password.Font = New Font("Segoe UI", 15F)
         txtbox_password.ForeColor = Color.White
-        txtbox_password.Location = New Point(267, 283)
+        txtbox_password.Location = New Point(267, 279)
         txtbox_password.Margin = New Padding(3, 4, 3, 4)
         txtbox_password.Name = "txtbox_password"
-        txtbox_password.PasswordChar = "*"c
-        txtbox_password.Size = New Size(417, 30)
+        txtbox_password.PasswordChar = "●"c
+        txtbox_password.Size = New Size(417, 41)
         txtbox_password.TabIndex = 3
         ' 
         ' lbl_username
@@ -229,7 +276,7 @@ Partial Class RegistrationForm
         lbl_username.BackColor = Color.Transparent
         lbl_username.Font = New Font("Microsoft Sans Serif", 12F)
         lbl_username.ForeColor = Color.White
-        lbl_username.Location = New Point(81, 227)
+        lbl_username.Location = New Point(81, 231)
         lbl_username.Name = "lbl_username"
         lbl_username.Size = New Size(102, 25)
         lbl_username.TabIndex = 4
@@ -241,7 +288,7 @@ Partial Class RegistrationForm
         lbl_password.BackColor = Color.Transparent
         lbl_password.Font = New Font("Microsoft Sans Serif", 12F)
         lbl_password.ForeColor = Color.White
-        lbl_password.Location = New Point(81, 285)
+        lbl_password.Location = New Point(85, 289)
         lbl_password.Name = "lbl_password"
         lbl_password.Size = New Size(98, 25)
         lbl_password.TabIndex = 5
@@ -263,37 +310,13 @@ Partial Class RegistrationForm
         ' 
         txtbox_username.BackColor = Color.FromArgb(CByte(44), CByte(41), CByte(41))
         txtbox_username.BorderStyle = BorderStyle.FixedSingle
-        txtbox_username.Font = New Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        txtbox_username.Font = New Font("Segoe UI", 15F)
         txtbox_username.ForeColor = Color.White
-        txtbox_username.Location = New Point(267, 225)
+        txtbox_username.Location = New Point(267, 221)
         txtbox_username.Margin = New Padding(3, 4, 3, 4)
         txtbox_username.Name = "txtbox_username"
-        txtbox_username.Size = New Size(417, 30)
+        txtbox_username.Size = New Size(417, 41)
         txtbox_username.TabIndex = 2
-        ' 
-        ' txtbox_address
-        ' 
-        txtbox_address.BackColor = Color.FromArgb(CByte(44), CByte(41), CByte(41))
-        txtbox_address.BorderStyle = BorderStyle.FixedSingle
-        txtbox_address.Font = New Font("Microsoft Sans Serif", 12F)
-        txtbox_address.ForeColor = Color.White
-        txtbox_address.Location = New Point(267, 457)
-        txtbox_address.Margin = New Padding(3, 4, 3, 4)
-        txtbox_address.Name = "txtbox_address"
-        txtbox_address.Size = New Size(417, 30)
-        txtbox_address.TabIndex = 19
-        ' 
-        ' Label5
-        ' 
-        Label5.AutoSize = True
-        Label5.BackColor = Color.Transparent
-        Label5.Font = New Font("Microsoft Sans Serif", 12F)
-        Label5.ForeColor = Color.White
-        Label5.Location = New Point(81, 459)
-        Label5.Name = "Label5"
-        Label5.Size = New Size(85, 25)
-        Label5.TabIndex = 20
-        Label5.Text = "Address"
         ' 
         ' RegistrationForm
         ' 
@@ -334,4 +357,5 @@ Partial Class RegistrationForm
     Private WithEvents btnCancel As CircularButton
     Friend WithEvents txtbox_address As TextBox
     Friend WithEvents Label5 As Label
+    Friend WithEvents btn_visibility As CircularButton
 End Class

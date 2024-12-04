@@ -7,6 +7,7 @@ Partial Class LoginForm
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(LoginForm))
         Panel1 = New Panel()
+        btn_visibility = New CircularButton()
         cbtn_signup = New CircularButton()
         cbtn_login = New CircularButton()
         Label1 = New Label()
@@ -21,6 +22,7 @@ Partial Class LoginForm
         ' 
         Panel1.BackgroundImage = CType(resources.GetObject("Panel1.BackgroundImage"), Image)
         Panel1.BackgroundImageLayout = ImageLayout.Center
+        Panel1.Controls.Add(btn_visibility)
         Panel1.Controls.Add(cbtn_signup)
         Panel1.Controls.Add(cbtn_login)
         Panel1.Controls.Add(Label1)
@@ -28,10 +30,31 @@ Partial Class LoginForm
         Panel1.Controls.Add(Label2)
         Panel1.Controls.Add(txtbox_password)
         Panel1.Controls.Add(txtbox_username)
-        Panel1.Location = New Point(0, -2)
+        Panel1.Location = New Point(-1, -2)
         Panel1.Name = "Panel1"
         Panel1.Size = New Size(1265, 680)
         Panel1.TabIndex = 8
+        ' 
+        ' btn_visibility
+        ' 
+        btn_visibility.BackColor = Color.Transparent
+        btn_visibility.BackgroundColor = Color.Transparent
+        btn_visibility.BackgroundImageLayout = ImageLayout.None
+        btn_visibility.BorderColor = Color.PaleVioletRed
+        btn_visibility.BorderRadius = 25
+        btn_visibility.BorderSize = 0
+        btn_visibility.FlatAppearance.BorderSize = 0
+        btn_visibility.FlatAppearance.MouseDownBackColor = Color.FromArgb(CByte(44), CByte(41), CByte(41))
+        btn_visibility.FlatAppearance.MouseOverBackColor = Color.FromArgb(CByte(44), CByte(41), CByte(41))
+        btn_visibility.FlatStyle = FlatStyle.Flat
+        btn_visibility.ForeColor = Color.Transparent
+        btn_visibility.Image = My.Resources.Resources.Wvisibility_off
+        btn_visibility.Location = New Point(774, 348)
+        btn_visibility.Name = "btn_visibility"
+        btn_visibility.Size = New Size(39, 25)
+        btn_visibility.TabIndex = 39
+        btn_visibility.TextColor = Color.Transparent
+        btn_visibility.UseVisualStyleBackColor = False
         ' 
         ' cbtn_signup
         ' 
@@ -79,11 +102,11 @@ Partial Class LoginForm
         ' 
         Label1.AutoSize = True
         Label1.BackColor = Color.Transparent
-        Label1.Font = New Font("Microsoft Sans Serif", 12F)
+        Label1.Font = New Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Label1.ForeColor = Color.White
-        Label1.Location = New Point(450, 217)
+        Label1.Location = New Point(450, 197)
         Label1.Name = "Label1"
-        Label1.Size = New Size(102, 25)
+        Label1.Size = New Size(127, 35)
         Label1.TabIndex = 1
         Label1.Text = "Username"
         ' 
@@ -103,11 +126,11 @@ Partial Class LoginForm
         ' 
         Label2.AutoSize = True
         Label2.BackColor = Color.Transparent
-        Label2.Font = New Font("Microsoft Sans Serif", 12F)
+        Label2.Font = New Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Label2.ForeColor = Color.White
-        Label2.Location = New Point(450, 304)
+        Label2.Location = New Point(450, 299)
         Label2.Name = "Label2"
-        Label2.Size = New Size(98, 25)
+        Label2.Size = New Size(120, 35)
         Label2.TabIndex = 2
         Label2.Text = "Password"
         ' 
@@ -115,23 +138,23 @@ Partial Class LoginForm
         ' 
         txtbox_password.BackColor = Color.FromArgb(CByte(44), CByte(41), CByte(41))
         txtbox_password.BorderStyle = BorderStyle.FixedSingle
-        txtbox_password.Font = New Font("Microsoft Sans Serif", 12F)
+        txtbox_password.Font = New Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         txtbox_password.ForeColor = Color.White
-        txtbox_password.Location = New Point(450, 344)
+        txtbox_password.Location = New Point(451, 343)
         txtbox_password.Name = "txtbox_password"
         txtbox_password.PasswordChar = "●"c
-        txtbox_password.Size = New Size(365, 30)
+        txtbox_password.Size = New Size(365, 41)
         txtbox_password.TabIndex = 4
         ' 
         ' txtbox_username
         ' 
         txtbox_username.BackColor = Color.FromArgb(CByte(44), CByte(41), CByte(41))
         txtbox_username.BorderStyle = BorderStyle.FixedSingle
-        txtbox_username.Font = New Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        txtbox_username.Font = New Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         txtbox_username.ForeColor = Color.White
-        txtbox_username.Location = New Point(450, 257)
+        txtbox_username.Location = New Point(450, 241)
         txtbox_username.Name = "txtbox_username"
-        txtbox_username.Size = New Size(365, 30)
+        txtbox_username.Size = New Size(365, 41)
         txtbox_username.TabIndex = 3
         ' 
         ' LoginForm
@@ -158,4 +181,5 @@ Partial Class LoginForm
     Friend WithEvents btn_login As CircularButton
     Friend WithEvents cbtn_signup As CircularButton
     Friend WithEvents cbtn_login As CircularButton
+    Friend WithEvents btn_visibility As CircularButton
 End Class

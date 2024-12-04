@@ -48,4 +48,25 @@ Public Class LoginForm
         Me.Hide()
         registrationForm.Show()
     End Sub
+    Private Sub btn_visibility_MouseDown(sender As Object, e As MouseEventArgs) Handles btn_visibility.MouseDown
+        TogglePasswordVisibility(txtbox_password, btn_visibility, True)
+    End Sub
+
+    Private Sub btn_visibility_MouseUp(sender As Object, e As MouseEventArgs) Handles btn_visibility.MouseUp
+        TogglePasswordVisibility(txtbox_password, btn_visibility, False)
+    End Sub
+
+    Private Sub TogglePasswordVisibility(textBox As TextBox, button As Button, isVisible As Boolean)
+        If isVisible Then
+            textBox.PasswordChar = ControlChars.NullChar
+            button.Image = My.Resources.Wvisibility_on
+        Else
+            textBox.PasswordChar = "●"c
+            button.Image = My.Resources.Wvisibility_off
+        End If
+    End Sub
+
+    Private Sub Panel1_Paint(sender As Object, e As PaintEventArgs) Handles Panel1.Paint
+
+    End Sub
 End Class
