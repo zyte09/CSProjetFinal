@@ -31,6 +31,7 @@ Public Class Mainform
         HighlightTipButton(btn_tip1, Tip1Amount)
         HighlightPaymentButton(btn_cash)
         LoadOrderHistory()
+        LoadUserData(UserID)
     End Sub
 
     Private Sub Mainform_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
@@ -87,6 +88,9 @@ Public Class Mainform
         orders_panel.Visible = False
         settings_panel.Visible = False
         paymentreceipt_panel.Visible = False
+        profile_panel.Visible = False
+        profileedit_panel.Visible = False
+        pass_panel.Visible = False
 
         'Always show receipt panel in panel needed
         Select Case panel.Name
@@ -138,8 +142,22 @@ Public Class Mainform
 
             Case "settings_panel"
                 settings_panel.Visible = True
+                profile_panel.Visible = True
                 receipt_panel.Visible = False
                 HighlightButton(btn_settings)
+
+            Case "profile_panel"
+                settings_panel.Visible = True
+                profile_panel.Visible = True
+
+            Case "profileedit_panel"
+                settings_panel.Visible = True
+                profileedit_panel.Visible = True
+                LoadUserDataIntoTextBoxes(UserID)
+
+            Case "pass_panel"
+                settings_panel.Visible = True
+                pass_panel.Visible = True
 
             Case Else
                 Debug.WriteLine($"Unexpected panel name: {panel.Name}")
@@ -148,36 +166,18 @@ Public Class Mainform
         Debug.WriteLine($"Showing panel: {panel.Name}")
         Debug.WriteLine($"{panel.Name} visibility: {panel.Visible}")
         Debug.WriteLine($"Panel passed: {panel.Name}")
-        Debug.WriteLine($"nav_panel visible: {nav_panel.Visible}")
-        Debug.WriteLine($"home_panel visible: {home_panel.Visible}")
-        Debug.WriteLine($"foodmenu_panel visible: {foodmenu_panel.Visible}")
-        Debug.WriteLine($"startermenu_panel visible: {startermenu_panel.Visible}")
-        Debug.WriteLine($"maincoursemenu_panel visible: {maincoursemenu_panel.Visible}")
-        Debug.WriteLine($"drinksmenu_panel visible: {drinksmenu_panel.Visible}")
-        Debug.WriteLine($"dessertsmenu_panel visible: {dessertsmenu_panel.Visible}")
-        Debug.WriteLine($"payment_panel visible: {payment_panel.Visible}")
-        Debug.WriteLine($"orders_panel visible: {orders_panel.Visible}")
-        Debug.WriteLine($"settings_panel visible: {settings_panel.Visible}")
-        Debug.WriteLine($"Foodmenu Size: {foodmenu_panel.Size}")
-        Debug.WriteLine($"Foodmenu Location: {foodmenu_panel.Location}")
-        Debug.WriteLine($"Starter Size: {startermenu_panel.Size}")
-        Debug.WriteLine($"Starter Location: {startermenu_panel.Location}")
-        Debug.WriteLine($"Main Course Size: {maincoursemenu_panel.Size}")
-        Debug.WriteLine($"Main Course Location: {maincoursemenu_panel.Location}")
-        Debug.WriteLine($"Drinks Size: {drinksmenu_panel.Size}")
-        Debug.WriteLine($"Drinks Location: {drinksmenu_panel.Location}")
-        Debug.WriteLine($"Desserts Size: {dessertsmenu_panel.Size}")
-        Debug.WriteLine($"Desserts Location: {dessertsmenu_panel.Location}")
-        Debug.WriteLine($"Starter Button Location: {btn_starter.Location}")
-        Debug.WriteLine($"Main Course Button Location: {btn_maincourse.Location}")
-        Debug.WriteLine($"Drinks Button Location: {btn_drinks.Location}")
-        Debug.WriteLine($"Desserts Button Location: {btn_desserts.Location}")
-        Debug.WriteLine($"Starter Button Visible: {btn_starter.Visible}")
-        Debug.WriteLine($"Main Course Button Visible: {btn_maincourse.Visible}")
-        Debug.WriteLine($"Drinks Button Visible: {btn_drinks.Visible}")
-        Debug.WriteLine($"Desserts Button Visible: {btn_desserts.Visible}")
-        Debug.WriteLine($"OrderHistoryControl Size: {orderhistory_panel.Size}")
-        Debug.WriteLine($"OrderHistoryControl Location: {orderhistory_panel.Location}")
+        Debug.WriteLine($"Settings Panel Size: {settings_panel.Size}")
+        Debug.WriteLine($"Settings Panel Location: {settings_panel.Location}")
+        Debug.WriteLine($"Settings Panel Visible: {settings_panel.Visible}")
+        Debug.WriteLine($"Profile Panel Size: {profile_panel.Size}")
+        Debug.WriteLine($"Profile Panel Location: {profile_panel.Location}")
+        Debug.WriteLine($"Profile Panel Visible: {profile_panel.Visible}")
+        Debug.WriteLine($"Profile Edit Panel Size: {profileedit_panel.Size}")
+        Debug.WriteLine($"Profile Edit Panel Location: {profileedit_panel.Location}")
+        Debug.WriteLine($"Profile Edit Panel Visible: {profileedit_panel.Visible}")
+        Debug.WriteLine($"Pass Panel Size: {pass_panel.Size}")
+        Debug.WriteLine($"Pass Panel Location: {pass_panel.Location}")
+        Debug.WriteLine($"Pass Panel Visible: {pass_panel.Visible}")
     End Sub
 
     Private Sub btn_home_Click(sender As Object, e As EventArgs) Handles btn_home.Click
@@ -691,5 +691,177 @@ Public Class Mainform
     Private Sub OnOrderHistoryClicked(orderID As Integer)
         LoadOrderDetails(orderID)
     End Sub
+    Private Sub LoadUserData(userID As Integer)
+        Dim connectionString = "server=127.0.0.1;userid=root;password='';database=RestaurantMSDB"
+        Dim query = "SELECT username, first_name, last_name, address, email, phone_number FROM users WHERE user_id = @userID"
 
+        Using conn As New MySqlConnection(connectionString)
+            conn.Open()
+
+            Using cmd As New MySqlCommand(query, conn)
+                cmd.Parameters.AddWithValue("@userID", userID)
+                Dim reader As MySqlDataReader = cmd.ExecuteReader()
+
+                If reader.Read() Then
+                    username_label.Text = If(reader("username") IsNot DBNull.Value, reader("username").ToString(), "Username")
+                    fullname_label.Text = If(reader("first_name") IsNot DBNull.Value AndAlso reader("last_name") IsNot DBNull.Value, $"{reader("first_name")} {reader("last_name")}", "Full Name")
+                    address_label.Text = If(reader("address") IsNot DBNull.Value, reader("address").ToString(), "Address")
+                    email_label.Text = If(reader("email") IsNot DBNull.Value, reader("email").ToString(), "Email Address")
+                    phone_label.Text = If(reader("phone_number") IsNot DBNull.Value, FormatPhoneNumber(reader("phone_number").ToString()), "Phone Number")
+                Else
+                    ' Set default values if no data is found
+                    username_label.Text = "Username"
+                    fullname_label.Text = "Full Name"
+                    address_label.Text = "Address"
+                    email_label.Text = "Email Address"
+                    phone_label.Text = "Phone Number"
+                End If
+            End Using
+        End Using
+    End Sub
+
+    Private Function FormatPhoneNumber(phoneNumber As String) As String
+        If phoneNumber.Length = 11 Then
+            Return $"{phoneNumber.Substring(0, 4)} {phoneNumber.Substring(4, 3)} {phoneNumber.Substring(7, 4)}"
+        End If
+        Return phoneNumber
+    End Function
+
+    Private Sub btn_edit_Click(sender As Object, e As EventArgs) Handles btn_edit.Click
+        ShowPanel(profileedit_panel)
+    End Sub
+
+    Private Sub btn_back_Click(sender As Object, e As EventArgs) Handles btn_back.Click
+        ShowPanel(profile_panel)
+    End Sub
+
+    Private Sub btn_pass_Click(sender As Object, e As EventArgs) Handles btn_pass.Click
+        ShowPanel(pass_panel)
+    End Sub
+
+    Private Sub btn_goback_Click(sender As Object, e As EventArgs) Handles btn_goback.Click
+        ShowPanel(profileedit_panel)
+    End Sub
+
+    Private Sub btn_save_Click(sender As Object, e As EventArgs) Handles btn_save.Click
+        ' Validate input fields
+        If String.IsNullOrWhiteSpace(firstName_text.Text) Then
+            MessageBox.Show("First name cannot be empty.")
+            firstName_text.Focus()
+            Return
+        End If
+
+        If String.IsNullOrWhiteSpace(lastName_text.Text) Then
+            MessageBox.Show("Last name cannot be empty.")
+            lastName_text.Focus()
+            Return
+        End If
+
+        If String.IsNullOrWhiteSpace(email_text.Text) Then
+            MessageBox.Show("Email cannot be empty.")
+            email_text.Focus()
+            Return
+        End If
+
+        If String.IsNullOrWhiteSpace(phone_text.Text) Then
+            MessageBox.Show("Phone number cannot be empty.")
+            phone_text.Focus()
+            Return
+        End If
+
+        If String.IsNullOrWhiteSpace(address_text.Text) Then
+            MessageBox.Show("Address cannot be empty.")
+            address_text.Focus()
+            Return
+        End If
+
+        If String.IsNullOrWhiteSpace(username_text.Text) OrElse username_text.Text.Length <= 4 Then
+            MessageBox.Show("Username must be more than 4 characters.")
+            username_text.Focus()
+            Return
+        End If
+
+        Dim connectionString = "server=127.0.0.1;userid=root;password='';database=RestaurantMSDB"
+        Dim query = "UPDATE users SET first_name = @firstName, last_name = @lastName, email = @Email, phone_number = @phoneNumber, address = @Address, username = @Username WHERE user_id = @userID"
+
+        Using conn As New MySqlConnection(connectionString)
+            Try
+                conn.Open()
+                Using cmd As New MySqlCommand(query, conn)
+                    cmd.Parameters.AddWithValue("@firstName", firstName_text.Text.Trim())
+                    cmd.Parameters.AddWithValue("@lastName", lastName_text.Text.Trim())
+                    cmd.Parameters.AddWithValue("@Email", email_text.Text.Trim())
+                    cmd.Parameters.AddWithValue("@phoneNumber", phone_text.Text.Trim())
+                    cmd.Parameters.AddWithValue("@Address", address_text.Text.Trim())
+                    cmd.Parameters.AddWithValue("@Username", username_text.Text.Trim())
+                    cmd.Parameters.AddWithValue("@userID", UserID)
+
+                    Dim result As Integer = cmd.ExecuteNonQuery()
+                    If result > 0 Then
+                        MessageBox.Show("Profile updated successfully!")
+                        LoadUserData(UserID)
+                        ShowPanel(profile_panel)
+                    Else
+                        MessageBox.Show("Failed to update profile. Please try again.")
+                    End If
+                End Using
+            Catch ex As MySqlException When ex.Number = 1062
+                MessageBox.Show("Username taken. Please choose a different username.")
+            Catch ex As Exception
+                MessageBox.Show("Error: " & ex.Message)
+            End Try
+        End Using
+        ShowPanel(profile_panel)
+    End Sub
+
+    Private Sub phone_text_KeyPress(sender As Object, e As KeyPressEventArgs) Handles phone_text.KeyPress
+        ' Check if digit
+        If Not Char.IsDigit(e.KeyChar) AndAlso Not Char.IsControl(e.KeyChar) Then
+            e.Handled = True
+        End If
+    End Sub
+
+    Private Sub phone_text_TextChanged(sender As Object, e As EventArgs) Handles phone_text.TextChanged
+        Dim text As String = phone_text.Text.Replace(" ", "")
+        If text.Length > 11 Then
+            text = text.Substring(0, 11)
+        End If
+
+        Dim formattedText As String = ""
+        If text.Length > 0 Then
+            formattedText = text.Substring(0, Math.Min(4, text.Length))
+        End If
+        If text.Length > 4 Then
+            formattedText &= " " & text.Substring(4, Math.Min(3, text.Length - 4))
+        End If
+        If text.Length > 7 Then
+            formattedText &= " " & text.Substring(7, Math.Min(4, text.Length - 7))
+        End If
+
+        phone_text.Text = formattedText
+        phone_text.SelectionStart = phone_text.Text.Length
+    End Sub
+
+    Private Sub LoadUserDataIntoTextBoxes(userID As Integer)
+        Dim connectionString = "server=127.0.0.1;userid=root;password='';database=RestaurantMSDB"
+        Dim query = "SELECT username, first_name, last_name, address, email, phone_number FROM users WHERE user_id = @userID"
+
+        Using conn As New MySqlConnection(connectionString)
+            conn.Open()
+
+            Using cmd As New MySqlCommand(query, conn)
+                cmd.Parameters.AddWithValue("@userID", userID)
+                Dim reader As MySqlDataReader = cmd.ExecuteReader()
+
+                If reader.Read() Then
+                    username_text.Text = If(reader("username") IsNot DBNull.Value, reader("username").ToString(), "")
+                    firstName_text.Text = If(reader("first_name") IsNot DBNull.Value, reader("first_name").ToString(), "")
+                    lastName_text.Text = If(reader("last_name") IsNot DBNull.Value, reader("last_name").ToString(), "")
+                    address_text.Text = If(reader("address") IsNot DBNull.Value, reader("address").ToString(), "")
+                    email_text.Text = If(reader("email") IsNot DBNull.Value, reader("email").ToString(), "")
+                    phone_text.Text = If(reader("phone_number") IsNot DBNull.Value, FormatPhoneNumber(reader("phone_number").ToString()), "")
+                End If
+            End Using
+        End Using
+    End Sub
 End Class
