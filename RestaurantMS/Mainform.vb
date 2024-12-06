@@ -85,7 +85,7 @@ Public Class Mainform
         drinksmenu_panel.Visible = False
         dessertsmenu_panel.Visible = False
         payment_panel.Visible = False
-        history_panel.Visible = False
+        orders_panel.Visible = False
         settings_panel.Visible = False
         paymentreceipt_panel.Visible = False
         profile_panel.Visible = False
@@ -94,7 +94,7 @@ Public Class Mainform
 
         'Always show receipt panel in panel needed
         Select Case panel.Name
-            Case "foodmenu_panel", "startermenu_panel", "maincoursemenu_panel", "drinksmenu_panel", "dessertsmenu_panel"
+            Case "home_panel", "foodmenu_panel", "startermenu_panel", "maincoursemenu_panel", "drinksmenu_panel", "dessertsmenu_panel"
                 receipt_panel.Visible = True
                 receipt_panel.Location = New Point(1046, 97)
         End Select
@@ -135,8 +135,8 @@ Public Class Mainform
                 HighlightButton(btn_payment)
                 receipt_panel.Visible = False
 
-            Case "history_panel"
-                history_panel.Visible = True
+            Case "orders_panel"
+                orders_panel.Visible = True
                 receipt_panel.Visible = False
                 HighlightButton(btn_history)
 
@@ -190,7 +190,6 @@ Public Class Mainform
         ShowPanel(foodmenu_panel)
         HighlightMenuButton(btn_starter)
         ShowPanel(startermenu_panel)
-        LoadFoodItems("Starter", startermenu_panel)
     End Sub
 
     Private Sub btn_payment_Click(sender As Object, e As EventArgs) Handles btn_payment.Click
@@ -200,7 +199,7 @@ Public Class Mainform
 
     Private Sub btn_history_Click(sender As Object, e As EventArgs) Handles btn_history.Click
         HighlightButton(btn_history)
-        ShowPanel(history_panel)
+        ShowPanel(orders_panel)
         LoadOrderHistory()
     End Sub
 
@@ -559,9 +558,8 @@ Public Class Mainform
         Using conn As New MySqlConnection(connectionString)
             Try
                 conn.Open()
-                Dim query = "SELECT order_id FROM order_history WHERE user_id = @userID ORDER BY order_date DESC"
+                Dim query = "SELECT order_id FROM order_history ORDER BY order_date DESC"
                 Using cmd As New MySqlCommand(query, conn)
-                    cmd.Parameters.AddWithValue("@userID", UserID)
                     Using reader As MySqlDataReader = cmd.ExecuteReader()
                         orderhistory_panel.Controls.Clear()
                         Dim yOffset As Integer = 10
@@ -602,7 +600,7 @@ Public Class Mainform
                     btn_sendorder.Enabled = False
                     ' Hide receipt panel and show order history panel
                     receipt_panel.Visible = False
-                    ShowPanel(history_panel)
+                    ShowPanel(orders_panel)
                     LoadOrderHistory()
                 Else
                     MessageBox.Show("Failed to save the order. Please try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -625,12 +623,12 @@ Public Class Mainform
 
             ' Format items with quantity
             Dim items As String = String.Join(",", receiptmenu_panel.Controls.OfType(Of ReceiptItemControl)() _
-        .Select(Function(c) $"{c.ItemName}:{c.Quantity}"))
+            .Select(Function(c) $"{c.ItemName}:{c.Quantity}"))
 
             Dim userID As Integer = Me.UserID
             Dim orderDate As DateTime = DateTime.Now
             Dim totalAmount As Decimal = CalcuTotalPrice() + (CalcuTotalPrice() * 0.1) +
-        Decimal.Parse(prTipsno_label.Text.Replace("Php ", ""), Globalization.NumberStyles.Currency)
+            Decimal.Parse(prTipsno_label.Text.Replace("Php ", ""), Globalization.NumberStyles.Currency)
 
             cmd.Parameters.AddWithValue("@userID", userID)
             cmd.Parameters.AddWithValue("@orderDate", orderDate)
