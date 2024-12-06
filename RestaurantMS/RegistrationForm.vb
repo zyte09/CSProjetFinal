@@ -21,8 +21,8 @@ Public Class RegistrationForm
             Return
         End If
 
-        If String.IsNullOrWhiteSpace(txtbox_phone_number.Text) Then
-            MessageBox.Show("Phone number cannot be empty.")
+        If String.IsNullOrWhiteSpace(txtbox_phone_number.Text) OrElse txtbox_phone_number.Text.Replace(" ", "").Length <> 11 OrElse Not txtbox_phone_number.Text.StartsWith("09") Then
+            MessageBox.Show("Phone number must be exactly 11 digits and start with '09'.")
             txtbox_phone_number.Focus()
             Return
         End If
@@ -73,7 +73,7 @@ Public Class RegistrationForm
                     cmd.Parameters.AddWithValue("@lName", txtbox_last_name.Text)
                     cmd.Parameters.AddWithValue("@username", txtbox_username.Text)
                     cmd.Parameters.AddWithValue("@password", txtbox_password.Text)
-                    cmd.Parameters.AddWithValue("@phoneNumber", txtbox_phone_number.Text)
+                    cmd.Parameters.AddWithValue("@phoneNumber", txtbox_phone_number.Text.Replace(" ", ""))
                     cmd.Parameters.AddWithValue("@Email", txtbox_email.Text)
                     cmd.Parameters.AddWithValue("@Address", txtbox_address.Text)
 
@@ -144,5 +144,21 @@ Public Class RegistrationForm
             textBox.PasswordChar = "●"c
             button.Image = My.Resources.Wvisibility_off
         End If
+    End Sub
+
+    ' Allow Enter key to submit the form
+    Private Sub RegistrationForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Me.KeyPreview = True
+    End Sub
+
+    Private Sub RegistrationForm_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
+        If e.KeyCode = Keys.Enter Then
+            e.SuppressKeyPress = True
+            cbtn_submit_Click(sender, e)
+        End If
+    End Sub
+
+    Private Sub RegistrationForm_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+        LoginForm.Show()
     End Sub
 End Class
