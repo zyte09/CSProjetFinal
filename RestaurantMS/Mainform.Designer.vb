@@ -376,7 +376,7 @@ Partial Class Mainform
         retype_text.Location = New Point(149, 376)
         retype_text.Name = "retype_text"
         retype_text.PasswordChar = "●"c
-        retype_text.Size = New Size(286, 41)
+        retype_text.Size = New Size(286, 34)
         retype_text.TabIndex = 35
         ' 
         ' nr_label
@@ -385,7 +385,7 @@ Partial Class Mainform
         nr_label.Font = New Font("Segoe UI", 12F)
         nr_label.Location = New Point(149, 336)
         nr_label.Name = "nr_label"
-        nr_label.Size = New Size(208, 28)
+        nr_label.Size = New Size(168, 21)
         nr_label.TabIndex = 34
         nr_label.Text = "Re-type new password"
         ' 
@@ -407,7 +407,7 @@ Partial Class Mainform
         newpass_text.Location = New Point(149, 278)
         newpass_text.Name = "newpass_text"
         newpass_text.PasswordChar = "●"c
-        newpass_text.Size = New Size(286, 41)
+        newpass_text.Size = New Size(286, 34)
         newpass_text.TabIndex = 32
         ' 
         ' new_label
@@ -416,7 +416,7 @@ Partial Class Mainform
         new_label.Font = New Font("Segoe UI", 12F)
         new_label.Location = New Point(149, 238)
         new_label.Name = "new_label"
-        new_label.Size = New Size(139, 28)
+        new_label.Size = New Size(113, 21)
         new_label.TabIndex = 31
         new_label.Text = "New password"
         ' 
@@ -438,7 +438,7 @@ Partial Class Mainform
         currentpass_text.Location = New Point(149, 165)
         currentpass_text.Name = "currentpass_text"
         currentpass_text.PasswordChar = "●"c
-        currentpass_text.Size = New Size(286, 41)
+        currentpass_text.Size = New Size(286, 34)
         currentpass_text.TabIndex = 29
         ' 
         ' current_label
@@ -447,7 +447,7 @@ Partial Class Mainform
         current_label.Font = New Font("Segoe UI", 12F)
         current_label.Location = New Point(149, 125)
         current_label.Name = "current_label"
-        current_label.Size = New Size(165, 28)
+        current_label.Size = New Size(134, 21)
         current_label.TabIndex = 28
         current_label.Text = "Current password"
         ' 
@@ -570,7 +570,7 @@ Partial Class Mainform
         username_text.ForeColor = Color.FromArgb(CByte(49), CByte(54), CByte(63))
         username_text.Location = New Point(121, 634)
         username_text.Name = "username_text"
-        username_text.Size = New Size(286, 41)
+        username_text.Size = New Size(286, 34)
         username_text.TabIndex = 26
         ' 
         ' user_label
@@ -579,7 +579,7 @@ Partial Class Mainform
         user_label.Font = New Font("Segoe UI", 12F)
         user_label.Location = New Point(121, 594)
         user_label.Name = "user_label"
-        user_label.Size = New Size(99, 28)
+        user_label.Size = New Size(81, 21)
         user_label.TabIndex = 25
         user_label.Text = "Username"
         ' 
@@ -600,7 +600,7 @@ Partial Class Mainform
         address_text.ForeColor = Color.FromArgb(CByte(49), CByte(54), CByte(63))
         address_text.Location = New Point(122, 532)
         address_text.Name = "address_text"
-        address_text.Size = New Size(286, 41)
+        address_text.Size = New Size(286, 34)
         address_text.TabIndex = 23
         ' 
         ' a_label
@@ -609,7 +609,7 @@ Partial Class Mainform
         a_label.Font = New Font("Segoe UI", 12F)
         a_label.Location = New Point(122, 492)
         a_label.Name = "a_label"
-        a_label.Size = New Size(82, 28)
+        a_label.Size = New Size(66, 21)
         a_label.TabIndex = 22
         a_label.Text = "Address"
         ' 
@@ -630,7 +630,7 @@ Partial Class Mainform
         phone_text.ForeColor = Color.FromArgb(CByte(49), CByte(54), CByte(63))
         phone_text.Location = New Point(122, 434)
         phone_text.Name = "phone_text"
-        phone_text.Size = New Size(286, 41)
+        phone_text.Size = New Size(286, 34)
         phone_text.TabIndex = 20
         ' 
         ' p_label
@@ -639,7 +639,7 @@ Partial Class Mainform
         p_label.Font = New Font("Segoe UI", 12F)
         p_label.Location = New Point(122, 394)
         p_label.Name = "p_label"
-        p_label.Size = New Size(144, 28)
+        p_label.Size = New Size(116, 21)
         p_label.TabIndex = 19
         p_label.Text = "Phone Number"
         ' 
@@ -660,7 +660,7 @@ Partial Class Mainform
         email_text.ForeColor = Color.FromArgb(CByte(49), CByte(54), CByte(63))
         email_text.Location = New Point(121, 340)
         email_text.Name = "email_text"
-        email_text.Size = New Size(286, 41)
+        email_text.Size = New Size(286, 34)
         email_text.TabIndex = 17
         ' 
         ' e_label
@@ -669,7 +669,7 @@ Partial Class Mainform
         e_label.Font = New Font("Segoe UI", 12F)
         e_label.Location = New Point(121, 300)
         e_label.Name = "e_label"
-        e_label.Size = New Size(59, 28)
+        e_label.Size = New Size(48, 21)
         e_label.TabIndex = 16
         e_label.Text = "Email"
         ' 
@@ -690,7 +690,7 @@ Partial Class Mainform
         lastName_text.ForeColor = Color.FromArgb(CByte(49), CByte(54), CByte(63))
         lastName_text.Location = New Point(121, 248)
         lastName_text.Name = "lastName_text"
-        lastName_text.Size = New Size(286, 41)
+        lastName_text.Size = New Size(286, 34)
         lastName_text.TabIndex = 14
         ' 
         ' ln_label
@@ -699,7 +699,7 @@ Partial Class Mainform
         ln_label.Font = New Font("Segoe UI", 12F)
         ln_label.Location = New Point(121, 208)
         ln_label.Name = "ln_label"
-        ln_label.Size = New Size(103, 28)
+        ln_label.Size = New Size(84, 21)
         ln_label.TabIndex = 13
         ln_label.Text = "Last Name"
         ' 
@@ -720,7 +720,7 @@ Partial Class Mainform
         firstName_text.ForeColor = Color.FromArgb(CByte(49), CByte(54), CByte(63))
         firstName_text.Location = New Point(121, 153)
         firstName_text.Name = "firstName_text"
-        firstName_text.Size = New Size(286, 41)
+        firstName_text.Size = New Size(286, 34)
         firstName_text.TabIndex = 11
         ' 
         ' btn_back
@@ -754,7 +754,7 @@ Partial Class Mainform
         fn_label.Font = New Font("Segoe UI", 12F)
         fn_label.Location = New Point(121, 113)
         fn_label.Name = "fn_label"
-        fn_label.Size = New Size(106, 28)
+        fn_label.Size = New Size(86, 21)
         fn_label.TabIndex = 3
         fn_label.Text = "First Name"
         ' 
@@ -817,7 +817,7 @@ Partial Class Mainform
         phone_label.Font = New Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         phone_label.Location = New Point(121, 431)
         phone_label.Name = "phone_label"
-        phone_label.Size = New Size(179, 35)
+        phone_label.Size = New Size(140, 28)
         phone_label.TabIndex = 9
         phone_label.Text = "Phone number"
         ' 
@@ -836,7 +836,7 @@ Partial Class Mainform
         email_label.Font = New Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         email_label.Location = New Point(121, 333)
         email_label.Name = "email_label"
-        email_label.Size = New Size(172, 35)
+        email_label.Size = New Size(134, 28)
         email_label.TabIndex = 7
         email_label.Text = "Email Address"
         ' 
@@ -855,7 +855,7 @@ Partial Class Mainform
         address_label.Font = New Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         address_label.Location = New Point(121, 230)
         address_label.Name = "address_label"
-        address_label.Size = New Size(105, 35)
+        address_label.Size = New Size(82, 28)
         address_label.TabIndex = 5
         address_label.Text = "Address"
         ' 
@@ -874,7 +874,7 @@ Partial Class Mainform
         fullname_label.Font = New Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         fullname_label.Location = New Point(121, 135)
         fullname_label.Name = "fullname_label"
-        fullname_label.Size = New Size(122, 35)
+        fullname_label.Size = New Size(96, 28)
         fullname_label.TabIndex = 3
         fullname_label.Text = "Full name"
         ' 
@@ -894,7 +894,7 @@ Partial Class Mainform
         username_label.ForeColor = Color.FromArgb(CByte(118), CByte(171), CByte(174))
         username_label.Location = New Point(140, 20)
         username_label.Name = "username_label"
-        username_label.Size = New Size(90, 46)
+        username_label.Size = New Size(72, 37)
         username_label.TabIndex = 1
         username_label.Text = "User"
         ' 
@@ -904,7 +904,7 @@ Partial Class Mainform
         profile_label.Font = New Font("Segoe UI Semibold", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         profile_label.Location = New Point(14, 20)
         profile_label.Name = "profile_label"
-        profile_label.Size = New Size(120, 46)
+        profile_label.Size = New Size(96, 37)
         profile_label.TabIndex = 0
         profile_label.Text = "Profile"
         ' 
@@ -1029,7 +1029,7 @@ Partial Class Mainform
         Label7.Font = New Font("Segoe UI", 30F)
         Label7.Location = New Point(3, 0)
         Label7.Name = "Label7"
-        Label7.Size = New Size(377, 67)
+        Label7.Size = New Size(300, 54)
         Label7.TabIndex = 0
         Label7.Text = "STARTER PANEL"
         ' 
@@ -1049,7 +1049,7 @@ Partial Class Mainform
         Label6.Font = New Font("Segoe UI", 30F)
         Label6.Location = New Point(3, 0)
         Label6.Name = "Label6"
-        Label6.Size = New Size(511, 67)
+        Label6.Size = New Size(408, 54)
         Label6.TabIndex = 0
         Label6.Text = "MAIN COURSE PANEL"
         ' 
@@ -1069,7 +1069,7 @@ Partial Class Mainform
         Label5.Font = New Font("Segoe UI", 30F)
         Label5.Location = New Point(3, 0)
         Label5.Name = "Label5"
-        Label5.Size = New Size(357, 67)
+        Label5.Size = New Size(285, 54)
         Label5.TabIndex = 0
         Label5.Text = "DRINKS PANEL"
         ' 
@@ -1089,7 +1089,7 @@ Partial Class Mainform
         Label2.Font = New Font("Segoe UI", 30F)
         Label2.Location = New Point(3, 0)
         Label2.Name = "Label2"
-        Label2.Size = New Size(405, 67)
+        Label2.Size = New Size(321, 54)
         Label2.TabIndex = 0
         Label2.Text = "DESSERTS PANEL"
         ' 
@@ -1114,7 +1114,7 @@ Partial Class Mainform
         orderID_label.Font = New Font("Segoe UI Semibold", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         orderID_label.Location = New Point(543, 32)
         orderID_label.Name = "orderID_label"
-        orderID_label.Size = New Size(158, 46)
+        orderID_label.Size = New Size(125, 37)
         orderID_label.TabIndex = 5
         orderID_label.Text = "Order #0"
         ' 
@@ -1124,7 +1124,7 @@ Partial Class Mainform
         quantity_text.Font = New Font("Segoe UI Semibold", 15F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         quantity_text.Location = New Point(830, 81)
         quantity_text.Name = "quantity_text"
-        quantity_text.Size = New Size(56, 35)
+        quantity_text.Size = New Size(44, 28)
         quantity_text.TabIndex = 4
         quantity_text.Text = "Qty"
         ' 
@@ -1134,7 +1134,7 @@ Partial Class Mainform
         item_text.Font = New Font("Segoe UI Semibold", 15F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         item_text.Location = New Point(543, 78)
         item_text.Name = "item_text"
-        item_text.Size = New Size(66, 35)
+        item_text.Size = New Size(54, 28)
         item_text.TabIndex = 3
         item_text.Text = "Item"
         ' 
@@ -1160,7 +1160,7 @@ Partial Class Mainform
         order_text.Font = New Font("Segoe UI Semibold", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         order_text.Location = New Point(36, 32)
         order_text.Name = "order_text"
-        order_text.Size = New Size(231, 46)
+        order_text.Size = New Size(184, 37)
         order_text.TabIndex = 0
         order_text.Text = "Order History"
         ' 
@@ -1185,7 +1185,7 @@ Partial Class Mainform
         psubtotal_label.Font = New Font("Segoe UI Semibold", 15F, FontStyle.Bold)
         psubtotal_label.Location = New Point(670, 107)
         psubtotal_label.Name = "psubtotal_label"
-        psubtotal_label.Size = New Size(133, 35)
+        psubtotal_label.Size = New Size(105, 28)
         psubtotal_label.TabIndex = 5
         psubtotal_label.Text = "SUBTOTAL"
         ' 
@@ -1195,7 +1195,7 @@ Partial Class Mainform
         quantity_label.Font = New Font("Segoe UI Semibold", 15F, FontStyle.Bold)
         quantity_label.Location = New Point(481, 107)
         quantity_label.Name = "quantity_label"
-        quantity_label.Size = New Size(61, 35)
+        quantity_label.Size = New Size(49, 28)
         quantity_label.TabIndex = 4
         quantity_label.Text = "QTY"
         ' 
@@ -1205,7 +1205,7 @@ Partial Class Mainform
         price_label.Font = New Font("Segoe UI Semibold", 15F, FontStyle.Bold)
         price_label.Location = New Point(294, 107)
         price_label.Name = "price_label"
-        price_label.Size = New Size(82, 35)
+        price_label.Size = New Size(64, 28)
         price_label.TabIndex = 3
         price_label.Text = "PRICE"
         ' 
@@ -1222,7 +1222,7 @@ Partial Class Mainform
         item_label.Font = New Font("Segoe UI Semibold", 15F, FontStyle.Bold)
         item_label.Location = New Point(50, 107)
         item_label.Name = "item_label"
-        item_label.Size = New Size(72, 35)
+        item_label.Size = New Size(57, 28)
         item_label.TabIndex = 1
         item_label.Text = "ITEM"
         ' 
@@ -1249,7 +1249,7 @@ Partial Class Mainform
         time_label.ForeColor = Color.FromArgb(CByte(118), CByte(171), CByte(174))
         time_label.Location = New Point(820, 19)
         time_label.Name = "time_label"
-        time_label.Size = New Size(71, 23)
+        time_label.Size = New Size(60, 19)
         time_label.TabIndex = 10
         time_label.Text = "2:00 pm"
         ' 
@@ -1261,7 +1261,7 @@ Partial Class Mainform
         ptime_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
         ptime_label.Location = New Point(767, 18)
         ptime_label.Name = "ptime_label"
-        ptime_label.Size = New Size(52, 23)
+        ptime_label.Size = New Size(43, 19)
         ptime_label.TabIndex = 9
         ptime_label.Text = "TIME:"
         ' 
@@ -1284,7 +1284,7 @@ Partial Class Mainform
         ptableno_label.ForeColor = Color.FromArgb(CByte(118), CByte(171), CByte(174))
         ptableno_label.Location = New Point(697, 20)
         ptableno_label.Name = "ptableno_label"
-        ptableno_label.Size = New Size(20, 23)
+        ptableno_label.Size = New Size(17, 19)
         ptableno_label.TabIndex = 7
         ptableno_label.Text = "2"
         ' 
@@ -1296,7 +1296,7 @@ Partial Class Mainform
         ptable_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
         ptable_label.Location = New Point(640, 18)
         ptable_label.Name = "ptable_label"
-        ptable_label.Size = New Size(65, 23)
+        ptable_label.Size = New Size(53, 19)
         ptable_label.TabIndex = 6
         ptable_label.Text = "TABLE: "
         ' 
@@ -1318,7 +1318,7 @@ Partial Class Mainform
         pOrderno_label.Font = New Font("Segoe UI Semibold", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         pOrderno_label.Location = New Point(0, 0)
         pOrderno_label.Name = "pOrderno_label"
-        pOrderno_label.Size = New Size(267, 46)
+        pOrderno_label.Size = New Size(213, 37)
         pOrderno_label.TabIndex = 0
         pOrderno_label.Text = "ORDER #: 12345"
         ' 
@@ -1338,7 +1338,7 @@ Partial Class Mainform
         Label1.Font = New Font("Segoe UI", 60F)
         Label1.Location = New Point(186, 171)
         Label1.Name = "Label1"
-        Label1.Size = New Size(658, 133)
+        Label1.Size = New Size(526, 106)
         Label1.TabIndex = 0
         Label1.Text = "HOME PANEL"
         ' 
@@ -1379,7 +1379,7 @@ Partial Class Mainform
         prSubtotal_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
         prSubtotal_label.Location = New Point(8, 13)
         prSubtotal_label.Name = "prSubtotal_label"
-        prSubtotal_label.Size = New Size(87, 23)
+        prSubtotal_label.Size = New Size(71, 19)
         prSubtotal_label.TabIndex = 28
         prSubtotal_label.Text = "SUBTOTAL"
         ' 
@@ -1391,7 +1391,7 @@ Partial Class Mainform
         prSubtotalno_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
         prSubtotalno_label.Location = New Point(251, 13)
         prSubtotalno_label.Name = "prSubtotalno_label"
-        prSubtotalno_label.Size = New Size(81, 23)
+        prSubtotalno_label.Size = New Size(67, 19)
         prSubtotalno_label.TabIndex = 30
         prSubtotalno_label.Text = "Php 0.00"
         ' 
@@ -1403,7 +1403,7 @@ Partial Class Mainform
         prServiceno_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
         prServiceno_label.Location = New Point(252, 105)
         prServiceno_label.Name = "prServiceno_label"
-        prServiceno_label.Size = New Size(81, 23)
+        prServiceno_label.Size = New Size(67, 19)
         prServiceno_label.TabIndex = 35
         prServiceno_label.Text = "Php 0.00"
         ' 
@@ -1415,7 +1415,7 @@ Partial Class Mainform
         prTotal_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
         prTotal_label.Location = New Point(13, 144)
         prTotal_label.Name = "prTotal_label"
-        prTotal_label.Size = New Size(84, 35)
+        prTotal_label.Size = New Size(66, 28)
         prTotal_label.TabIndex = 32
         prTotal_label.Text = "TOTAL"
         ' 
@@ -1427,7 +1427,7 @@ Partial Class Mainform
         prService_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
         prService_label.Location = New Point(9, 105)
         prService_label.Name = "prService_label"
-        prService_label.Size = New Size(181, 23)
+        prService_label.Size = New Size(148, 19)
         prService_label.TabIndex = 34
         prService_label.Text = "SERVICE CHARGE 10%"
         ' 
@@ -1439,7 +1439,7 @@ Partial Class Mainform
         prTotalno_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
         prTotalno_label.Location = New Point(253, 144)
         prTotalno_label.Name = "prTotalno_label"
-        prTotalno_label.Size = New Size(109, 35)
+        prTotalno_label.Size = New Size(88, 28)
         prTotalno_label.TabIndex = 33
         prTotalno_label.Text = "Php 0.00"
         ' 
@@ -1451,7 +1451,7 @@ Partial Class Mainform
         prTips_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
         prTips_label.Location = New Point(8, 56)
         prTips_label.Name = "prTips_label"
-        prTips_label.Size = New Size(43, 23)
+        prTips_label.Size = New Size(35, 19)
         prTips_label.TabIndex = 29
         prTips_label.Text = "TIPS"
         ' 
@@ -1463,7 +1463,7 @@ Partial Class Mainform
         prTipsno_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
         prTipsno_label.Location = New Point(251, 56)
         prTipsno_label.Name = "prTipsno_label"
-        prTipsno_label.Size = New Size(81, 23)
+        prTipsno_label.Size = New Size(67, 19)
         prTipsno_label.TabIndex = 31
         prTipsno_label.Text = "Php 0.00"
         ' 
@@ -1509,7 +1509,7 @@ Partial Class Mainform
         pay_label.Font = New Font("Segoe UI", 19F)
         pay_label.Location = New Point(4, 8)
         pay_label.Name = "pay_label"
-        pay_label.Size = New Size(287, 45)
+        pay_label.Size = New Size(230, 36)
         pay_label.TabIndex = 0
         pay_label.Text = "PAYABLE AMOUNT"
         ' 
@@ -1521,7 +1521,7 @@ Partial Class Mainform
         paytotal_label.ForeColor = Color.FromArgb(CByte(118), CByte(171), CByte(174))
         paytotal_label.Location = New Point(3, 61)
         paytotal_label.Name = "paytotal_label"
-        paytotal_label.Size = New Size(154, 46)
+        paytotal_label.Size = New Size(124, 37)
         paytotal_label.TabIndex = 11
         paytotal_label.Text = "Php 0.00"
         ' 
@@ -1543,7 +1543,7 @@ Partial Class Mainform
         pguest_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
         pguest_label.Location = New Point(332, 76)
         pguest_label.Name = "pguest_label"
-        pguest_label.Size = New Size(70, 23)
+        pguest_label.Size = New Size(57, 19)
         pguest_label.TabIndex = 13
         pguest_label.Text = "GUEST: "
         ' 
@@ -1555,7 +1555,7 @@ Partial Class Mainform
         pguestno_label.ForeColor = Color.FromArgb(CByte(118), CByte(171), CByte(174))
         pguestno_label.Location = New Point(396, 76)
         pguestno_label.Name = "pguestno_label"
-        pguestno_label.Size = New Size(20, 23)
+        pguestno_label.Size = New Size(17, 19)
         pguestno_label.TabIndex = 14
         pguestno_label.Text = "5"
         ' 
@@ -1576,7 +1576,7 @@ Partial Class Mainform
         sign_label.Font = New Font("Segoe UI Semibold", 30F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         sign_label.Location = New Point(206, 7)
         sign_label.Name = "sign_label"
-        sign_label.Size = New Size(60, 67)
+        sign_label.Size = New Size(47, 54)
         sign_label.TabIndex = 25
         sign_label.Text = "₱"
         ' 
@@ -1586,7 +1586,7 @@ Partial Class Mainform
         cashinput_text.Font = New Font("Segoe UI", 30F)
         cashinput_text.Location = New Point(248, 3)
         cashinput_text.Name = "cashinput_text"
-        cashinput_text.Size = New Size(163, 74)
+        cashinput_text.Size = New Size(163, 61)
         cashinput_text.TabIndex = 24
         ' 
         ' cash_label
@@ -1595,7 +1595,7 @@ Partial Class Mainform
         cash_label.Font = New Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         cash_label.Location = New Point(6, 37)
         cash_label.Name = "cash_label"
-        cash_label.Size = New Size(203, 28)
+        cash_label.Size = New Size(163, 21)
         cash_label.TabIndex = 23
         cash_label.Text = "ADD CASH RECEIVED"
         ' 
@@ -1696,7 +1696,7 @@ Partial Class Mainform
         tips_label.Font = New Font("Segoe UI Semibold", 15F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         tips_label.Location = New Point(9, 6)
         tips_label.Name = "tips_label"
-        tips_label.Size = New Size(65, 35)
+        tips_label.Size = New Size(52, 28)
         tips_label.TabIndex = 24
         tips_label.Text = "TIPS"
         ' 
@@ -1831,7 +1831,7 @@ Partial Class Mainform
         subtotal_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
         subtotal_label.Location = New Point(4, 29)
         subtotal_label.Name = "subtotal_label"
-        subtotal_label.Size = New Size(87, 23)
+        subtotal_label.Size = New Size(71, 19)
         subtotal_label.TabIndex = 11
         subtotal_label.Text = "SUBTOTAL"
         ' 
@@ -1843,7 +1843,7 @@ Partial Class Mainform
         servicechargeno_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
         servicechargeno_label.Location = New Point(247, 72)
         servicechargeno_label.Name = "servicechargeno_label"
-        servicechargeno_label.Size = New Size(81, 23)
+        servicechargeno_label.Size = New Size(67, 19)
         servicechargeno_label.TabIndex = 14
         servicechargeno_label.Text = "Php 0.00"
         ' 
@@ -1855,7 +1855,7 @@ Partial Class Mainform
         servicecharge_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
         servicecharge_label.Location = New Point(4, 72)
         servicecharge_label.Name = "servicecharge_label"
-        servicecharge_label.Size = New Size(181, 23)
+        servicecharge_label.Size = New Size(148, 19)
         servicecharge_label.TabIndex = 12
         servicecharge_label.Text = "SERVICE CHARGE 10%"
         ' 
@@ -1867,7 +1867,7 @@ Partial Class Mainform
         totalno_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
         totalno_label.Location = New Point(247, 121)
         totalno_label.Name = "totalno_label"
-        totalno_label.Size = New Size(109, 35)
+        totalno_label.Size = New Size(88, 28)
         totalno_label.TabIndex = 16
         totalno_label.Text = "Php 0.00"
         ' 
@@ -1879,7 +1879,7 @@ Partial Class Mainform
         total_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
         total_label.Location = New Point(7, 121)
         total_label.Name = "total_label"
-        total_label.Size = New Size(84, 35)
+        total_label.Size = New Size(66, 28)
         total_label.TabIndex = 15
         total_label.Text = "TOTAL"
         ' 
@@ -1939,7 +1939,7 @@ Partial Class Mainform
         subtotalno_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
         subtotalno_label.Location = New Point(247, 29)
         subtotalno_label.Name = "subtotalno_label"
-        subtotalno_label.Size = New Size(81, 23)
+        subtotalno_label.Size = New Size(67, 19)
         subtotalno_label.TabIndex = 13
         subtotalno_label.Text = "Php 0.00"
         ' 
@@ -1975,7 +1975,7 @@ Partial Class Mainform
         tableno_label.ForeColor = Color.FromArgb(CByte(118), CByte(171), CByte(174))
         tableno_label.Location = New Point(331, 7)
         tableno_label.Name = "tableno_label"
-        tableno_label.Size = New Size(20, 23)
+        tableno_label.Size = New Size(17, 19)
         tableno_label.TabIndex = 5
         tableno_label.Text = "2"
         ' 
@@ -1987,7 +1987,7 @@ Partial Class Mainform
         table_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
         table_label.Location = New Point(277, 7)
         table_label.Name = "table_label"
-        table_label.Size = New Size(65, 23)
+        table_label.Size = New Size(53, 19)
         table_label.TabIndex = 4
         table_label.Text = "TABLE: "
         ' 
@@ -2010,7 +2010,7 @@ Partial Class Mainform
         guestno_label.ForeColor = Color.FromArgb(CByte(118), CByte(171), CByte(174))
         guestno_label.Location = New Point(113, 7)
         guestno_label.Name = "guestno_label"
-        guestno_label.Size = New Size(20, 23)
+        guestno_label.Size = New Size(17, 19)
         guestno_label.TabIndex = 2
         guestno_label.Text = "5"
         ' 
@@ -2022,7 +2022,7 @@ Partial Class Mainform
         guest_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
         guest_label.Location = New Point(49, 7)
         guest_label.Name = "guest_label"
-        guest_label.Size = New Size(70, 23)
+        guest_label.Size = New Size(57, 19)
         guest_label.TabIndex = 1
         guest_label.Text = "GUEST: "
         ' 
@@ -2055,7 +2055,7 @@ Partial Class Mainform
         order_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
         order_label.Location = New Point(0, 0)
         order_label.Name = "order_label"
-        order_label.Size = New Size(156, 46)
+        order_label.Size = New Size(125, 37)
         order_label.TabIndex = 0
         order_label.Text = "ORDER #"
         ' 
@@ -2067,7 +2067,7 @@ Partial Class Mainform
         orderno_label.ForeColor = Color.FromArgb(CByte(118), CByte(171), CByte(174))
         orderno_label.Location = New Point(392, 0)
         orderno_label.Name = "orderno_label"
-        orderno_label.Size = New Size(0, 46)
+        orderno_label.Size = New Size(0, 37)
         orderno_label.TabIndex = 0
         ' 
         ' header_panel
@@ -2109,7 +2109,7 @@ Partial Class Mainform
         current_datelabel.ForeColor = Color.FromArgb(CByte(238), CByte(238), CByte(238))
         current_datelabel.Location = New Point(51, 6)
         current_datelabel.Name = "current_datelabel"
-        current_datelabel.Size = New Size(64, 32)
+        current_datelabel.Size = New Size(51, 25)
         current_datelabel.TabIndex = 0
         current_datelabel.Text = "Date"
         ' 
@@ -2145,7 +2145,7 @@ Partial Class Mainform
         search_text.Location = New Point(8, 16)
         search_text.Name = "search_text"
         search_text.PlaceholderText = "Search any product..."
-        search_text.Size = New Size(262, 27)
+        search_text.Size = New Size(262, 22)
         search_text.TabIndex = 1
         ' 
         ' navbtn_panel
