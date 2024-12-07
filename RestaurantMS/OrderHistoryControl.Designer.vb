@@ -22,29 +22,29 @@ Partial Class OrderHistoryControl
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        orderID_label = New Label()
+        orderNumber_label = New Label()
         noItems_label = New Label()
         time_label = New Label()
         btn_paymentstatus = New CircularButton()
         total_label = New Label()
         SuspendLayout()
         ' 
-        ' orderID_label
+        ' orderNumber_label
         ' 
-        orderID_label.AutoSize = True
-        orderID_label.BackColor = SystemColors.ControlLightLight
-        orderID_label.Font = New Font("Segoe UI Semibold", 12.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        orderID_label.Location = New Point(12, 14)
-        orderID_label.Name = "orderID_label"
-        orderID_label.Size = New Size(93, 28)
-        orderID_label.TabIndex = 0
-        orderID_label.Text = "Order #0"
+        orderNumber_label.AutoSize = True
+        orderNumber_label.BackColor = SystemColors.ControlLightLight
+        orderNumber_label.Font = New Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        orderNumber_label.Location = New Point(12, 14)
+        orderNumber_label.Name = "orderNumber_label"
+        orderNumber_label.Size = New Size(93, 28)
+        orderNumber_label.TabIndex = 0
+        orderNumber_label.Text = "Order #0"
         ' 
         ' noItems_label
         ' 
         noItems_label.AutoSize = True
         noItems_label.BackColor = SystemColors.ControlLightLight
-        noItems_label.Font = New Font("Segoe UI", 10.0F)
+        noItems_label.Font = New Font("Segoe UI", 10F)
         noItems_label.Location = New Point(12, 70)
         noItems_label.Name = "noItems_label"
         noItems_label.Size = New Size(157, 23)
@@ -55,7 +55,7 @@ Partial Class OrderHistoryControl
         ' 
         time_label.AutoSize = True
         time_label.BackColor = SystemColors.ControlLightLight
-        time_label.Font = New Font("Segoe UI", 10.0F)
+        time_label.Font = New Font("Segoe UI", 10F)
         time_label.Location = New Point(301, 14)
         time_label.Name = "time_label"
         time_label.Size = New Size(47, 23)
@@ -73,7 +73,7 @@ Partial Class OrderHistoryControl
         btn_paymentstatus.FlatAppearance.BorderSize = 0
         btn_paymentstatus.FlatStyle = FlatStyle.Flat
         btn_paymentstatus.ForeColor = Color.White
-        btn_paymentstatus.Location = New Point(366, 59)
+        btn_paymentstatus.Location = New Point(355, 59)
         btn_paymentstatus.Name = "btn_paymentstatus"
         btn_paymentstatus.Size = New Size(85, 34)
         btn_paymentstatus.TabIndex = 1
@@ -85,8 +85,8 @@ Partial Class OrderHistoryControl
         ' 
         total_label.AutoSize = True
         total_label.BackColor = SystemColors.ControlLightLight
-        total_label.Font = New Font("Segoe UI", 10.0F)
-        total_label.Location = New Point(272, 70)
+        total_label.Font = New Font("Segoe UI", 10F)
+        total_label.Location = New Point(240, 70)
         total_label.Name = "total_label"
         total_label.Size = New Size(76, 23)
         total_label.TabIndex = 0
@@ -100,14 +100,14 @@ Partial Class OrderHistoryControl
         Controls.Add(total_label)
         Controls.Add(noItems_label)
         Controls.Add(time_label)
-        Controls.Add(orderID_label)
+        Controls.Add(orderNumber_label)
         Name = "OrderHistoryControl"
         Size = New Size(471, 116)
         ResumeLayout(False)
         PerformLayout()
     End Sub
 
-    Friend WithEvents orderID_label As Label
+    Friend WithEvents orderNumber_label As Label
     Friend WithEvents noItems_label As Label
     Friend WithEvents time_label As Label
     Friend WithEvents btn_paymentstatus As CircularButton

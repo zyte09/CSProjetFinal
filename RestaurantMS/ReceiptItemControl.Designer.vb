@@ -58,7 +58,7 @@ Partial Class ReceiptItemControl
         lbl_price.AutoSize = True
         lbl_price.BackColor = Color.Transparent
         lbl_price.Font = New Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        lbl_price.Location = New Point(319, 18)
+        lbl_price.Location = New Point(308, 18)
         lbl_price.Name = "lbl_price"
         lbl_price.Size = New Size(88, 28)
         lbl_price.TabIndex = 3
@@ -69,7 +69,7 @@ Partial Class ReceiptItemControl
         lbl_quantity.AutoSize = True
         lbl_quantity.BackColor = Color.Transparent
         lbl_quantity.Font = New Font("Segoe UI", 20F)
-        lbl_quantity.Location = New Point(240, 92)
+        lbl_quantity.Location = New Point(237, 92)
         lbl_quantity.Name = "lbl_quantity"
         lbl_quantity.Size = New Size(38, 46)
         lbl_quantity.TabIndex = 5
@@ -90,7 +90,7 @@ Partial Class ReceiptItemControl
         btn_increment.FlatStyle = FlatStyle.Flat
         btn_increment.ForeColor = Color.WhiteSmoke
         btn_increment.Image = CType(resources.GetObject("btn_increment.Image"), Image)
-        btn_increment.Location = New Point(319, 98)
+        btn_increment.Location = New Point(312, 98)
         btn_increment.Name = "btn_increment"
         btn_increment.Size = New Size(40, 41)
         btn_increment.TabIndex = 6
@@ -112,7 +112,7 @@ Partial Class ReceiptItemControl
         btn_decrement.FlatStyle = FlatStyle.Flat
         btn_decrement.ForeColor = Color.WhiteSmoke
         btn_decrement.Image = CType(resources.GetObject("btn_decrement.Image"), Image)
-        btn_decrement.Location = New Point(169, 98)
+        btn_decrement.Location = New Point(166, 98)
         btn_decrement.Name = "btn_decrement"
         btn_decrement.Size = New Size(40, 41)
         btn_decrement.TabIndex = 7
@@ -132,7 +132,7 @@ Partial Class ReceiptItemControl
         btn_cancel.FlatStyle = FlatStyle.Flat
         btn_cancel.ForeColor = Color.WhiteSmoke
         btn_cancel.Image = CType(resources.GetObject("btn_cancel.Image"), Image)
-        btn_cancel.Location = New Point(378, 103)
+        btn_cancel.Location = New Point(376, 103)
         btn_cancel.Name = "btn_cancel"
         btn_cancel.Size = New Size(30, 30)
         btn_cancel.TabIndex = 8
@@ -152,7 +152,7 @@ Partial Class ReceiptItemControl
         Controls.Add(lbl_fName)
         Controls.Add(lbl_photo)
         Name = "ReceiptItemControl"
-        Size = New Size(424, 160)
+        Size = New Size(411, 160)
         CType(lbl_photo, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
         PerformLayout()

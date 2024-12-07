@@ -1,4 +1,5 @@
 ﻿Imports MySql.Data.MySqlClient
+Imports System.Drawing.Drawing2D
 Imports System.IO
 
 Public Class Mainform
@@ -20,7 +21,7 @@ Public Class Mainform
         orderno_panel.Visible = True
         guesttable_panel.Visible = True
         receiptmenu_panel.Visible = True
-        receipt_panel.Visible = True
+        receipt_panel.Visible = False
         receipt_panel.Location = New Point(1046, 97)
 
         'Disble button at start
@@ -92,12 +93,11 @@ Public Class Mainform
         profileedit_panel.Visible = False
         pass_panel.Visible = False
 
-        'Always show receipt panel in panel needed
-        Select Case panel.Name
-            Case "foodmenu_panel", "startermenu_panel", "maincoursemenu_panel", "drinksmenu_panel", "dessertsmenu_panel"
-                receipt_panel.Visible = True
-                receipt_panel.Location = New Point(1046, 97)
-        End Select
+        ' Hide receipt-related panels by default
+        receipt_panel.Visible = False
+        orderno_panel.Visible = False
+        guesttable_panel.Visible = False
+        receiptmenu_panel.Visible = False
 
         ' Show specific panel
         Select Case panel.Name
@@ -108,42 +108,62 @@ Public Class Mainform
             Case "foodmenu_panel"
                 foodmenu_panel.Visible = True
                 HighlightButton(btn_menu)
+                receipt_panel.Visible = True
+                orderno_panel.Visible = True
+                guesttable_panel.Visible = True
+                receiptmenu_panel.Visible = True
+                guesttable_panel.Location = New Point(27, 68)
+                receiptmenu_panel.Location = New Point(27, 114)
+                receipttotal_panel.Location = New Point(27, 387)
 
             Case "startermenu_panel"
                 foodmenu_panel.Visible = True
                 startermenu_panel.Visible = True
                 HighlightMenuButton(btn_starter)
+                receipt_panel.Visible = True
+                orderno_panel.Visible = True
+                guesttable_panel.Visible = True
+                receiptmenu_panel.Visible = True
 
             Case "maincoursemenu_panel"
                 foodmenu_panel.Visible = True
                 maincoursemenu_panel.Visible = True
                 HighlightMenuButton(btn_maincourse)
+                receipt_panel.Visible = True
+                orderno_panel.Visible = True
+                guesttable_panel.Visible = True
+                receiptmenu_panel.Visible = True
 
             Case "drinksmenu_panel"
                 foodmenu_panel.Visible = True
                 drinksmenu_panel.Visible = True
                 HighlightMenuButton(btn_drinks)
+                receipt_panel.Visible = True
+                orderno_panel.Visible = True
+                guesttable_panel.Visible = True
+                receiptmenu_panel.Visible = True
 
             Case "dessertsmenu_panel"
                 foodmenu_panel.Visible = True
                 dessertsmenu_panel.Visible = True
                 HighlightMenuButton(btn_desserts)
+                receipt_panel.Visible = True
+                orderno_panel.Visible = True
+                guesttable_panel.Visible = True
+                receiptmenu_panel.Visible = True
 
             Case "payment_panel"
                 payment_panel.Visible = True
                 paymentreceipt_panel.Visible = True
                 HighlightButton(btn_payment)
-                receipt_panel.Visible = False
 
             Case "history_panel"
                 history_panel.Visible = True
-                receipt_panel.Visible = False
                 HighlightButton(btn_history)
 
             Case "settings_panel"
                 settings_panel.Visible = True
                 profile_panel.Visible = True
-                receipt_panel.Visible = False
                 HighlightButton(btn_settings)
 
             Case "profile_panel"
@@ -166,18 +186,17 @@ Public Class Mainform
         Debug.WriteLine($"Showing panel: {panel.Name}")
         Debug.WriteLine($"{panel.Name} visibility: {panel.Visible}")
         Debug.WriteLine($"Panel passed: {panel.Name}")
-        Debug.WriteLine($"Settings Panel Size: {settings_panel.Size}")
-        Debug.WriteLine($"Settings Panel Location: {settings_panel.Location}")
-        Debug.WriteLine($"Settings Panel Visible: {settings_panel.Visible}")
-        Debug.WriteLine($"Profile Panel Size: {profile_panel.Size}")
-        Debug.WriteLine($"Profile Panel Location: {profile_panel.Location}")
-        Debug.WriteLine($"Profile Panel Visible: {profile_panel.Visible}")
-        Debug.WriteLine($"Profile Edit Panel Size: {profileedit_panel.Size}")
-        Debug.WriteLine($"Profile Edit Panel Location: {profileedit_panel.Location}")
-        Debug.WriteLine($"Profile Edit Panel Visible: {profileedit_panel.Visible}")
-        Debug.WriteLine($"Pass Panel Size: {pass_panel.Size}")
-        Debug.WriteLine($"Pass Panel Location: {pass_panel.Location}")
-        Debug.WriteLine($"Pass Panel Visible: {pass_panel.Visible}")
+        Debug.WriteLine($"Receipt panel visibility: {receipt_panel.Visible}")
+        Debug.WriteLine($"orderNumber_label visibility: {orderNumber_label.Visible}")
+        Debug.WriteLine($"orderNumber_label text: {orderNumber_label.Text}")
+        Debug.WriteLine($"orderNumber_label Location: {orderNumber_label.Location}")
+        Debug.WriteLine($"Order No panel visibility: {orderno_panel.Visible}")
+        Debug.WriteLine($"OrderHistoryControl visibility: {orderhistory_panel.Visible}")
+        Debug.WriteLine($"OrderHistoryControl Location: {orderhistory_panel.Location}")
+        Debug.WriteLine($"OrderHistoryControl Size: {orderhistory_panel.Size}")
+        Debug.WriteLine($"orderhistory_panel Size: {orderhistory_panel.Size}")
+        Debug.WriteLine($"orderhistory_panel Location: {orderhistory_panel.Location}")
+        Debug.WriteLine($"orderdetail_panel visibility: {orderdetail_panel.Visible}")
     End Sub
 
     Private Sub btn_home_Click(sender As Object, e As EventArgs) Handles btn_home.Click
@@ -296,6 +315,12 @@ Public Class Mainform
             ' Enable button when an order added
             btn_cancelorder.Enabled = True
             btn_sendorder.Enabled = True
+
+            ' Update the order number label in the receipt panel
+            If receiptmenu_panel.Controls.Count = 1 Then
+                Dim nextOrderNumber As Integer = GetNextOrderNumber()
+                orderNumber_label.Text = "Order Number: " & nextOrderNumber.ToString()
+            End If
         End If
 
         'Update total
@@ -446,8 +471,30 @@ Public Class Mainform
                 AddHandler paymentItemControl.ItemDeleted, AddressOf OnPaymentItemDeleted
                 paymentItem_panel.Controls.Add(paymentItemControl)
             Next
+
+            ' Update the order number label in the payment panel
+            Dim nextOrderNumber As Integer = GetNextOrderNumber()
+            orderNo_label.Text = "Order Number: " & nextOrderNumber.ToString()
+            pOrderno_label.Text = "Order Number: " & nextOrderNumber.ToString()
         End If
     End Sub
+
+    Private Function GetNextOrderNumber() As Integer
+        Dim nextOrderNumber As Integer = 0
+        Using conn As New MySqlConnection(connectionString)
+            Try
+                conn.Open()
+                Dim query = "SELECT IFNULL(MAX(order_number), 0) + 1 FROM order_history WHERE user_id = @userID"
+                Using cmd As New MySqlCommand(query, conn)
+                    cmd.Parameters.AddWithValue("@userID", Me.UserID)
+                    nextOrderNumber = Convert.ToInt32(cmd.ExecuteScalar())
+                End Using
+            Catch ex As Exception
+                MessageBox.Show("Error retrieving next order number: " & ex.Message)
+            End Try
+        End Using
+        Return nextOrderNumber
+    End Function
 
     Private Sub OnPaymentItemDeleted(sender As Object, e As EventArgs)
         Dim paymentItemControl As PaymentItemControl = CType(sender, PaymentItemControl)
@@ -559,7 +606,7 @@ Public Class Mainform
         Using conn As New MySqlConnection(connectionString)
             Try
                 conn.Open()
-                Dim query = "SELECT order_id FROM order_history WHERE user_id = @userID ORDER BY order_date DESC"
+                Dim query = "SELECT order_number, order_date, items, total_amount FROM order_history WHERE user_id = @userID ORDER BY order_date DESC"
                 Using cmd As New MySqlCommand(query, conn)
                     cmd.Parameters.AddWithValue("@userID", UserID)
                     Using reader As MySqlDataReader = cmd.ExecuteReader()
@@ -567,14 +614,14 @@ Public Class Mainform
                         Dim yOffset As Integer = 10
 
                         While reader.Read()
-                            Dim orderID As Integer = reader("order_id")
+                            Dim orderNumber As Integer = reader("order_number")
                             Dim orderHistoryControl As New OrderHistoryControl()
 
                             orderHistoryControl.Location = New Point(10, yOffset)
-                            orderHistoryControl.Size = New Size(509, 116)
-                            orderHistoryControl.LoadOrderDetails(orderID)
+                            orderHistoryControl.Width = orderhistory_panel.ClientSize.Width - 20 'Width to fit within the panel
+                            orderHistoryControl.LoadOrderDetails(orderNumber)
 
-                            AddHandler orderHistoryControl.OrderHistoryClicked, Sub(id) LoadOrderDetails(id)
+                            AddHandler orderHistoryControl.OrderHistoryClicked, Sub(number) OnOrderHistoryClicked(number)
                             orderhistory_panel.Controls.Add(orderHistoryControl)
 
                             yOffset += orderHistoryControl.Height + 10
@@ -586,7 +633,6 @@ Public Class Mainform
             End Try
         End Using
     End Sub
-
     Private Sub btn_pay_Click(sender As Object, e As EventArgs) Handles btn_pay.Click
         Dim cashInput As Decimal
         If Decimal.TryParse(cashinput_text.Text, cashInput) Then
@@ -620,42 +666,61 @@ Public Class Mainform
         Dim conn As New MySqlConnection(connectionString)
         Try
             conn.Open()
-            Dim query = "INSERT INTO order_history (user_id, order_date, items, total_amount) VALUES (@userID, @orderDate, @items, @totalAmount)"
+
+            ' Get the next order number for the user
+            Dim getOrderNumberQuery = "SELECT IFNULL(MAX(order_number), 0) + 1 FROM order_history WHERE user_id = @userID"
+            Dim getOrderNumberCmd As New MySqlCommand(getOrderNumberQuery, conn)
+            getOrderNumberCmd.Parameters.AddWithValue("@userID", Me.UserID)
+            Dim nextOrderNumber As Integer = Convert.ToInt32(getOrderNumberCmd.ExecuteScalar())
+
+            ' Insert the new order
+            Dim query = "INSERT INTO order_history (user_id, order_date, items, total_amount, order_number) VALUES (@userID, @orderDate, @items, @totalAmount, @orderNumber)"
             Dim cmd As New MySqlCommand(query, conn)
 
             ' Format items with quantity
             Dim items As String = String.Join(",", receiptmenu_panel.Controls.OfType(Of ReceiptItemControl)() _
-        .Select(Function(c) $"{c.ItemName}:{c.Quantity}"))
+            .Select(Function(c) $"{c.ItemName}:{c.Quantity}"))
 
-            Dim userID As Integer = Me.UserID
             Dim orderDate As DateTime = DateTime.Now
-            Dim totalAmount As Decimal = CalcuTotalPrice() + (CalcuTotalPrice() * 0.1) +
-        Decimal.Parse(prTipsno_label.Text.Replace("Php ", ""), Globalization.NumberStyles.Currency)
+            Dim totalAmount As Decimal = CalcuTotalPrice() + (CalcuTotalPrice() * 0.1) + Decimal.Parse(prTipsno_label.Text.Replace("Php ", ""), Globalization.NumberStyles.Currency)
 
-            cmd.Parameters.AddWithValue("@userID", userID)
+            cmd.Parameters.AddWithValue("@userID", Me.UserID)
             cmd.Parameters.AddWithValue("@orderDate", orderDate)
             cmd.Parameters.AddWithValue("@items", items)
             cmd.Parameters.AddWithValue("@totalAmount", totalAmount)
+            cmd.Parameters.AddWithValue("@orderNumber", nextOrderNumber)
 
             Dim result As Integer = cmd.ExecuteNonQuery()
-            Return result > 0
+
+            If result > 0 Then
+                Return True
+            End If
         Catch ex As Exception
             MessageBox.Show("Error: " & ex.Message)
             Return False
         Finally
             conn.Close()
         End Try
+        Return False
     End Function
 
-    Private Sub LoadOrderDetails(orderID As Integer)
-        orderID_label.Text = "Order #" & orderID.ToString()
+    Private Sub LoadOrderDetails(orderNumber As Integer)
+        Debug.WriteLine($"LoadOrderDetails called with orderNumber: {orderNumber}")
+        If orderNumber_label IsNot Nothing Then
+            orderNumber_label.Text = "Order Number: " & orderNumber.ToString()
+            Debug.WriteLine($"orderNumber_label updated to: {orderNumber_label.Text}")
+        Else
+            MessageBox.Show("orderNumber_label is not initialized.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End If
+
         Dim connectionString = "server=127.0.0.1;userid=root;password='';database=RestaurantMSDB"
         Dim conn As New MySqlConnection(connectionString)
         Try
             conn.Open()
-            Dim query = "SELECT items FROM order_history WHERE order_id = @orderID"
+            Dim query = "SELECT items FROM order_history WHERE user_id = @userID AND order_number = @orderNumber"
             Dim cmd As New MySqlCommand(query, conn)
-            cmd.Parameters.AddWithValue("@orderID", orderID)
+            cmd.Parameters.AddWithValue("@userID", Me.UserID)
+            cmd.Parameters.AddWithValue("@orderNumber", orderNumber)
             Dim reader As MySqlDataReader = cmd.ExecuteReader()
 
             If reader.Read() Then
@@ -690,8 +755,10 @@ Public Class Mainform
         End Try
     End Sub
 
-    Private Sub OnOrderHistoryClicked(orderID As Integer)
-        LoadOrderDetails(orderID)
+    Private Sub OnOrderHistoryClicked(orderNumber As Integer)
+        orderNo_label.Text = "Order Number: " & orderNumber.ToString()
+        pOrderno_label.Text = "Order Number: " & orderNumber.ToString()
+        LoadOrderDetails(orderNumber)
     End Sub
     Private Sub LoadUserData(userID As Integer)
         Dim connectionString = "server=127.0.0.1;userid=root;password='';database=RestaurantMSDB"

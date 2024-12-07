@@ -24,7 +24,50 @@ Partial Class Mainform
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Mainform))
         Mainform_panel = New Panel()
+        receipt_panel = New Panel()
+        orderno_panel = New Panel()
+        orderNumber_label = New Label()
+        receipttotal_panel = New Panel()
+        subtotal_label = New Label()
+        servicechargeno_label = New Label()
+        servicecharge_label = New Label()
+        totalno_label = New Label()
+        total_label = New Label()
+        btn_cancelorder = New CircularButton()
+        btn_sendorder = New CircularButton()
+        subtotalno_label = New Label()
+        receiptmenu_panel = New FlowLayoutPanel()
+        guesttable_panel = New Panel()
+        tableno_label = New Label()
+        table_label = New Label()
+        table_icon = New PictureBox()
+        guestno_label = New Label()
+        guest_label = New Label()
+        guest_icon = New PictureBox()
         nav_panel = New Panel()
+        payment_panel = New Panel()
+        psubtotal_label = New Label()
+        quantity_label = New Label()
+        price_label = New Label()
+        paymentItem_panel = New FlowLayoutPanel()
+        item_label = New Label()
+        headerpayment_panel = New Panel()
+        time_label = New Label()
+        ptime_label = New Label()
+        time_icon = New PictureBox()
+        ptableno_label = New Label()
+        ptable_label = New Label()
+        table_photo = New PictureBox()
+        pOrderno_label = New Label()
+        history_panel = New Panel()
+        orderNo_label = New Label()
+        quantity_text = New Label()
+        item_text = New Label()
+        orderdetail_panel = New FlowLayoutPanel()
+        orderhistory_panel = New FlowLayoutPanel()
+        order_text = New Label()
+        home_panel = New Panel()
+        Label1 = New Label()
         foodmenu_panel = New Panel()
         btn_maincourse = New CircularButton()
         btn_starter = New CircularButton()
@@ -38,13 +81,6 @@ Partial Class Mainform
         Label5 = New Label()
         dessertsmenu_panel = New FlowLayoutPanel()
         Label2 = New Label()
-        history_panel = New Panel()
-        orderID_label = New Label()
-        quantity_text = New Label()
-        item_text = New Label()
-        orderdetail_panel = New FlowLayoutPanel()
-        orderhistory_panel = New FlowLayoutPanel()
-        order_text = New Label()
         settings_panel = New Panel()
         pass_panel = New Panel()
         btn_visibility_retype = New CircularButton()
@@ -95,43 +131,6 @@ Partial Class Mainform
         name_photo = New PictureBox()
         username_label = New Label()
         profile_label = New Label()
-        payment_panel = New Panel()
-        psubtotal_label = New Label()
-        quantity_label = New Label()
-        price_label = New Label()
-        paymentItem_panel = New FlowLayoutPanel()
-        item_label = New Label()
-        headerpayment_panel = New Panel()
-        time_label = New Label()
-        ptime_label = New Label()
-        time_icon = New PictureBox()
-        ptableno_label = New Label()
-        ptable_label = New Label()
-        table_photo = New PictureBox()
-        pOrderno_label = New Label()
-        home_panel = New Panel()
-        Label1 = New Label()
-        receipt_panel = New Panel()
-        receipttotal_panel = New Panel()
-        subtotal_label = New Label()
-        servicechargeno_label = New Label()
-        servicecharge_label = New Label()
-        totalno_label = New Label()
-        total_label = New Label()
-        btn_cancelorder = New CircularButton()
-        btn_sendorder = New CircularButton()
-        subtotalno_label = New Label()
-        receiptmenu_panel = New FlowLayoutPanel()
-        guesttable_panel = New Panel()
-        tableno_label = New Label()
-        table_label = New Label()
-        table_icon = New PictureBox()
-        guestno_label = New Label()
-        guest_label = New Label()
-        guest_icon = New PictureBox()
-        orderno_panel = New Panel()
-        order_label = New Label()
-        orderno_label = New Label()
         paymentreceipt_panel = New Panel()
         textpayment_panel = New Panel()
         prSubtotal_label = New Label()
@@ -179,13 +178,24 @@ Partial Class Mainform
         btn_menu = New CircularButton()
         btn_home = New CircularButton()
         Mainform_panel.SuspendLayout()
+        receipt_panel.SuspendLayout()
+        orderno_panel.SuspendLayout()
+        receipttotal_panel.SuspendLayout()
+        guesttable_panel.SuspendLayout()
+        CType(table_icon, ComponentModel.ISupportInitialize).BeginInit()
+        CType(guest_icon, ComponentModel.ISupportInitialize).BeginInit()
         nav_panel.SuspendLayout()
+        payment_panel.SuspendLayout()
+        headerpayment_panel.SuspendLayout()
+        CType(time_icon, ComponentModel.ISupportInitialize).BeginInit()
+        CType(table_photo, ComponentModel.ISupportInitialize).BeginInit()
+        history_panel.SuspendLayout()
+        home_panel.SuspendLayout()
         foodmenu_panel.SuspendLayout()
         startermenu_panel.SuspendLayout()
         maincoursemenu_panel.SuspendLayout()
         drinksmenu_panel.SuspendLayout()
         dessertsmenu_panel.SuspendLayout()
-        history_panel.SuspendLayout()
         settings_panel.SuspendLayout()
         pass_panel.SuspendLayout()
         CType(nr_photo, ComponentModel.ISupportInitialize).BeginInit()
@@ -203,17 +213,6 @@ Partial Class Mainform
         CType(email_photo, ComponentModel.ISupportInitialize).BeginInit()
         CType(address_photo, ComponentModel.ISupportInitialize).BeginInit()
         CType(name_photo, ComponentModel.ISupportInitialize).BeginInit()
-        payment_panel.SuspendLayout()
-        headerpayment_panel.SuspendLayout()
-        CType(time_icon, ComponentModel.ISupportInitialize).BeginInit()
-        CType(table_photo, ComponentModel.ISupportInitialize).BeginInit()
-        home_panel.SuspendLayout()
-        receipt_panel.SuspendLayout()
-        receipttotal_panel.SuspendLayout()
-        guesttable_panel.SuspendLayout()
-        CType(table_icon, ComponentModel.ISupportInitialize).BeginInit()
-        CType(guest_icon, ComponentModel.ISupportInitialize).BeginInit()
-        orderno_panel.SuspendLayout()
         paymentreceipt_panel.SuspendLayout()
         textpayment_panel.SuspendLayout()
         title_label.SuspendLayout()
@@ -230,8 +229,8 @@ Partial Class Mainform
         ' 
         ' Mainform_panel
         ' 
-        Mainform_panel.Controls.Add(nav_panel)
         Mainform_panel.Controls.Add(receipt_panel)
+        Mainform_panel.Controls.Add(nav_panel)
         Mainform_panel.Controls.Add(paymentreceipt_panel)
         Mainform_panel.Controls.Add(header_panel)
         Mainform_panel.Controls.Add(navbtn_panel)
@@ -241,17 +240,527 @@ Partial Class Mainform
         Mainform_panel.Size = New Size(1494, 935)
         Mainform_panel.TabIndex = 1
         ' 
+        ' receipt_panel
+        ' 
+        receipt_panel.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Right
+        receipt_panel.Controls.Add(orderno_panel)
+        receipt_panel.Controls.Add(receipttotal_panel)
+        receipt_panel.Controls.Add(receiptmenu_panel)
+        receipt_panel.Controls.Add(guesttable_panel)
+        receipt_panel.Location = New Point(1046, 98)
+        receipt_panel.Name = "receipt_panel"
+        receipt_panel.Size = New Size(448, 837)
+        receipt_panel.TabIndex = 3
+        ' 
+        ' orderno_panel
+        ' 
+        orderno_panel.Controls.Add(orderNumber_label)
+        orderno_panel.Location = New Point(27, 6)
+        orderno_panel.Name = "orderno_panel"
+        orderno_panel.Size = New Size(392, 55)
+        orderno_panel.TabIndex = 18
+        ' 
+        ' orderNumber_label
+        ' 
+        orderNumber_label.AutoSize = True
+        orderNumber_label.Font = New Font("Segoe UI", 19.8000011F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        orderNumber_label.Location = New Point(4, 5)
+        orderNumber_label.Name = "orderNumber_label"
+        orderNumber_label.Size = New Size(240, 46)
+        orderNumber_label.TabIndex = 17
+        orderNumber_label.Text = "Order Number"
+        ' 
+        ' receipttotal_panel
+        ' 
+        receipttotal_panel.Anchor = AnchorStyles.Bottom Or AnchorStyles.Right
+        receipttotal_panel.Controls.Add(subtotal_label)
+        receipttotal_panel.Controls.Add(servicechargeno_label)
+        receipttotal_panel.Controls.Add(servicecharge_label)
+        receipttotal_panel.Controls.Add(totalno_label)
+        receipttotal_panel.Controls.Add(total_label)
+        receipttotal_panel.Controls.Add(btn_cancelorder)
+        receipttotal_panel.Controls.Add(btn_sendorder)
+        receipttotal_panel.Controls.Add(subtotalno_label)
+        receipttotal_panel.Location = New Point(27, 387)
+        receipttotal_panel.Name = "receipttotal_panel"
+        receipttotal_panel.Size = New Size(392, 271)
+        receipttotal_panel.TabIndex = 16
+        ' 
+        ' subtotal_label
+        ' 
+        subtotal_label.Anchor = AnchorStyles.None
+        subtotal_label.AutoSize = True
+        subtotal_label.Font = New Font("Segoe UI", 10F)
+        subtotal_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
+        subtotal_label.Location = New Point(4, 29)
+        subtotal_label.Name = "subtotal_label"
+        subtotal_label.Size = New Size(87, 23)
+        subtotal_label.TabIndex = 11
+        subtotal_label.Text = "SUBTOTAL"
+        ' 
+        ' servicechargeno_label
+        ' 
+        servicechargeno_label.Anchor = AnchorStyles.None
+        servicechargeno_label.AutoSize = True
+        servicechargeno_label.Font = New Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        servicechargeno_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
+        servicechargeno_label.Location = New Point(247, 72)
+        servicechargeno_label.Name = "servicechargeno_label"
+        servicechargeno_label.Size = New Size(81, 23)
+        servicechargeno_label.TabIndex = 14
+        servicechargeno_label.Text = "Php 0.00"
+        ' 
+        ' servicecharge_label
+        ' 
+        servicecharge_label.Anchor = AnchorStyles.None
+        servicecharge_label.AutoSize = True
+        servicecharge_label.Font = New Font("Segoe UI", 10F)
+        servicecharge_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
+        servicecharge_label.Location = New Point(4, 72)
+        servicecharge_label.Name = "servicecharge_label"
+        servicecharge_label.Size = New Size(181, 23)
+        servicecharge_label.TabIndex = 12
+        servicecharge_label.Text = "SERVICE CHARGE 10%"
+        ' 
+        ' totalno_label
+        ' 
+        totalno_label.Anchor = AnchorStyles.None
+        totalno_label.AutoSize = True
+        totalno_label.Font = New Font("Segoe UI", 15F)
+        totalno_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
+        totalno_label.Location = New Point(247, 121)
+        totalno_label.Name = "totalno_label"
+        totalno_label.Size = New Size(109, 35)
+        totalno_label.TabIndex = 16
+        totalno_label.Text = "Php 0.00"
+        ' 
+        ' total_label
+        ' 
+        total_label.Anchor = AnchorStyles.None
+        total_label.AutoSize = True
+        total_label.Font = New Font("Segoe UI", 15F)
+        total_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
+        total_label.Location = New Point(7, 121)
+        total_label.Name = "total_label"
+        total_label.Size = New Size(84, 35)
+        total_label.TabIndex = 15
+        total_label.Text = "TOTAL"
+        ' 
+        ' btn_cancelorder
+        ' 
+        btn_cancelorder.Anchor = AnchorStyles.None
+        btn_cancelorder.BackColor = Color.IndianRed
+        btn_cancelorder.BackgroundColor = Color.IndianRed
+        btn_cancelorder.BackgroundImageLayout = ImageLayout.Center
+        btn_cancelorder.BorderColor = Color.PaleVioletRed
+        btn_cancelorder.BorderRadius = 40
+        btn_cancelorder.BorderSize = 0
+        btn_cancelorder.Cursor = Cursors.Hand
+        btn_cancelorder.FlatAppearance.BorderSize = 0
+        btn_cancelorder.FlatAppearance.MouseDownBackColor = Color.FromArgb(CByte(49), CByte(54), CByte(63))
+        btn_cancelorder.FlatAppearance.MouseOverBackColor = Color.FromArgb(CByte(118), CByte(171), CByte(174))
+        btn_cancelorder.FlatStyle = FlatStyle.Flat
+        btn_cancelorder.Font = New Font("Segoe UI", 13F, FontStyle.Bold)
+        btn_cancelorder.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
+        btn_cancelorder.Location = New Point(5, 170)
+        btn_cancelorder.Name = "btn_cancelorder"
+        btn_cancelorder.Size = New Size(185, 69)
+        btn_cancelorder.TabIndex = 9
+        btn_cancelorder.Text = "CANCEL ORDER"
+        btn_cancelorder.TextColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
+        btn_cancelorder.UseVisualStyleBackColor = False
+        ' 
+        ' btn_sendorder
+        ' 
+        btn_sendorder.Anchor = AnchorStyles.None
+        btn_sendorder.BackColor = Color.PaleTurquoise
+        btn_sendorder.BackgroundColor = Color.PaleTurquoise
+        btn_sendorder.BackgroundImageLayout = ImageLayout.Center
+        btn_sendorder.BorderColor = Color.PaleVioletRed
+        btn_sendorder.BorderRadius = 40
+        btn_sendorder.BorderSize = 0
+        btn_sendorder.Cursor = Cursors.Hand
+        btn_sendorder.FlatAppearance.BorderSize = 0
+        btn_sendorder.FlatAppearance.MouseDownBackColor = Color.FromArgb(CByte(49), CByte(54), CByte(63))
+        btn_sendorder.FlatAppearance.MouseOverBackColor = Color.FromArgb(CByte(118), CByte(171), CByte(174))
+        btn_sendorder.FlatStyle = FlatStyle.Flat
+        btn_sendorder.Font = New Font("Segoe UI", 13F, FontStyle.Bold)
+        btn_sendorder.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
+        btn_sendorder.Location = New Point(207, 170)
+        btn_sendorder.Name = "btn_sendorder"
+        btn_sendorder.Size = New Size(185, 69)
+        btn_sendorder.TabIndex = 10
+        btn_sendorder.Text = "SEND ORDER"
+        btn_sendorder.TextColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
+        btn_sendorder.UseVisualStyleBackColor = False
+        ' 
+        ' subtotalno_label
+        ' 
+        subtotalno_label.Anchor = AnchorStyles.None
+        subtotalno_label.AutoSize = True
+        subtotalno_label.Font = New Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        subtotalno_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
+        subtotalno_label.Location = New Point(247, 29)
+        subtotalno_label.Name = "subtotalno_label"
+        subtotalno_label.Size = New Size(81, 23)
+        subtotalno_label.TabIndex = 13
+        subtotalno_label.Text = "Php 0.00"
+        ' 
+        ' receiptmenu_panel
+        ' 
+        receiptmenu_panel.Anchor = AnchorStyles.Left Or AnchorStyles.Right
+        receiptmenu_panel.AutoScroll = True
+        receiptmenu_panel.BorderStyle = BorderStyle.FixedSingle
+        receiptmenu_panel.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
+        receiptmenu_panel.Location = New Point(27, 114)
+        receiptmenu_panel.Name = "receiptmenu_panel"
+        receiptmenu_panel.Size = New Size(392, 267)
+        receiptmenu_panel.TabIndex = 4
+        ' 
+        ' guesttable_panel
+        ' 
+        guesttable_panel.Anchor = AnchorStyles.Right
+        guesttable_panel.Controls.Add(tableno_label)
+        guesttable_panel.Controls.Add(table_label)
+        guesttable_panel.Controls.Add(table_icon)
+        guesttable_panel.Controls.Add(guestno_label)
+        guesttable_panel.Controls.Add(guest_label)
+        guesttable_panel.Controls.Add(guest_icon)
+        guesttable_panel.Location = New Point(27, 68)
+        guesttable_panel.Name = "guesttable_panel"
+        guesttable_panel.Size = New Size(392, 37)
+        guesttable_panel.TabIndex = 2
+        ' 
+        ' tableno_label
+        ' 
+        tableno_label.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Right
+        tableno_label.AutoSize = True
+        tableno_label.Font = New Font("Segoe UI", 10.2F, FontStyle.Bold)
+        tableno_label.ForeColor = Color.FromArgb(CByte(118), CByte(171), CByte(174))
+        tableno_label.Location = New Point(331, 7)
+        tableno_label.Name = "tableno_label"
+        tableno_label.Size = New Size(20, 23)
+        tableno_label.TabIndex = 5
+        tableno_label.Text = "2"
+        ' 
+        ' table_label
+        ' 
+        table_label.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Right
+        table_label.AutoSize = True
+        table_label.Font = New Font("Segoe UI", 10F)
+        table_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
+        table_label.Location = New Point(277, 7)
+        table_label.Name = "table_label"
+        table_label.Size = New Size(65, 23)
+        table_label.TabIndex = 4
+        table_label.Text = "TABLE: "
+        ' 
+        ' table_icon
+        ' 
+        table_icon.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Right
+        table_icon.BackgroundImage = CType(resources.GetObject("table_icon.BackgroundImage"), Image)
+        table_icon.BackgroundImageLayout = ImageLayout.Zoom
+        table_icon.Location = New Point(232, 0)
+        table_icon.Name = "table_icon"
+        table_icon.Size = New Size(45, 37)
+        table_icon.TabIndex = 3
+        table_icon.TabStop = False
+        ' 
+        ' guestno_label
+        ' 
+        guestno_label.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left
+        guestno_label.AutoSize = True
+        guestno_label.Font = New Font("Segoe UI", 10.2F, FontStyle.Bold)
+        guestno_label.ForeColor = Color.FromArgb(CByte(118), CByte(171), CByte(174))
+        guestno_label.Location = New Point(113, 7)
+        guestno_label.Name = "guestno_label"
+        guestno_label.Size = New Size(20, 23)
+        guestno_label.TabIndex = 2
+        guestno_label.Text = "5"
+        ' 
+        ' guest_label
+        ' 
+        guest_label.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left
+        guest_label.AutoSize = True
+        guest_label.Font = New Font("Segoe UI", 10F)
+        guest_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
+        guest_label.Location = New Point(49, 7)
+        guest_label.Name = "guest_label"
+        guest_label.Size = New Size(70, 23)
+        guest_label.TabIndex = 1
+        guest_label.Text = "GUEST: "
+        ' 
+        ' guest_icon
+        ' 
+        guest_icon.BackgroundImage = CType(resources.GetObject("guest_icon.BackgroundImage"), Image)
+        guest_icon.BackgroundImageLayout = ImageLayout.Zoom
+        guest_icon.Dock = DockStyle.Left
+        guest_icon.Location = New Point(0, 0)
+        guest_icon.Name = "guest_icon"
+        guest_icon.Size = New Size(45, 37)
+        guest_icon.TabIndex = 0
+        guest_icon.TabStop = False
+        ' 
         ' nav_panel
         ' 
-        nav_panel.Controls.Add(foodmenu_panel)
-        nav_panel.Controls.Add(history_panel)
-        nav_panel.Controls.Add(settings_panel)
         nav_panel.Controls.Add(payment_panel)
+        nav_panel.Controls.Add(history_panel)
         nav_panel.Controls.Add(home_panel)
+        nav_panel.Controls.Add(foodmenu_panel)
+        nav_panel.Controls.Add(settings_panel)
         nav_panel.Location = New Point(111, 98)
         nav_panel.Name = "nav_panel"
         nav_panel.Size = New Size(929, 837)
         nav_panel.TabIndex = 4
+        ' 
+        ' payment_panel
+        ' 
+        payment_panel.BackColor = Color.FromArgb(CByte(238), CByte(238), CByte(238))
+        payment_panel.Controls.Add(psubtotal_label)
+        payment_panel.Controls.Add(quantity_label)
+        payment_panel.Controls.Add(price_label)
+        payment_panel.Controls.Add(paymentItem_panel)
+        payment_panel.Controls.Add(item_label)
+        payment_panel.Controls.Add(headerpayment_panel)
+        payment_panel.Dock = DockStyle.Fill
+        payment_panel.Location = New Point(0, 0)
+        payment_panel.Name = "payment_panel"
+        payment_panel.Size = New Size(929, 837)
+        payment_panel.TabIndex = 1
+        ' 
+        ' psubtotal_label
+        ' 
+        psubtotal_label.AutoSize = True
+        psubtotal_label.Font = New Font("Segoe UI Semibold", 15F, FontStyle.Bold)
+        psubtotal_label.Location = New Point(670, 107)
+        psubtotal_label.Name = "psubtotal_label"
+        psubtotal_label.Size = New Size(133, 35)
+        psubtotal_label.TabIndex = 5
+        psubtotal_label.Text = "SUBTOTAL"
+        ' 
+        ' quantity_label
+        ' 
+        quantity_label.AutoSize = True
+        quantity_label.Font = New Font("Segoe UI Semibold", 15F, FontStyle.Bold)
+        quantity_label.Location = New Point(481, 107)
+        quantity_label.Name = "quantity_label"
+        quantity_label.Size = New Size(61, 35)
+        quantity_label.TabIndex = 4
+        quantity_label.Text = "QTY"
+        ' 
+        ' price_label
+        ' 
+        price_label.AutoSize = True
+        price_label.Font = New Font("Segoe UI Semibold", 15F, FontStyle.Bold)
+        price_label.Location = New Point(294, 107)
+        price_label.Name = "price_label"
+        price_label.Size = New Size(82, 35)
+        price_label.TabIndex = 3
+        price_label.Text = "PRICE"
+        ' 
+        ' paymentItem_panel
+        ' 
+        paymentItem_panel.Location = New Point(36, 145)
+        paymentItem_panel.Name = "paymentItem_panel"
+        paymentItem_panel.Size = New Size(875, 680)
+        paymentItem_panel.TabIndex = 2
+        ' 
+        ' item_label
+        ' 
+        item_label.AutoSize = True
+        item_label.Font = New Font("Segoe UI Semibold", 15F, FontStyle.Bold)
+        item_label.Location = New Point(50, 107)
+        item_label.Name = "item_label"
+        item_label.Size = New Size(72, 35)
+        item_label.TabIndex = 1
+        item_label.Text = "ITEM"
+        ' 
+        ' headerpayment_panel
+        ' 
+        headerpayment_panel.Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right
+        headerpayment_panel.Controls.Add(time_label)
+        headerpayment_panel.Controls.Add(ptime_label)
+        headerpayment_panel.Controls.Add(time_icon)
+        headerpayment_panel.Controls.Add(ptableno_label)
+        headerpayment_panel.Controls.Add(ptable_label)
+        headerpayment_panel.Controls.Add(table_photo)
+        headerpayment_panel.Controls.Add(pOrderno_label)
+        headerpayment_panel.Location = New Point(10, 14)
+        headerpayment_panel.Name = "headerpayment_panel"
+        headerpayment_panel.Size = New Size(901, 53)
+        headerpayment_panel.TabIndex = 0
+        ' 
+        ' time_label
+        ' 
+        time_label.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Right
+        time_label.AutoSize = True
+        time_label.Font = New Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        time_label.ForeColor = Color.FromArgb(CByte(118), CByte(171), CByte(174))
+        time_label.Location = New Point(820, 19)
+        time_label.Name = "time_label"
+        time_label.Size = New Size(71, 23)
+        time_label.TabIndex = 10
+        time_label.Text = "2:00 pm"
+        ' 
+        ' ptime_label
+        ' 
+        ptime_label.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Right
+        ptime_label.AutoSize = True
+        ptime_label.Font = New Font("Segoe UI", 10F)
+        ptime_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
+        ptime_label.Location = New Point(767, 18)
+        ptime_label.Name = "ptime_label"
+        ptime_label.Size = New Size(52, 23)
+        ptime_label.TabIndex = 9
+        ptime_label.Text = "TIME:"
+        ' 
+        ' time_icon
+        ' 
+        time_icon.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Right
+        time_icon.BackgroundImage = CType(resources.GetObject("time_icon.BackgroundImage"), Image)
+        time_icon.BackgroundImageLayout = ImageLayout.Zoom
+        time_icon.Location = New Point(722, 11)
+        time_icon.Name = "time_icon"
+        time_icon.Size = New Size(45, 37)
+        time_icon.TabIndex = 8
+        time_icon.TabStop = False
+        ' 
+        ' ptableno_label
+        ' 
+        ptableno_label.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Right
+        ptableno_label.AutoSize = True
+        ptableno_label.Font = New Font("Segoe UI", 10.2F, FontStyle.Bold)
+        ptableno_label.ForeColor = Color.FromArgb(CByte(118), CByte(171), CByte(174))
+        ptableno_label.Location = New Point(697, 20)
+        ptableno_label.Name = "ptableno_label"
+        ptableno_label.Size = New Size(20, 23)
+        ptableno_label.TabIndex = 7
+        ptableno_label.Text = "2"
+        ' 
+        ' ptable_label
+        ' 
+        ptable_label.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Right
+        ptable_label.AutoSize = True
+        ptable_label.Font = New Font("Segoe UI", 10F)
+        ptable_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
+        ptable_label.Location = New Point(640, 18)
+        ptable_label.Name = "ptable_label"
+        ptable_label.Size = New Size(65, 23)
+        ptable_label.TabIndex = 6
+        ptable_label.Text = "TABLE: "
+        ' 
+        ' table_photo
+        ' 
+        table_photo.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Right
+        table_photo.BackgroundImage = CType(resources.GetObject("table_photo.BackgroundImage"), Image)
+        table_photo.BackgroundImageLayout = ImageLayout.Zoom
+        table_photo.Location = New Point(595, 11)
+        table_photo.Name = "table_photo"
+        table_photo.Size = New Size(45, 37)
+        table_photo.TabIndex = 5
+        table_photo.TabStop = False
+        ' 
+        ' pOrderno_label
+        ' 
+        pOrderno_label.AutoSize = True
+        pOrderno_label.Dock = DockStyle.Left
+        pOrderno_label.Font = New Font("Segoe UI Semibold", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        pOrderno_label.Location = New Point(0, 0)
+        pOrderno_label.Name = "pOrderno_label"
+        pOrderno_label.Size = New Size(246, 46)
+        pOrderno_label.TabIndex = 0
+        pOrderno_label.Text = "Order Number"
+        ' 
+        ' history_panel
+        ' 
+        history_panel.BackColor = Color.FromArgb(CByte(238), CByte(238), CByte(238))
+        history_panel.Controls.Add(orderNo_label)
+        history_panel.Controls.Add(quantity_text)
+        history_panel.Controls.Add(item_text)
+        history_panel.Controls.Add(orderdetail_panel)
+        history_panel.Controls.Add(orderhistory_panel)
+        history_panel.Controls.Add(order_text)
+        history_panel.Dock = DockStyle.Fill
+        history_panel.Location = New Point(0, 0)
+        history_panel.Name = "history_panel"
+        history_panel.Size = New Size(929, 837)
+        history_panel.TabIndex = 1
+        ' 
+        ' orderNo_label
+        ' 
+        orderNo_label.AutoSize = True
+        orderNo_label.Font = New Font("Segoe UI Semibold", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        orderNo_label.Location = New Point(543, 32)
+        orderNo_label.Name = "orderNo_label"
+        orderNo_label.Size = New Size(294, 46)
+        orderNo_label.TabIndex = 5
+        orderNo_label.Text = "Order Number #0"
+        ' 
+        ' quantity_text
+        ' 
+        quantity_text.AutoSize = True
+        quantity_text.Font = New Font("Segoe UI Semibold", 15F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        quantity_text.Location = New Point(830, 81)
+        quantity_text.Name = "quantity_text"
+        quantity_text.Size = New Size(56, 35)
+        quantity_text.TabIndex = 4
+        quantity_text.Text = "Qty"
+        ' 
+        ' item_text
+        ' 
+        item_text.AutoSize = True
+        item_text.Font = New Font("Segoe UI Semibold", 15F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        item_text.Location = New Point(543, 78)
+        item_text.Name = "item_text"
+        item_text.Size = New Size(66, 35)
+        item_text.TabIndex = 3
+        item_text.Text = "Item"
+        ' 
+        ' orderdetail_panel
+        ' 
+        orderdetail_panel.AutoScroll = True
+        orderdetail_panel.Location = New Point(527, 120)
+        orderdetail_panel.Name = "orderdetail_panel"
+        orderdetail_panel.Size = New Size(392, 682)
+        orderdetail_panel.TabIndex = 2
+        ' 
+        ' orderhistory_panel
+        ' 
+        orderhistory_panel.AutoScroll = True
+        orderhistory_panel.Location = New Point(50, 120)
+        orderhistory_panel.Name = "orderhistory_panel"
+        orderhistory_panel.Size = New Size(471, 682)
+        orderhistory_panel.TabIndex = 1
+        ' 
+        ' order_text
+        ' 
+        order_text.AutoSize = True
+        order_text.Font = New Font("Segoe UI Semibold", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        order_text.Location = New Point(36, 32)
+        order_text.Name = "order_text"
+        order_text.Size = New Size(231, 46)
+        order_text.TabIndex = 0
+        order_text.Text = "Order History"
+        ' 
+        ' home_panel
+        ' 
+        home_panel.BackColor = Color.FromArgb(CByte(238), CByte(238), CByte(238))
+        home_panel.Controls.Add(Label1)
+        home_panel.Dock = DockStyle.Fill
+        home_panel.Location = New Point(0, 0)
+        home_panel.Name = "home_panel"
+        home_panel.Size = New Size(929, 837)
+        home_panel.TabIndex = 0
+        ' 
+        ' Label1
+        ' 
+        Label1.AutoSize = True
+        Label1.Font = New Font("Segoe UI", 60F)
+        Label1.Location = New Point(186, 171)
+        Label1.Name = "Label1"
+        Label1.Size = New Size(658, 133)
+        Label1.TabIndex = 0
+        Label1.Text = "HOME PANEL"
         ' 
         ' foodmenu_panel
         ' 
@@ -437,77 +946,6 @@ Partial Class Mainform
         Label2.Size = New Size(405, 67)
         Label2.TabIndex = 0
         Label2.Text = "DESSERTS PANEL"
-        ' 
-        ' history_panel
-        ' 
-        history_panel.BackColor = Color.FromArgb(CByte(238), CByte(238), CByte(238))
-        history_panel.Controls.Add(orderID_label)
-        history_panel.Controls.Add(quantity_text)
-        history_panel.Controls.Add(item_text)
-        history_panel.Controls.Add(orderdetail_panel)
-        history_panel.Controls.Add(orderhistory_panel)
-        history_panel.Controls.Add(order_text)
-        history_panel.Dock = DockStyle.Fill
-        history_panel.Location = New Point(0, 0)
-        history_panel.Name = "history_panel"
-        history_panel.Size = New Size(929, 837)
-        history_panel.TabIndex = 1
-        ' 
-        ' orderID_label
-        ' 
-        orderID_label.AutoSize = True
-        orderID_label.Font = New Font("Segoe UI Semibold", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        orderID_label.Location = New Point(543, 32)
-        orderID_label.Name = "orderID_label"
-        orderID_label.Size = New Size(158, 46)
-        orderID_label.TabIndex = 5
-        orderID_label.Text = "Order #0"
-        ' 
-        ' quantity_text
-        ' 
-        quantity_text.AutoSize = True
-        quantity_text.Font = New Font("Segoe UI Semibold", 15F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        quantity_text.Location = New Point(830, 81)
-        quantity_text.Name = "quantity_text"
-        quantity_text.Size = New Size(56, 35)
-        quantity_text.TabIndex = 4
-        quantity_text.Text = "Qty"
-        ' 
-        ' item_text
-        ' 
-        item_text.AutoSize = True
-        item_text.Font = New Font("Segoe UI Semibold", 15F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        item_text.Location = New Point(543, 78)
-        item_text.Name = "item_text"
-        item_text.Size = New Size(66, 35)
-        item_text.TabIndex = 3
-        item_text.Text = "Item"
-        ' 
-        ' orderdetail_panel
-        ' 
-        orderdetail_panel.AutoScroll = True
-        orderdetail_panel.Location = New Point(527, 120)
-        orderdetail_panel.Name = "orderdetail_panel"
-        orderdetail_panel.Size = New Size(392, 682)
-        orderdetail_panel.TabIndex = 2
-        ' 
-        ' orderhistory_panel
-        ' 
-        orderhistory_panel.AutoScroll = True
-        orderhistory_panel.Location = New Point(50, 120)
-        orderhistory_panel.Name = "orderhistory_panel"
-        orderhistory_panel.Size = New Size(471, 682)
-        orderhistory_panel.TabIndex = 1
-        ' 
-        ' order_text
-        ' 
-        order_text.AutoSize = True
-        order_text.Font = New Font("Segoe UI Semibold", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        order_text.Location = New Point(36, 32)
-        order_text.Name = "order_text"
-        order_text.Size = New Size(231, 46)
-        order_text.TabIndex = 0
-        order_text.Text = "Order History"
         ' 
         ' settings_panel
         ' 
@@ -1163,459 +1601,6 @@ Partial Class Mainform
         profile_label.Size = New Size(120, 46)
         profile_label.TabIndex = 0
         profile_label.Text = "Profile"
-        ' 
-        ' payment_panel
-        ' 
-        payment_panel.BackColor = Color.FromArgb(CByte(238), CByte(238), CByte(238))
-        payment_panel.Controls.Add(psubtotal_label)
-        payment_panel.Controls.Add(quantity_label)
-        payment_panel.Controls.Add(price_label)
-        payment_panel.Controls.Add(paymentItem_panel)
-        payment_panel.Controls.Add(item_label)
-        payment_panel.Controls.Add(headerpayment_panel)
-        payment_panel.Dock = DockStyle.Fill
-        payment_panel.Location = New Point(0, 0)
-        payment_panel.Name = "payment_panel"
-        payment_panel.Size = New Size(929, 837)
-        payment_panel.TabIndex = 1
-        ' 
-        ' psubtotal_label
-        ' 
-        psubtotal_label.AutoSize = True
-        psubtotal_label.Font = New Font("Segoe UI Semibold", 15F, FontStyle.Bold)
-        psubtotal_label.Location = New Point(670, 107)
-        psubtotal_label.Name = "psubtotal_label"
-        psubtotal_label.Size = New Size(133, 35)
-        psubtotal_label.TabIndex = 5
-        psubtotal_label.Text = "SUBTOTAL"
-        ' 
-        ' quantity_label
-        ' 
-        quantity_label.AutoSize = True
-        quantity_label.Font = New Font("Segoe UI Semibold", 15F, FontStyle.Bold)
-        quantity_label.Location = New Point(481, 107)
-        quantity_label.Name = "quantity_label"
-        quantity_label.Size = New Size(61, 35)
-        quantity_label.TabIndex = 4
-        quantity_label.Text = "QTY"
-        ' 
-        ' price_label
-        ' 
-        price_label.AutoSize = True
-        price_label.Font = New Font("Segoe UI Semibold", 15F, FontStyle.Bold)
-        price_label.Location = New Point(294, 107)
-        price_label.Name = "price_label"
-        price_label.Size = New Size(82, 35)
-        price_label.TabIndex = 3
-        price_label.Text = "PRICE"
-        ' 
-        ' paymentItem_panel
-        ' 
-        paymentItem_panel.Location = New Point(36, 145)
-        paymentItem_panel.Name = "paymentItem_panel"
-        paymentItem_panel.Size = New Size(875, 680)
-        paymentItem_panel.TabIndex = 2
-        ' 
-        ' item_label
-        ' 
-        item_label.AutoSize = True
-        item_label.Font = New Font("Segoe UI Semibold", 15F, FontStyle.Bold)
-        item_label.Location = New Point(50, 107)
-        item_label.Name = "item_label"
-        item_label.Size = New Size(72, 35)
-        item_label.TabIndex = 1
-        item_label.Text = "ITEM"
-        ' 
-        ' headerpayment_panel
-        ' 
-        headerpayment_panel.Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right
-        headerpayment_panel.Controls.Add(time_label)
-        headerpayment_panel.Controls.Add(ptime_label)
-        headerpayment_panel.Controls.Add(time_icon)
-        headerpayment_panel.Controls.Add(ptableno_label)
-        headerpayment_panel.Controls.Add(ptable_label)
-        headerpayment_panel.Controls.Add(table_photo)
-        headerpayment_panel.Controls.Add(pOrderno_label)
-        headerpayment_panel.Location = New Point(10, 14)
-        headerpayment_panel.Name = "headerpayment_panel"
-        headerpayment_panel.Size = New Size(901, 53)
-        headerpayment_panel.TabIndex = 0
-        ' 
-        ' time_label
-        ' 
-        time_label.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Right
-        time_label.AutoSize = True
-        time_label.Font = New Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        time_label.ForeColor = Color.FromArgb(CByte(118), CByte(171), CByte(174))
-        time_label.Location = New Point(820, 19)
-        time_label.Name = "time_label"
-        time_label.Size = New Size(71, 23)
-        time_label.TabIndex = 10
-        time_label.Text = "2:00 pm"
-        ' 
-        ' ptime_label
-        ' 
-        ptime_label.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Right
-        ptime_label.AutoSize = True
-        ptime_label.Font = New Font("Segoe UI", 10F)
-        ptime_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
-        ptime_label.Location = New Point(767, 18)
-        ptime_label.Name = "ptime_label"
-        ptime_label.Size = New Size(52, 23)
-        ptime_label.TabIndex = 9
-        ptime_label.Text = "TIME:"
-        ' 
-        ' time_icon
-        ' 
-        time_icon.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Right
-        time_icon.BackgroundImage = CType(resources.GetObject("time_icon.BackgroundImage"), Image)
-        time_icon.BackgroundImageLayout = ImageLayout.Zoom
-        time_icon.Location = New Point(722, 11)
-        time_icon.Name = "time_icon"
-        time_icon.Size = New Size(45, 37)
-        time_icon.TabIndex = 8
-        time_icon.TabStop = False
-        ' 
-        ' ptableno_label
-        ' 
-        ptableno_label.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Right
-        ptableno_label.AutoSize = True
-        ptableno_label.Font = New Font("Segoe UI", 10.2F, FontStyle.Bold)
-        ptableno_label.ForeColor = Color.FromArgb(CByte(118), CByte(171), CByte(174))
-        ptableno_label.Location = New Point(697, 20)
-        ptableno_label.Name = "ptableno_label"
-        ptableno_label.Size = New Size(20, 23)
-        ptableno_label.TabIndex = 7
-        ptableno_label.Text = "2"
-        ' 
-        ' ptable_label
-        ' 
-        ptable_label.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Right
-        ptable_label.AutoSize = True
-        ptable_label.Font = New Font("Segoe UI", 10F)
-        ptable_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
-        ptable_label.Location = New Point(640, 18)
-        ptable_label.Name = "ptable_label"
-        ptable_label.Size = New Size(65, 23)
-        ptable_label.TabIndex = 6
-        ptable_label.Text = "TABLE: "
-        ' 
-        ' table_photo
-        ' 
-        table_photo.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Right
-        table_photo.BackgroundImage = CType(resources.GetObject("table_photo.BackgroundImage"), Image)
-        table_photo.BackgroundImageLayout = ImageLayout.Zoom
-        table_photo.Location = New Point(595, 11)
-        table_photo.Name = "table_photo"
-        table_photo.Size = New Size(45, 37)
-        table_photo.TabIndex = 5
-        table_photo.TabStop = False
-        ' 
-        ' pOrderno_label
-        ' 
-        pOrderno_label.AutoSize = True
-        pOrderno_label.Dock = DockStyle.Left
-        pOrderno_label.Font = New Font("Segoe UI Semibold", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        pOrderno_label.Location = New Point(0, 0)
-        pOrderno_label.Name = "pOrderno_label"
-        pOrderno_label.Size = New Size(267, 46)
-        pOrderno_label.TabIndex = 0
-        pOrderno_label.Text = "ORDER #: 12345"
-        ' 
-        ' home_panel
-        ' 
-        home_panel.BackColor = Color.FromArgb(CByte(238), CByte(238), CByte(238))
-        home_panel.Controls.Add(Label1)
-        home_panel.Dock = DockStyle.Fill
-        home_panel.Location = New Point(0, 0)
-        home_panel.Name = "home_panel"
-        home_panel.Size = New Size(929, 837)
-        home_panel.TabIndex = 0
-        ' 
-        ' Label1
-        ' 
-        Label1.AutoSize = True
-        Label1.Font = New Font("Segoe UI", 60F)
-        Label1.Location = New Point(186, 171)
-        Label1.Name = "Label1"
-        Label1.Size = New Size(658, 133)
-        Label1.TabIndex = 0
-        Label1.Text = "HOME PANEL"
-        ' 
-        ' receipt_panel
-        ' 
-        receipt_panel.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Right
-        receipt_panel.Controls.Add(receipttotal_panel)
-        receipt_panel.Controls.Add(receiptmenu_panel)
-        receipt_panel.Controls.Add(guesttable_panel)
-        receipt_panel.Controls.Add(orderno_panel)
-        receipt_panel.Location = New Point(1046, 98)
-        receipt_panel.Name = "receipt_panel"
-        receipt_panel.Size = New Size(448, 837)
-        receipt_panel.TabIndex = 3
-        ' 
-        ' receipttotal_panel
-        ' 
-        receipttotal_panel.Anchor = AnchorStyles.Bottom Or AnchorStyles.Right
-        receipttotal_panel.Controls.Add(subtotal_label)
-        receipttotal_panel.Controls.Add(servicechargeno_label)
-        receipttotal_panel.Controls.Add(servicecharge_label)
-        receipttotal_panel.Controls.Add(totalno_label)
-        receipttotal_panel.Controls.Add(total_label)
-        receipttotal_panel.Controls.Add(btn_cancelorder)
-        receipttotal_panel.Controls.Add(btn_sendorder)
-        receipttotal_panel.Controls.Add(subtotalno_label)
-        receipttotal_panel.Location = New Point(27, 387)
-        receipttotal_panel.Name = "receipttotal_panel"
-        receipttotal_panel.Size = New Size(392, 271)
-        receipttotal_panel.TabIndex = 16
-        ' 
-        ' subtotal_label
-        ' 
-        subtotal_label.Anchor = AnchorStyles.None
-        subtotal_label.AutoSize = True
-        subtotal_label.Font = New Font("Segoe UI", 10F)
-        subtotal_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
-        subtotal_label.Location = New Point(4, 29)
-        subtotal_label.Name = "subtotal_label"
-        subtotal_label.Size = New Size(87, 23)
-        subtotal_label.TabIndex = 11
-        subtotal_label.Text = "SUBTOTAL"
-        ' 
-        ' servicechargeno_label
-        ' 
-        servicechargeno_label.Anchor = AnchorStyles.None
-        servicechargeno_label.AutoSize = True
-        servicechargeno_label.Font = New Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        servicechargeno_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
-        servicechargeno_label.Location = New Point(247, 72)
-        servicechargeno_label.Name = "servicechargeno_label"
-        servicechargeno_label.Size = New Size(81, 23)
-        servicechargeno_label.TabIndex = 14
-        servicechargeno_label.Text = "Php 0.00"
-        ' 
-        ' servicecharge_label
-        ' 
-        servicecharge_label.Anchor = AnchorStyles.None
-        servicecharge_label.AutoSize = True
-        servicecharge_label.Font = New Font("Segoe UI", 10F)
-        servicecharge_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
-        servicecharge_label.Location = New Point(4, 72)
-        servicecharge_label.Name = "servicecharge_label"
-        servicecharge_label.Size = New Size(181, 23)
-        servicecharge_label.TabIndex = 12
-        servicecharge_label.Text = "SERVICE CHARGE 10%"
-        ' 
-        ' totalno_label
-        ' 
-        totalno_label.Anchor = AnchorStyles.None
-        totalno_label.AutoSize = True
-        totalno_label.Font = New Font("Segoe UI", 15F)
-        totalno_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
-        totalno_label.Location = New Point(247, 121)
-        totalno_label.Name = "totalno_label"
-        totalno_label.Size = New Size(109, 35)
-        totalno_label.TabIndex = 16
-        totalno_label.Text = "Php 0.00"
-        ' 
-        ' total_label
-        ' 
-        total_label.Anchor = AnchorStyles.None
-        total_label.AutoSize = True
-        total_label.Font = New Font("Segoe UI", 15F)
-        total_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
-        total_label.Location = New Point(7, 121)
-        total_label.Name = "total_label"
-        total_label.Size = New Size(84, 35)
-        total_label.TabIndex = 15
-        total_label.Text = "TOTAL"
-        ' 
-        ' btn_cancelorder
-        ' 
-        btn_cancelorder.Anchor = AnchorStyles.None
-        btn_cancelorder.BackColor = Color.IndianRed
-        btn_cancelorder.BackgroundColor = Color.IndianRed
-        btn_cancelorder.BackgroundImageLayout = ImageLayout.Center
-        btn_cancelorder.BorderColor = Color.PaleVioletRed
-        btn_cancelorder.BorderRadius = 40
-        btn_cancelorder.BorderSize = 0
-        btn_cancelorder.Cursor = Cursors.Hand
-        btn_cancelorder.FlatAppearance.BorderSize = 0
-        btn_cancelorder.FlatAppearance.MouseDownBackColor = Color.FromArgb(CByte(49), CByte(54), CByte(63))
-        btn_cancelorder.FlatAppearance.MouseOverBackColor = Color.FromArgb(CByte(118), CByte(171), CByte(174))
-        btn_cancelorder.FlatStyle = FlatStyle.Flat
-        btn_cancelorder.Font = New Font("Segoe UI", 13F, FontStyle.Bold)
-        btn_cancelorder.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
-        btn_cancelorder.Location = New Point(5, 170)
-        btn_cancelorder.Name = "btn_cancelorder"
-        btn_cancelorder.Size = New Size(185, 69)
-        btn_cancelorder.TabIndex = 9
-        btn_cancelorder.Text = "CANCEL ORDER"
-        btn_cancelorder.TextColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
-        btn_cancelorder.UseVisualStyleBackColor = False
-        ' 
-        ' btn_sendorder
-        ' 
-        btn_sendorder.Anchor = AnchorStyles.None
-        btn_sendorder.BackColor = Color.PaleTurquoise
-        btn_sendorder.BackgroundColor = Color.PaleTurquoise
-        btn_sendorder.BackgroundImageLayout = ImageLayout.Center
-        btn_sendorder.BorderColor = Color.PaleVioletRed
-        btn_sendorder.BorderRadius = 40
-        btn_sendorder.BorderSize = 0
-        btn_sendorder.Cursor = Cursors.Hand
-        btn_sendorder.FlatAppearance.BorderSize = 0
-        btn_sendorder.FlatAppearance.MouseDownBackColor = Color.FromArgb(CByte(49), CByte(54), CByte(63))
-        btn_sendorder.FlatAppearance.MouseOverBackColor = Color.FromArgb(CByte(118), CByte(171), CByte(174))
-        btn_sendorder.FlatStyle = FlatStyle.Flat
-        btn_sendorder.Font = New Font("Segoe UI", 13F, FontStyle.Bold)
-        btn_sendorder.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
-        btn_sendorder.Location = New Point(207, 170)
-        btn_sendorder.Name = "btn_sendorder"
-        btn_sendorder.Size = New Size(185, 69)
-        btn_sendorder.TabIndex = 10
-        btn_sendorder.Text = "SEND ORDER"
-        btn_sendorder.TextColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
-        btn_sendorder.UseVisualStyleBackColor = False
-        ' 
-        ' subtotalno_label
-        ' 
-        subtotalno_label.Anchor = AnchorStyles.None
-        subtotalno_label.AutoSize = True
-        subtotalno_label.Font = New Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        subtotalno_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
-        subtotalno_label.Location = New Point(247, 29)
-        subtotalno_label.Name = "subtotalno_label"
-        subtotalno_label.Size = New Size(81, 23)
-        subtotalno_label.TabIndex = 13
-        subtotalno_label.Text = "Php 0.00"
-        ' 
-        ' receiptmenu_panel
-        ' 
-        receiptmenu_panel.Anchor = AnchorStyles.Left Or AnchorStyles.Right
-        receiptmenu_panel.AutoScroll = True
-        receiptmenu_panel.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
-        receiptmenu_panel.Location = New Point(27, 114)
-        receiptmenu_panel.Name = "receiptmenu_panel"
-        receiptmenu_panel.Size = New Size(392, 267)
-        receiptmenu_panel.TabIndex = 4
-        ' 
-        ' guesttable_panel
-        ' 
-        guesttable_panel.Anchor = AnchorStyles.Right
-        guesttable_panel.Controls.Add(tableno_label)
-        guesttable_panel.Controls.Add(table_label)
-        guesttable_panel.Controls.Add(table_icon)
-        guesttable_panel.Controls.Add(guestno_label)
-        guesttable_panel.Controls.Add(guest_label)
-        guesttable_panel.Controls.Add(guest_icon)
-        guesttable_panel.Location = New Point(27, 68)
-        guesttable_panel.Name = "guesttable_panel"
-        guesttable_panel.Size = New Size(392, 37)
-        guesttable_panel.TabIndex = 2
-        ' 
-        ' tableno_label
-        ' 
-        tableno_label.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Right
-        tableno_label.AutoSize = True
-        tableno_label.Font = New Font("Segoe UI", 10.2F, FontStyle.Bold)
-        tableno_label.ForeColor = Color.FromArgb(CByte(118), CByte(171), CByte(174))
-        tableno_label.Location = New Point(331, 7)
-        tableno_label.Name = "tableno_label"
-        tableno_label.Size = New Size(20, 23)
-        tableno_label.TabIndex = 5
-        tableno_label.Text = "2"
-        ' 
-        ' table_label
-        ' 
-        table_label.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Right
-        table_label.AutoSize = True
-        table_label.Font = New Font("Segoe UI", 10F)
-        table_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
-        table_label.Location = New Point(277, 7)
-        table_label.Name = "table_label"
-        table_label.Size = New Size(65, 23)
-        table_label.TabIndex = 4
-        table_label.Text = "TABLE: "
-        ' 
-        ' table_icon
-        ' 
-        table_icon.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Right
-        table_icon.BackgroundImage = CType(resources.GetObject("table_icon.BackgroundImage"), Image)
-        table_icon.BackgroundImageLayout = ImageLayout.Zoom
-        table_icon.Location = New Point(232, 0)
-        table_icon.Name = "table_icon"
-        table_icon.Size = New Size(45, 37)
-        table_icon.TabIndex = 3
-        table_icon.TabStop = False
-        ' 
-        ' guestno_label
-        ' 
-        guestno_label.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left
-        guestno_label.AutoSize = True
-        guestno_label.Font = New Font("Segoe UI", 10.2F, FontStyle.Bold)
-        guestno_label.ForeColor = Color.FromArgb(CByte(118), CByte(171), CByte(174))
-        guestno_label.Location = New Point(113, 7)
-        guestno_label.Name = "guestno_label"
-        guestno_label.Size = New Size(20, 23)
-        guestno_label.TabIndex = 2
-        guestno_label.Text = "5"
-        ' 
-        ' guest_label
-        ' 
-        guest_label.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left
-        guest_label.AutoSize = True
-        guest_label.Font = New Font("Segoe UI", 10F)
-        guest_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
-        guest_label.Location = New Point(49, 7)
-        guest_label.Name = "guest_label"
-        guest_label.Size = New Size(70, 23)
-        guest_label.TabIndex = 1
-        guest_label.Text = "GUEST: "
-        ' 
-        ' guest_icon
-        ' 
-        guest_icon.BackgroundImage = CType(resources.GetObject("guest_icon.BackgroundImage"), Image)
-        guest_icon.BackgroundImageLayout = ImageLayout.Zoom
-        guest_icon.Dock = DockStyle.Left
-        guest_icon.Location = New Point(0, 0)
-        guest_icon.Name = "guest_icon"
-        guest_icon.Size = New Size(45, 37)
-        guest_icon.TabIndex = 0
-        guest_icon.TabStop = False
-        ' 
-        ' orderno_panel
-        ' 
-        orderno_panel.Anchor = AnchorStyles.None
-        orderno_panel.Controls.Add(order_label)
-        orderno_panel.Controls.Add(orderno_label)
-        orderno_panel.Location = New Point(27, 14)
-        orderno_panel.Name = "orderno_panel"
-        orderno_panel.Size = New Size(392, 47)
-        orderno_panel.TabIndex = 1
-        ' 
-        ' order_label
-        ' 
-        order_label.AutoSize = True
-        order_label.Dock = DockStyle.Left
-        order_label.Font = New Font("Segoe UI", 20F)
-        order_label.ForeColor = Color.FromArgb(CByte(34), CByte(40), CByte(49))
-        order_label.Location = New Point(0, 0)
-        order_label.Name = "order_label"
-        order_label.Size = New Size(156, 46)
-        order_label.TabIndex = 0
-        order_label.Text = "ORDER #"
-        ' 
-        ' orderno_label
-        ' 
-        orderno_label.AutoSize = True
-        orderno_label.Dock = DockStyle.Right
-        orderno_label.Font = New Font("Segoe UI", 20F)
-        orderno_label.ForeColor = Color.FromArgb(CByte(118), CByte(171), CByte(174))
-        orderno_label.Location = New Point(392, 0)
-        orderno_label.Name = "orderno_label"
-        orderno_label.Size = New Size(0, 46)
-        orderno_label.TabIndex = 0
         ' 
         ' paymentreceipt_panel
         ' 
@@ -2319,7 +2304,26 @@ Partial Class Mainform
         StartPosition = FormStartPosition.CenterScreen
         Text = "Mainform"
         Mainform_panel.ResumeLayout(False)
+        receipt_panel.ResumeLayout(False)
+        orderno_panel.ResumeLayout(False)
+        orderno_panel.PerformLayout()
+        receipttotal_panel.ResumeLayout(False)
+        receipttotal_panel.PerformLayout()
+        guesttable_panel.ResumeLayout(False)
+        guesttable_panel.PerformLayout()
+        CType(table_icon, ComponentModel.ISupportInitialize).EndInit()
+        CType(guest_icon, ComponentModel.ISupportInitialize).EndInit()
         nav_panel.ResumeLayout(False)
+        payment_panel.ResumeLayout(False)
+        payment_panel.PerformLayout()
+        headerpayment_panel.ResumeLayout(False)
+        headerpayment_panel.PerformLayout()
+        CType(time_icon, ComponentModel.ISupportInitialize).EndInit()
+        CType(table_photo, ComponentModel.ISupportInitialize).EndInit()
+        history_panel.ResumeLayout(False)
+        history_panel.PerformLayout()
+        home_panel.ResumeLayout(False)
+        home_panel.PerformLayout()
         foodmenu_panel.ResumeLayout(False)
         startermenu_panel.ResumeLayout(False)
         startermenu_panel.PerformLayout()
@@ -2329,8 +2333,6 @@ Partial Class Mainform
         drinksmenu_panel.PerformLayout()
         dessertsmenu_panel.ResumeLayout(False)
         dessertsmenu_panel.PerformLayout()
-        history_panel.ResumeLayout(False)
-        history_panel.PerformLayout()
         settings_panel.ResumeLayout(False)
         pass_panel.ResumeLayout(False)
         pass_panel.PerformLayout()
@@ -2351,23 +2353,6 @@ Partial Class Mainform
         CType(email_photo, ComponentModel.ISupportInitialize).EndInit()
         CType(address_photo, ComponentModel.ISupportInitialize).EndInit()
         CType(name_photo, ComponentModel.ISupportInitialize).EndInit()
-        payment_panel.ResumeLayout(False)
-        payment_panel.PerformLayout()
-        headerpayment_panel.ResumeLayout(False)
-        headerpayment_panel.PerformLayout()
-        CType(time_icon, ComponentModel.ISupportInitialize).EndInit()
-        CType(table_photo, ComponentModel.ISupportInitialize).EndInit()
-        home_panel.ResumeLayout(False)
-        home_panel.PerformLayout()
-        receipt_panel.ResumeLayout(False)
-        receipttotal_panel.ResumeLayout(False)
-        receipttotal_panel.PerformLayout()
-        guesttable_panel.ResumeLayout(False)
-        guesttable_panel.PerformLayout()
-        CType(table_icon, ComponentModel.ISupportInitialize).EndInit()
-        CType(guest_icon, ComponentModel.ISupportInitialize).EndInit()
-        orderno_panel.ResumeLayout(False)
-        orderno_panel.PerformLayout()
         paymentreceipt_panel.ResumeLayout(False)
         textpayment_panel.ResumeLayout(False)
         textpayment_panel.PerformLayout()
@@ -2404,9 +2389,6 @@ Partial Class Mainform
     Friend WithEvents date_panel As Panel
     Friend WithEvents current_datelabel As Label
     Friend WithEvents date_icon As PictureBox
-    Friend WithEvents orderno_label As Label
-    Friend WithEvents order_label As Label
-    Friend WithEvents orderno_panel As Panel
     Friend WithEvents receiptmenu_panel As FlowLayoutPanel
     Friend WithEvents btn_cancelorder As CircularButton
     Friend WithEvents btn_sendorder As CircularButton
@@ -2493,7 +2475,7 @@ Partial Class Mainform
     Friend WithEvents quantity_text As Label
     Friend WithEvents item_text As Label
     Friend WithEvents orderdetail_panel As FlowLayoutPanel
-    Friend WithEvents orderID_label As Label
+    Friend WithEvents orderNo_label As Label
     Friend WithEvents profile_label As Label
     Friend WithEvents profile_panel As Panel
     Friend WithEvents username_label As Label
@@ -2543,4 +2525,6 @@ Partial Class Mainform
     Friend WithEvents btn_visibility_current As CircularButton
     Friend WithEvents btn_visibility_retype As CircularButton
     Friend WithEvents btn_visibility_new As CircularButton
+    Friend WithEvents orderNumber_label As Label
+    Friend WithEvents orderno_panel As Panel
 End Class
