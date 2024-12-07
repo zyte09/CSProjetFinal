@@ -33,6 +33,8 @@ Public Class Mainform
         HighlightPaymentButton(btn_cash)
         LoadOrderHistory()
         LoadUserData(UserID)
+
+        searchresults_panel.Visible = False
     End Sub
 
     Private Sub Mainform_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
@@ -92,6 +94,7 @@ Public Class Mainform
         profile_panel.Visible = False
         profileedit_panel.Visible = False
         pass_panel.Visible = False
+        searchresults_panel.Visible = False
 
         ' Hide receipt-related panels by default
         receipt_panel.Visible = False
@@ -115,6 +118,8 @@ Public Class Mainform
                 guesttable_panel.Location = New Point(27, 68)
                 receiptmenu_panel.Location = New Point(27, 114)
                 receipttotal_panel.Location = New Point(27, 387)
+                HighlightMenuButton(btn_starter)
+                LoadFoodItems("Starter", startermenu_panel)
 
             Case "startermenu_panel"
                 foodmenu_panel.Visible = True
@@ -186,17 +191,11 @@ Public Class Mainform
         Debug.WriteLine($"Showing panel: {panel.Name}")
         Debug.WriteLine($"{panel.Name} visibility: {panel.Visible}")
         Debug.WriteLine($"Panel passed: {panel.Name}")
-        Debug.WriteLine($"Receipt panel visibility: {receipt_panel.Visible}")
-        Debug.WriteLine($"orderNumber_label visibility: {orderNumber_label.Visible}")
-        Debug.WriteLine($"orderNumber_label text: {orderNumber_label.Text}")
-        Debug.WriteLine($"orderNumber_label Location: {orderNumber_label.Location}")
-        Debug.WriteLine($"Order No panel visibility: {orderno_panel.Visible}")
-        Debug.WriteLine($"OrderHistoryControl visibility: {orderhistory_panel.Visible}")
-        Debug.WriteLine($"OrderHistoryControl Location: {orderhistory_panel.Location}")
-        Debug.WriteLine($"OrderHistoryControl Size: {orderhistory_panel.Size}")
-        Debug.WriteLine($"orderhistory_panel Size: {orderhistory_panel.Size}")
-        Debug.WriteLine($"orderhistory_panel Location: {orderhistory_panel.Location}")
-        Debug.WriteLine($"orderdetail_panel visibility: {orderdetail_panel.Visible}")
+        Debug.WriteLine($"Search results visibility: {searchresults_panel.Visible}")
+        Debug.WriteLine("Starter menu visibility: " & startermenu_panel.Visible)
+        Debug.WriteLine("Main course menu visibility: " & maincoursemenu_panel.Visible)
+        Debug.WriteLine("Drinks menu visibility: " & drinksmenu_panel.Visible)
+        Debug.WriteLine("Desserts menu visibility: " & dessertsmenu_panel.Visible)
     End Sub
 
     Private Sub btn_home_Click(sender As Object, e As EventArgs) Handles btn_home.Click
@@ -205,11 +204,8 @@ Public Class Mainform
     End Sub
 
     Private Sub btn_menu_Click(sender As Object, e As EventArgs) Handles btn_menu.Click
-        HighlightButton(btn_menu)
         ShowPanel(foodmenu_panel)
-        HighlightMenuButton(btn_starter)
         ShowPanel(startermenu_panel)
-        LoadFoodItems("Starter", startermenu_panel)
     End Sub
 
     Private Sub btn_payment_Click(sender As Object, e As EventArgs) Handles btn_payment.Click
@@ -230,11 +226,15 @@ Public Class Mainform
 
     Private Sub HighlightMenuButton(button As Button)
         ' Reset all menu buttons
-        Dim menuButtons() As Button = {btn_starter, btn_maincourse, btn_drinks, btn_desserts}
-        For Each menuButton In menuButtons
-            menuButton.BackColor = Color.DarkGray
-            menuButton.ForeColor = Color.FromArgb(238, 238, 238)
-        Next
+        btn_starter.BackColor = Color.DarkGray
+        btn_maincourse.BackColor = Color.DarkGray
+        btn_drinks.BackColor = Color.DarkGray
+        btn_desserts.BackColor = Color.DarkGray
+
+        btn_starter.ForeColor = Color.FromArgb(238, 238, 238)
+        btn_maincourse.ForeColor = Color.FromArgb(238, 238, 238)
+        btn_drinks.ForeColor = Color.FromArgb(238, 238, 238)
+        btn_desserts.ForeColor = Color.FromArgb(238, 238, 238)
 
         ' Highlight the selected button
         button.BackColor = Color.FromArgb(34, 40, 49)
@@ -242,24 +242,28 @@ Public Class Mainform
     End Sub
 
     Private Sub btn_starter_Click(sender As Object, e As EventArgs) Handles btn_starter.Click
+        searchresults_panel.Visible = False
         HighlightMenuButton(btn_starter)
         ShowPanel(startermenu_panel)
         LoadFoodItems("Starter", startermenu_panel)
     End Sub
 
     Private Sub btn_maincourse_Click(sender As Object, e As EventArgs) Handles btn_maincourse.Click
+        searchresults_panel.Visible = False
         HighlightMenuButton(btn_maincourse)
         ShowPanel(maincoursemenu_panel)
         LoadFoodItems("Main Course", maincoursemenu_panel)
     End Sub
 
     Private Sub btn_drinks_Click(sender As Object, e As EventArgs) Handles btn_drinks.Click
+        searchresults_panel.Visible = False
         HighlightMenuButton(btn_drinks)
         ShowPanel(drinksmenu_panel)
         LoadFoodItems("Drinks", drinksmenu_panel)
     End Sub
 
     Private Sub btn_desserts_Click(sender As Object, e As EventArgs) Handles btn_desserts.Click
+        searchresults_panel.Visible = False
         HighlightMenuButton(btn_desserts)
         ShowPanel(dessertsmenu_panel)
         LoadFoodItems("Desserts", dessertsmenu_panel)
@@ -574,6 +578,10 @@ Public Class Mainform
         If Not Char.IsDigit(e.KeyChar) AndAlso Not Char.IsControl(e.KeyChar) Then
             ' If not digit or control key, cancel the key press event
             e.Handled = True
+        ElseIf e.KeyChar = ChrW(Keys.Enter) Then
+            ' If Enter key is pressed, trigger the payment process
+            e.Handled = True
+            btn_pay_Click(sender, e)
         End If
     End Sub
 
@@ -1053,5 +1061,233 @@ Public Class Mainform
 
     Private Sub btn_visibility_retype_MouseUp(sender As Object, e As MouseEventArgs) Handles btn_visibility_retype.MouseUp
         TogglePasswordVisibility(retype_text, btn_visibility_retype, False)
+    End Sub
+
+    Private Sub btn_search_Click(sender As Object, e As EventArgs) Handles btn_search.Click
+        PerformSearch()
+    End Sub
+
+    Private Sub search_text_KeyPress(sender As Object, e As KeyPressEventArgs) Handles search_text.KeyPress
+        If e.KeyChar = ChrW(Keys.Enter) Then
+            e.Handled = True
+            PerformSearch()
+        End If
+    End Sub
+
+    Private Sub PerformSearch()
+        Dim searchQuery As String = search_text.Text.Trim()
+        If Not String.IsNullOrEmpty(searchQuery) Then
+            SearchItems(searchQuery)
+        Else
+            MessageBox.Show("Please enter a search query.", "Search", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        End If
+    End Sub
+
+    Private Sub SearchItems(query As String)
+        searchresults_panel.Controls.Clear()
+        System.Diagnostics.Debug.WriteLine($"Search query: {query}")
+        query = query.ToLower().Trim()
+
+        ' Check for specific keywords and navigate to the corresponding panels
+        If query.Contains("home") Then
+            HighlightButton(btn_home)
+            ShowPanel(home_panel)
+            Return
+        ElseIf query.Contains("menu") Or query.Contains("food") Then
+            HighlightButton(btn_menu)
+            ShowPanel(foodmenu_panel)
+            Return
+        ElseIf query.Contains("pay") Or query.Contains("payment") Then
+            HighlightButton(btn_payment)
+            ShowPanel(payment_panel)
+            Return
+        ElseIf query.Contains("history") Or query.Contains("order") Or query.Contains("order history") Then
+            HighlightButton(btn_history)
+            ShowPanel(history_panel)
+            LoadOrderHistory()
+            Return
+        ElseIf query.Contains("settings") Or query.Contains("setting") Or query.Contains("profile") Then
+            HighlightButton(btn_settings)
+            ShowPanel(settings_panel)
+            Return
+        ElseIf query.Contains("password") Or query.Contains("pass") Then
+            HighlightButton(btn_settings)
+            ShowPanel(pass_panel)
+            Return
+        End If
+
+        ' Perform a search in menu items
+        Dim menuItems As DataTable = SearchMenuItems(query)
+
+        If menuItems.Rows.Count > 0 Then
+            ' Show the main food menu panel first
+            HighlightButton(btn_menu)
+            ShowPanel(foodmenu_panel)
+
+            ' Create a HashSet to store unique categories
+            Dim categories As New HashSet(Of String)
+
+            ' Collect all unique categories from search results
+            For Each row As DataRow In menuItems.Rows
+                categories.Add(row("category").ToString().ToLower())
+            Next
+
+            ' Create list of buttons to highlight
+            Dim menuButtons As New List(Of Button)
+            For Each category As String In categories
+                Dim categoryButton As Button = GetMenuButton(category)
+                If categoryButton IsNot Nothing Then
+                    menuButtons.Add(categoryButton)
+                End If
+            Next
+
+            ' Highlight all relevant category buttons
+            HighlightMultipleMenuButtons(menuButtons)
+
+            ' Show all relevant category panels
+            For Each category As String In categories
+                Dim targetPanel As FlowLayoutPanel = GetTargetPanel(category)
+                If targetPanel IsNot Nothing Then
+                    targetPanel.Visible = True
+                    DisplaySearchResults(menuItems, targetPanel, category)
+                End If
+            Next
+
+            ' Display overall search results
+            searchresults_panel.Controls.Clear()
+            For Each row As DataRow In menuItems.Rows
+                Dim foodItemControl As New FoodItemControl()
+                foodItemControl.FoodName = row("name").ToString()
+                If Not IsDBNull(row("image")) Then
+                    foodItemControl.FoodImage = ByteArrayToImage(CType(row("image"), Byte()))
+                End If
+                AddHandler foodItemControl.FoodItemClicked, AddressOf OnFoodItemClicked
+                searchresults_panel.Controls.Add(foodItemControl)
+            Next
+
+            searchresults_panel.Visible = True
+            Return
+        End If
+
+        ' Search in order history if no menu items found
+        Dim orderHistory As DataTable = SearchOrderHistory(query)
+        If orderHistory.Rows.Count > 0 Then
+            ShowPanel(history_panel)
+            DisplayOrderHistoryResults(orderHistory)
+            Return
+        End If
+
+        MessageBox.Show("No results found.", "Search", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        searchresults_panel.Visible = False
+    End Sub
+
+
+    Private Sub HighlightMultipleMenuButtons(buttons As List(Of Button))
+        ' Reset all menu buttons
+        Dim menuButtons() As Button = {btn_starter, btn_maincourse, btn_drinks, btn_desserts}
+        For Each menuButton In menuButtons
+            menuButton.BackColor = Color.DarkGray
+            menuButton.ForeColor = Color.FromArgb(238, 238, 238)
+        Next
+
+        ' Highlight the specified buttons
+        For Each button In buttons
+            button.BackColor = Color.FromArgb(34, 40, 49)
+            button.ForeColor = Color.FromArgb(238, 238, 238)
+        Next
+    End Sub
+
+    Private Function GetTargetPanel(category As String) As FlowLayoutPanel
+        Select Case category.ToLower()
+            Case "starter"
+                Return startermenu_panel
+            Case "main course"
+                Return maincoursemenu_panel
+            Case "drinks"
+                Return drinksmenu_panel
+            Case "desserts"
+                Return dessertsmenu_panel
+            Case Else
+                Return Nothing
+        End Select
+    End Function
+
+    Private Function GetMenuButton(category As String) As Button
+        Select Case category.ToLower()
+            Case "starter"
+                Return btn_starter
+            Case "main course"
+                Return btn_maincourse
+            Case "drinks"
+                Return btn_drinks
+            Case "desserts"
+                Return btn_desserts
+            Case Else
+                Return Nothing
+        End Select
+    End Function
+
+    Private Function SearchMenuItems(query As String) As DataTable
+        Dim dt As New DataTable()
+        Using conn As New MySqlConnection(connectionString)
+            ' Modify the search query to use LIKE with wildcards on both sides for name
+            Dim searchQuery = "SELECT * FROM menu_items WHERE LOWER(name) LIKE @query"
+            Using cmd As New MySqlCommand(searchQuery, conn)
+                ' Add wildcards to ensure partial matching
+                cmd.Parameters.AddWithValue("@query", "%" & query.ToLower() & "%")
+                conn.Open()
+                Using reader As MySqlDataReader = cmd.ExecuteReader()
+                    dt.Load(reader)
+                End Using
+            End Using
+        End Using
+        Return dt
+    End Function
+
+    Private Sub DisplaySearchResults(dt As DataTable, panel As FlowLayoutPanel, category As String)
+        ' Clear only the specific panel passed
+        panel.Controls.Clear()
+
+        ' Iterate through ALL rows in the DataTable
+        For Each row As DataRow In dt.Rows
+            ' Check if the current row's category matches the panel's category
+            If row("category").ToString().ToLower() = category.ToLower() Then
+                Dim foodItemControl As New FoodItemControl()
+                foodItemControl.FoodName = row("name").ToString()
+                If Not IsDBNull(row("image")) Then
+                    foodItemControl.FoodImage = ByteArrayToImage(CType(row("image"), Byte()))
+                End If
+                AddHandler foodItemControl.FoodItemClicked, AddressOf OnFoodItemClicked
+                panel.Controls.Add(foodItemControl)
+            End If
+        Next
+    End Sub
+
+    Private Function SearchOrderHistory(query As String) As DataTable
+        Dim dt As New DataTable()
+        Using conn As New MySqlConnection(connectionString)
+            Dim searchQuery = "SELECT * FROM order_history WHERE LOWER(items) LIKE @query"
+            Using cmd As New MySqlCommand(searchQuery, conn)
+                cmd.Parameters.AddWithValue("@query", "%" & query.ToLower() & "%")
+                conn.Open()
+                Using reader As MySqlDataReader = cmd.ExecuteReader()
+                    dt.Load(reader)
+                End Using
+            End Using
+        End Using
+        Return dt
+    End Function
+
+    Private Sub DisplayOrderHistoryResults(dt As DataTable)
+        orderhistory_panel.Controls.Clear()
+        For Each row As DataRow In dt.Rows
+            Dim orderHistoryControl As New OrderHistoryControl()
+            orderHistoryControl.OrderNumber = Convert.ToInt32(row("order_number"))
+            orderHistoryControl.Controls("time_label").Text = Convert.ToDateTime(row("order_date")).ToString("MM/dd/yyyy hh:mm tt")
+            orderHistoryControl.Controls("noItems_label").Text = "Number of items: " & row("items").ToString().Split(","c).Length.ToString()
+            orderHistoryControl.Controls("total_label").Text = "Php " & Convert.ToDecimal(row("total_amount")).ToString("N2")
+            AddHandler orderHistoryControl.OrderHistoryClicked, AddressOf OnOrderHistoryClicked
+            orderhistory_panel.Controls.Add(orderHistoryControl)
+        Next
     End Sub
 End Class
