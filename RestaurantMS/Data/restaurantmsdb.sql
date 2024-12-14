@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 07, 2024 at 09:15 AM
+-- Generation Time: Dec 14, 2024 at 01:33 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -91,7 +91,9 @@ INSERT INTO `order_history` (`order_id`, `user_id`, `order_date`, `items`, `tota
 (11, 1, '2024-12-07 11:40:42', 'Garlic Bread:1,Iced Coffee:1', 574.40, 8),
 (12, 1, '2024-12-07 11:44:05', 'Garlic Bread:1,Fruit Tart:1', 820.80, 9),
 (13, 1, '2024-12-07 14:59:02', 'Caesar Salad:1,Iced Coffee:1,Strawberry Lemonade:1', 944.00, 10),
-(14, 1, '2024-12-07 15:09:02', 'Chocolate Lava Cake:1,Caesar Salad:1', 1067.20, 11);
+(14, 1, '2024-12-07 15:09:02', 'Chocolate Lava Cake:1,Caesar Salad:1', 1067.20, 11),
+(15, 1, '2024-12-14 17:53:21', 'Garlic Bread:1,Caesar Salad:1,Strawberry Lemonade:1,Ice Tea:1,Fruit Tart:1', 1657.00, 12),
+(16, 1, '2024-12-14 20:24:18', 'Garlic Bread:1,Caesar Salad:1', 882.40, 13);
 
 -- --------------------------------------------------------
 
@@ -161,7 +163,7 @@ ALTER TABLE `menu_items`
 -- AUTO_INCREMENT for table `order_history`
 --
 ALTER TABLE `order_history`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `users`
