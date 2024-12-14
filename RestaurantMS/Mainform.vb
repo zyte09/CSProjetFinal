@@ -35,6 +35,11 @@ Public Class Mainform
         LoadUserData(UserID)
 
         searchresults_panel.Visible = False
+
+        GreetUser()
+        LoadRecentOrder()
+        LoadMonthlyExpenses()
+        LoadDailyExpenses()
     End Sub
 
     Private Sub Mainform_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
@@ -49,9 +54,370 @@ Public Class Mainform
         End If
     End Sub
 
+    'Buttons'
+    Private Sub btn_logout_Click_1(sender As Object, e As EventArgs) Handles btn_logout.Click
+        LoginForm.Show()
+        Hide()
+    End Sub
+
+    Private Sub btn_home_Click(sender As Object, e As EventArgs) Handles btn_home.Click
+        HighlightButton(btn_home)
+        ShowPanel(home_panel)
+    End Sub
+
+    Private Sub btn_menu_Click(sender As Object, e As EventArgs) Handles btn_menu.Click
+        ShowPanel(foodmenu_panel)
+        ShowPanel(startermenu_panel)
+    End Sub
+
+    Private Sub btn_payment_Click(sender As Object, e As EventArgs) Handles btn_payment.Click
+        HighlightButton(btn_payment)
+        ShowPanel(payment_panel)
+    End Sub
+
+    Private Sub btn_history_Click(sender As Object, e As EventArgs) Handles btn_history.Click
+        HighlightButton(btn_history)
+        ShowPanel(history_panel)
+        LoadOrderHistory()
+    End Sub
+
+    Private Sub btn_settings_Click(sender As Object, e As EventArgs) Handles btn_settings.Click
+        HighlightButton(btn_settings)
+        ShowPanel(settings_panel)
+    End Sub
+
+    Private Sub btn_starter_Click(sender As Object, e As EventArgs) Handles btn_starter.Click
+        searchresults_panel.Visible = False
+        HighlightMenuButton(btn_starter)
+        ShowPanel(startermenu_panel)
+        LoadFoodItems("Starter", startermenu_panel)
+    End Sub
+
+    Private Sub btn_maincourse_Click(sender As Object, e As EventArgs) Handles btn_maincourse.Click
+        searchresults_panel.Visible = False
+        HighlightMenuButton(btn_maincourse)
+        ShowPanel(maincoursemenu_panel)
+        LoadFoodItems("Main Course", maincoursemenu_panel)
+    End Sub
+
+    Private Sub btn_drinks_Click(sender As Object, e As EventArgs) Handles btn_drinks.Click
+        searchresults_panel.Visible = False
+        HighlightMenuButton(btn_drinks)
+        ShowPanel(drinksmenu_panel)
+        LoadFoodItems("Drinks", drinksmenu_panel)
+    End Sub
+
+    Private Sub btn_desserts_Click(sender As Object, e As EventArgs) Handles btn_desserts.Click
+        searchresults_panel.Visible = False
+        HighlightMenuButton(btn_desserts)
+        ShowPanel(dessertsmenu_panel)
+        LoadFoodItems("Desserts", dessertsmenu_panel)
+    End Sub
+
+    Private Sub btn_sendorder_Click(sender As Object, e As EventArgs) Handles btn_sendorder.Click
+        Dim result = MessageBox.Show("Do you want to proceed to payment?", "Confirm Payment", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+        If result = DialogResult.Yes Then
+            HighlightButton(btn_payment)
+            ShowPanel(payment_panel)
+
+            ' Clear existing payment items
+            paymentItem_panel.Controls.Clear()
+
+            ' Add items to payment panel
+            For Each receiptItem In receiptmenu_panel.Controls.OfType(Of ReceiptItemControl)
+                Dim paymentItemControl As New PaymentItemControl
+                paymentItemControl.ItemName = receiptItem.ItemName
+                paymentItemControl.Category = GetItemCategory(receiptItem.ItemName)
+                paymentItemControl.Price = GetItemPrice(receiptItem.ItemName)
+                paymentItemControl.Quantity = receiptItem.Quantity
+                paymentItemControl.Subtotal = paymentItemControl.Price * paymentItemControl.Quantity
+                AddHandler paymentItemControl.ItemDeleted, AddressOf OnPaymentItemDeleted
+                paymentItem_panel.Controls.Add(paymentItemControl)
+            Next
+
+            ' Update the order number label in the payment panel
+            Dim nextOrderNumber As Integer = GetNextOrderNumber()
+            orderNo_label.Text = "Order Number: " & nextOrderNumber.ToString()
+            pOrderno_label.Text = "Order Number: " & nextOrderNumber.ToString()
+        End If
+    End Sub
+
+    Private Sub btn_cancelorder_Click(sender As Object, e As EventArgs) Handles btn_cancelorder.Click
+        Dim result As DialogResult = MessageBox.Show("Do you want to cancel the order?", "Confirm Cancel", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+        If result = DialogResult.Yes Then
+            ' Clear items in receiptmenu_panel
+            receiptmenu_panel.Controls.Clear()
+
+            ' Update total
+            UpdateTotalPrice()
+
+            'Disable buttons after cancel
+            btn_cancelorder.Enabled = False
+            btn_sendorder.Enabled = False
+        End If
+    End Sub
+
+    Private Sub btn_pay_Click(sender As Object, e As EventArgs) Handles btn_pay.Click
+        Dim cashInput As Decimal
+        If Decimal.TryParse(cashinput_text.Text, cashInput) Then
+            Dim totalAmount As Decimal = CalcuTotalPrice() + (CalcuTotalPrice() * 0.1) + Decimal.Parse(prTipsno_label.Text.Replace("Php ", ""), Globalization.NumberStyles.Currency)
+            If cashInput >= totalAmount Then
+                Dim change As Decimal = cashInput - totalAmount
+                If SaveOrderToDatabase() Then
+                    MessageBox.Show($"Order has been successfully saved to the order history. Your change is Php {change:F2}.", "Order Saved", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    ' Clear the receipt panel after saving the order
+                    receiptmenu_panel.Controls.Clear()
+                    UpdateTotalPrice()
+                    btn_cancelorder.Enabled = False
+                    btn_sendorder.Enabled = False
+                    ' Hide receipt panel and show order history panel
+                    receipt_panel.Visible = False
+                    ShowPanel(history_panel)
+                    LoadOrderHistory()
+                Else
+                    MessageBox.Show("Failed to save the order. Please try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End If
+            Else
+                MessageBox.Show("Insufficient cash input. Please enter an amount greater than or equal to the total amount.", "Insufficient Cash", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            End If
+        Else
+            MessageBox.Show("Invalid cash input. Please enter a valid amount.", "Invalid Input", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        End If
+    End Sub
+
+    Private Sub btn_cash_Click(sender As Object, e As EventArgs) Handles btn_cash.Click
+        HighlightPaymentButton(btn_cash)
+    End Sub
+
+    Private Sub btn_creditcard_Click(sender As Object, e As EventArgs) Handles btn_creditcard.Click
+        HighlightPaymentButton(btn_creditcard)
+    End Sub
+
+    Private Sub btn_gcash_Click(sender As Object, e As EventArgs) Handles btn_gcash.Click
+        HighlightPaymentButton(btn_gcash)
+    End Sub
+
+    Private Sub btn_edit_Click(sender As Object, e As EventArgs) Handles btn_edit.Click
+        ShowPanel(profileedit_panel)
+    End Sub
+
+    Private Sub btn_back_Click(sender As Object, e As EventArgs) Handles btn_back.Click
+        ShowPanel(profile_panel)
+    End Sub
+
+    Private Sub btn_pass_Click(sender As Object, e As EventArgs) Handles btn_pass.Click
+        ShowPanel(pass_panel)
+    End Sub
+
+    Private Sub btn_goback_Click(sender As Object, e As EventArgs) Handles btn_goback.Click
+        ShowPanel(profileedit_panel)
+    End Sub
+
+    Private Sub btn_save_Click(sender As Object, e As EventArgs) Handles btn_save.Click
+        ' Validate input fields
+        If String.IsNullOrWhiteSpace(firstName_text.Text) Then
+            MessageBox.Show("First name cannot be empty.")
+            firstName_text.Focus()
+            Return
+        End If
+
+        If String.IsNullOrWhiteSpace(lastName_text.Text) Then
+            MessageBox.Show("Last name cannot be empty.")
+            lastName_text.Focus()
+            Return
+        End If
+
+        If String.IsNullOrWhiteSpace(email_text.Text) Then
+            MessageBox.Show("Email cannot be empty.")
+            email_text.Focus()
+            Return
+        End If
+
+        If String.IsNullOrWhiteSpace(phone_text.Text) Then
+            MessageBox.Show("Phone number cannot be empty.")
+            phone_text.Focus()
+            Return
+        End If
+
+        If String.IsNullOrWhiteSpace(address_text.Text) Then
+            MessageBox.Show("Address cannot be empty.")
+            address_text.Focus()
+            Return
+        End If
+
+        If String.IsNullOrWhiteSpace(username_text.Text) OrElse username_text.Text.Length <= 4 Then
+            MessageBox.Show("Username must be more than 4 characters.")
+            username_text.Focus()
+            Return
+        End If
+
+        Dim connectionString = "server=127.0.0.1;userid=root;password='';database=RestaurantMSDB"
+        Dim query = "UPDATE users SET first_name = @firstName, last_name = @lastName, email = @Email, phone_number = @phoneNumber, address = @Address, username = @Username WHERE user_id = @userID"
+
+        Using conn As New MySqlConnection(connectionString)
+            Try
+                conn.Open()
+                Using cmd As New MySqlCommand(query, conn)
+                    cmd.Parameters.AddWithValue("@firstName", firstName_text.Text.Trim())
+                    cmd.Parameters.AddWithValue("@lastName", lastName_text.Text.Trim())
+                    cmd.Parameters.AddWithValue("@Email", email_text.Text.Trim())
+                    cmd.Parameters.AddWithValue("@phoneNumber", phone_text.Text.Trim())
+                    cmd.Parameters.AddWithValue("@Address", address_text.Text.Trim())
+                    cmd.Parameters.AddWithValue("@Username", username_text.Text.Trim())
+                    cmd.Parameters.AddWithValue("@userID", UserID)
+
+                    Dim result As Integer = cmd.ExecuteNonQuery()
+                    If result > 0 Then
+                        MessageBox.Show("Profile updated successfully!")
+                        LoadUserData(UserID)
+                        ShowPanel(profile_panel)
+                    Else
+                        MessageBox.Show("Failed to update profile. Please try again.")
+                    End If
+                End Using
+            Catch ex As MySqlException When ex.Number = 1062
+                MessageBox.Show("Username taken. Please choose a different username.")
+            Catch ex As Exception
+                MessageBox.Show("Error: " & ex.Message)
+            End Try
+        End Using
+        ShowPanel(profile_panel)
+    End Sub
+
+    Private Sub btn_changepass_Click(sender As Object, e As EventArgs) Handles btn_changepass.Click
+        ' Validate input fields
+        If String.IsNullOrWhiteSpace(currentpass_text.Text) Then
+            MessageBox.Show("Current password cannot be empty.")
+            currentpass_text.Focus()
+            Return
+        End If
+
+        If String.IsNullOrWhiteSpace(newpass_text.Text) Then
+            MessageBox.Show("New password cannot be empty.")
+            newpass_text.Focus()
+            Return
+        End If
+
+        If newpass_text.Text.Length < 8 Then
+            MessageBox.Show("New password must be at least 8 characters long.")
+            newpass_text.Focus()
+            Return
+        End If
+
+        If String.IsNullOrWhiteSpace(retype_text.Text) Then
+            MessageBox.Show("Retype password cannot be empty.")
+            retype_text.Focus()
+            Return
+        End If
+
+        If newpass_text.Text <> retype_text.Text Then
+            MessageBox.Show("New password and retype password do not match.")
+            retype_text.Focus()
+            Return
+        End If
+
+        Dim connectionString = "server=127.0.0.1;userid=root;password='';database=RestaurantMSDB"
+        Dim query = "SELECT password FROM users WHERE user_id = @userID"
+
+        Using conn As New MySqlConnection(connectionString)
+            Try
+                conn.Open()
+                Using cmd As New MySqlCommand(query, conn)
+                    cmd.Parameters.AddWithValue("@userID", UserID)
+                    Dim currentPassword As String = cmd.ExecuteScalar().ToString()
+
+                    If currentPassword <> currentpass_text.Text Then
+                        MessageBox.Show("Current password is incorrect.")
+                        currentpass_text.Focus()
+                        Return
+                    End If
+                End Using
+
+                ' Update the pass
+                query = "UPDATE users SET password = @newPassword WHERE user_id = @userID"
+                Using cmd As New MySqlCommand(query, conn)
+                    cmd.Parameters.AddWithValue("@newPassword", newpass_text.Text)
+                    cmd.Parameters.AddWithValue("@userID", UserID)
+
+                    Dim result As Integer = cmd.ExecuteNonQuery()
+                    If result > 0 Then
+                        MessageBox.Show("Password updated successfully!")
+                        ShowPanel(profileedit_panel)
+                    Else
+                        MessageBox.Show("Failed to update password. Please try again.")
+                    End If
+                End Using
+            Catch ex As Exception
+                MessageBox.Show("Error: " & ex.Message)
+            End Try
+        End Using
+    End Sub
+
+    Private Sub btn_search_Click(sender As Object, e As EventArgs) Handles btn_search.Click
+        PerformSearch()
+    End Sub
+
+    Private Sub btn_tip0_Click(sender As Object, e As EventArgs) Handles btn_tip0.Click
+        HighlightTipButton(btn_tip0, Tip0Amount)
+    End Sub
+
+    Private Sub btn_tip1_Click(sender As Object, e As EventArgs) Handles btn_tip1.Click
+        HighlightTipButton(btn_tip1, Tip1Amount)
+    End Sub
+    Private Sub btn_tip2_Click(sender As Object, e As EventArgs) Handles btn_tip2.Click
+        HighlightTipButton(btn_tip2, Tip2Amount)
+    End Sub
+    Private Sub btn_tip3_Click(sender As Object, e As EventArgs) Handles btn_tip3.Click
+        HighlightTipButton(btn_tip3, Tip3Amount)
+    End Sub
+    Private Sub btn_tip4_Click(sender As Object, e As EventArgs) Handles btn_tip4.Click
+        HighlightTipButton(btn_tip4, Tip4Amount)
+    End Sub
+
+    Private Sub btn_visibility_current_MouseDown(sender As Object, e As MouseEventArgs) Handles btn_visibility_current.MouseDown
+        TogglePasswordVisibility(currentpass_text, btn_visibility_current, True)
+    End Sub
+
+    Private Sub btn_visibility_current_MouseUp(sender As Object, e As MouseEventArgs) Handles btn_visibility_current.MouseUp
+        TogglePasswordVisibility(currentpass_text, btn_visibility_current, False)
+    End Sub
+
+    Private Sub btn_visibility_new_MouseDown(sender As Object, e As MouseEventArgs) Handles btn_visibility_new.MouseDown
+        TogglePasswordVisibility(newpass_text, btn_visibility_new, True)
+    End Sub
+
+    Private Sub btn_visibility_new_MouseUp(sender As Object, e As MouseEventArgs) Handles btn_visibility_new.MouseUp
+        TogglePasswordVisibility(newpass_text, btn_visibility_new, False)
+    End Sub
+
+    Private Sub btn_visibility_retype_MouseDown(sender As Object, e As MouseEventArgs) Handles btn_visibility_retype.MouseDown
+        TogglePasswordVisibility(retype_text, btn_visibility_retype, True)
+    End Sub
+
+    Private Sub btn_visibility_retype_MouseUp(sender As Object, e As MouseEventArgs) Handles btn_visibility_retype.MouseUp
+        TogglePasswordVisibility(retype_text, btn_visibility_retype, False)
+    End Sub
+
+    'Ui Update'
     Private Sub UpdateCurrentDate()
         current_datelabel.Text = DateTime.Now.ToString("dddd, dd MMMM yyyy | h:mm tt")
         time_label.Text = DateTime.Now.ToString("h:mm tt")
+    End Sub
+
+    Private Sub GreetUser()
+        Dim firstName As String = GetFirstName(fullname_label.Text)
+        Dim currentTime As DateTime = DateTime.Now
+        Dim greeting As String
+
+        If currentTime.Hour < 12 Then
+            greeting = "Good Morning"
+        ElseIf currentTime.Hour < 18 Then
+            greeting = "Good Afternoon"
+        Else
+            greeting = "Good Evening"
+        End If
+
+        greet_label.Text = $"{greeting}, {firstName}!"
     End Sub
 
     Private Sub HighlightButton(button As Button)
@@ -70,11 +436,6 @@ Public Class Mainform
     Private Sub ResetButtonAppearance(button As Button)
         button.BackColor = Color.Transparent
         button.ForeColor = Color.FromArgb(238, 238, 238)
-    End Sub
-
-    Private Sub btn_logout_Click_1(sender As Object, e As EventArgs) Handles btn_logout.Click
-        LoginForm.Show()
-        Hide()
     End Sub
 
     Private Sub ShowPanel(panel As Panel)
@@ -191,37 +552,6 @@ Public Class Mainform
         Debug.WriteLine($"Showing panel: {panel.Name}")
         Debug.WriteLine($"{panel.Name} visibility: {panel.Visible}")
         Debug.WriteLine($"Panel passed: {panel.Name}")
-        Debug.WriteLine($"Search results visibility: {searchresults_panel.Visible}")
-        Debug.WriteLine("Starter menu visibility: " & startermenu_panel.Visible)
-        Debug.WriteLine("Main course menu visibility: " & maincoursemenu_panel.Visible)
-        Debug.WriteLine("Drinks menu visibility: " & drinksmenu_panel.Visible)
-        Debug.WriteLine("Desserts menu visibility: " & dessertsmenu_panel.Visible)
-    End Sub
-
-    Private Sub btn_home_Click(sender As Object, e As EventArgs) Handles btn_home.Click
-        HighlightButton(btn_home)
-        ShowPanel(home_panel)
-    End Sub
-
-    Private Sub btn_menu_Click(sender As Object, e As EventArgs) Handles btn_menu.Click
-        ShowPanel(foodmenu_panel)
-        ShowPanel(startermenu_panel)
-    End Sub
-
-    Private Sub btn_payment_Click(sender As Object, e As EventArgs) Handles btn_payment.Click
-        HighlightButton(btn_payment)
-        ShowPanel(payment_panel)
-    End Sub
-
-    Private Sub btn_history_Click(sender As Object, e As EventArgs) Handles btn_history.Click
-        HighlightButton(btn_history)
-        ShowPanel(history_panel)
-        LoadOrderHistory()
-    End Sub
-
-    Private Sub btn_settings_Click(sender As Object, e As EventArgs) Handles btn_settings.Click
-        HighlightButton(btn_settings)
-        ShowPanel(settings_panel)
     End Sub
 
     Private Sub HighlightMenuButton(button As Button)
@@ -239,48 +569,6 @@ Public Class Mainform
         ' Highlight the selected button
         button.BackColor = Color.FromArgb(34, 40, 49)
         button.ForeColor = Color.FromArgb(238, 238, 238)
-    End Sub
-
-    Private Sub btn_starter_Click(sender As Object, e As EventArgs) Handles btn_starter.Click
-        searchresults_panel.Visible = False
-        HighlightMenuButton(btn_starter)
-        ShowPanel(startermenu_panel)
-        LoadFoodItems("Starter", startermenu_panel)
-    End Sub
-
-    Private Sub btn_maincourse_Click(sender As Object, e As EventArgs) Handles btn_maincourse.Click
-        searchresults_panel.Visible = False
-        HighlightMenuButton(btn_maincourse)
-        ShowPanel(maincoursemenu_panel)
-        LoadFoodItems("Main Course", maincoursemenu_panel)
-    End Sub
-
-    Private Sub btn_drinks_Click(sender As Object, e As EventArgs) Handles btn_drinks.Click
-        searchresults_panel.Visible = False
-        HighlightMenuButton(btn_drinks)
-        ShowPanel(drinksmenu_panel)
-        LoadFoodItems("Drinks", drinksmenu_panel)
-    End Sub
-
-    Private Sub btn_desserts_Click(sender As Object, e As EventArgs) Handles btn_desserts.Click
-        searchresults_panel.Visible = False
-        HighlightMenuButton(btn_desserts)
-        ShowPanel(dessertsmenu_panel)
-        LoadFoodItems("Desserts", dessertsmenu_panel)
-    End Sub
-
-    Private Sub LoadFoodItems(category As String, panel As FlowLayoutPanel)
-        Dim foodItems As DataTable = GetFoodItems(category)
-        panel.Controls.Clear()
-        For Each row As DataRow In foodItems.Rows
-            Dim foodItemControl As New FoodItemControl()
-            foodItemControl.FoodName = row("name").ToString()
-            If Not IsDBNull(row("image")) Then
-                foodItemControl.FoodImage = ByteArrayToImage(CType(row("image"), Byte()))
-            End If
-            AddHandler foodItemControl.FoodItemClicked, AddressOf OnFoodItemClicked
-            panel.Controls.Add(foodItemControl)
-        Next
     End Sub
 
     Private Sub OnFoodItemClicked(sender As Object, e As EventArgs)
@@ -357,53 +645,6 @@ Public Class Mainform
         UpdateTotalPrice()
     End Sub
 
-    Private Function GetItemPrice(itemName As String) As Decimal
-        Try
-            Using conn As New MySqlConnection(connectionString)
-                Dim query As String = "Select price FROM menu_items WHERE name = @name"
-                Using cmd As New MySqlCommand(query, conn)
-                    cmd.Parameters.AddWithValue("@name", itemName)
-                    conn.Open()
-                    Dim result As Object = cmd.ExecuteScalar()
-                    If result IsNot Nothing Then
-                        Return Convert.ToDecimal(result)
-                    End If
-                End Using
-            End Using
-        Catch ex As Exception
-            MessageBox.Show("Error retrieving price: " & ex.Message)
-        End Try
-        Return 0 ' Default price if not found
-    End Function
-    Private Function GetFoodItems(category As String) As DataTable
-        Dim dt As New DataTable()
-        Using conn As New MySqlConnection(connectionString)
-            Dim query As String = "SELECT * FROM menu_items WHERE category = @Category"
-            Using cmd As New MySqlCommand(query, conn)
-                cmd.Parameters.AddWithValue("@Category", category)
-                conn.Open()
-                Using reader As MySqlDataReader = cmd.ExecuteReader()
-                    dt.Load(reader)
-                End Using
-            End Using
-        End Using
-        Return dt
-    End Function
-
-    Private Function ByteArrayToImage(byteArray As Byte()) As Image
-        Using ms As New MemoryStream(byteArray)
-            Return Image.FromStream(ms)
-        End Using
-    End Function
-
-    Private Function CalcuTotalPrice() As Decimal
-        Dim total As Decimal = 0
-        For Each receiptItem As ReceiptItemControl In receiptmenu_panel.Controls.OfType(Of ReceiptItemControl)()
-            total += receiptItem.Price
-        Next
-        Return total
-    End Function
-
     Private Sub UpdateTotalPrice()
         Dim totalPrice As Decimal = CalcuTotalPrice()
         totalno_label.Text = $"Php{totalPrice:F2}"
@@ -440,103 +681,6 @@ Public Class Mainform
         prTotalno_label.Text = "Php " & paymentTotal.ToString("N2")
     End Sub
 
-    Private Sub btn_cancelorder_Click(sender As Object, e As EventArgs) Handles btn_cancelorder.Click
-        Dim result As DialogResult = MessageBox.Show("Do you want to cancel the order?", "Confirm Cancel", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
-        If result = DialogResult.Yes Then
-            ' Clear items in receiptmenu_panel
-            receiptmenu_panel.Controls.Clear()
-
-            ' Update total
-            UpdateTotalPrice()
-
-            'Disable buttons after cancel
-            btn_cancelorder.Enabled = False
-            btn_sendorder.Enabled = False
-        End If
-    End Sub
-
-    Private Sub btn_sendorder_Click(sender As Object, e As EventArgs) Handles btn_sendorder.Click
-        Dim result = MessageBox.Show("Do you want to proceed to payment?", "Confirm Payment", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
-        If result = DialogResult.Yes Then
-            HighlightButton(btn_payment)
-            ShowPanel(payment_panel)
-
-            ' Clear existing payment items
-            paymentItem_panel.Controls.Clear()
-
-            ' Add items to payment panel
-            For Each receiptItem In receiptmenu_panel.Controls.OfType(Of ReceiptItemControl)
-                Dim paymentItemControl As New PaymentItemControl
-                paymentItemControl.ItemName = receiptItem.ItemName
-                paymentItemControl.Category = GetItemCategory(receiptItem.ItemName)
-                paymentItemControl.Price = GetItemPrice(receiptItem.ItemName)
-                paymentItemControl.Quantity = receiptItem.Quantity
-                paymentItemControl.Subtotal = paymentItemControl.Price * paymentItemControl.Quantity
-                AddHandler paymentItemControl.ItemDeleted, AddressOf OnPaymentItemDeleted
-                paymentItem_panel.Controls.Add(paymentItemControl)
-            Next
-
-            ' Update the order number label in the payment panel
-            Dim nextOrderNumber As Integer = GetNextOrderNumber()
-            orderNo_label.Text = "Order Number: " & nextOrderNumber.ToString()
-            pOrderno_label.Text = "Order Number: " & nextOrderNumber.ToString()
-        End If
-    End Sub
-
-    Private Function GetNextOrderNumber() As Integer
-        Dim nextOrderNumber As Integer = 0
-        Using conn As New MySqlConnection(connectionString)
-            Try
-                conn.Open()
-                Dim query = "SELECT IFNULL(MAX(order_number), 0) + 1 FROM order_history WHERE user_id = @userID"
-                Using cmd As New MySqlCommand(query, conn)
-                    cmd.Parameters.AddWithValue("@userID", Me.UserID)
-                    nextOrderNumber = Convert.ToInt32(cmd.ExecuteScalar())
-                End Using
-            Catch ex As Exception
-                MessageBox.Show("Error retrieving next order number: " & ex.Message)
-            End Try
-        End Using
-        Return nextOrderNumber
-    End Function
-
-    Private Sub OnPaymentItemDeleted(sender As Object, e As EventArgs)
-        Dim paymentItemControl As PaymentItemControl = CType(sender, PaymentItemControl)
-
-        ' Remove the item from receiptmenu_panel
-        For Each receiptItem As ReceiptItemControl In receiptmenu_panel.Controls.OfType(Of ReceiptItemControl)()
-            If receiptItem.ItemName = paymentItemControl.ItemName Then
-                receiptmenu_panel.Controls.Remove(receiptItem)
-                Exit For
-            End If
-        Next
-
-        ' Remove the item from payment panel
-        paymentItem_panel.Controls.Remove(paymentItemControl)
-
-        ' Update total
-        UpdateTotalPrice()
-    End Sub
-    Private Function GetItemCategory(itemName As String) As String
-        Dim connectionString = "server=127.0.0.1;userid=root;password='';database=RestaurantMSDB"
-        Dim conn As New MySqlConnection(connectionString)
-        Try
-            conn.Open()
-            Dim query = "SELECT category FROM menu_items WHERE name = @name"
-            Dim cmd As New MySqlCommand(query, conn)
-            cmd.Parameters.AddWithValue("@name", itemName)
-            Dim result As Object = cmd.ExecuteScalar()
-            If result IsNot Nothing Then
-                Return result.ToString()
-            End If
-        Catch ex As Exception
-            MessageBox.Show("Error: " & ex.Message)
-        Finally
-            conn.Close()
-        End Try
-        Return String.Empty
-    End Function
-
     Private Sub HighlightTipButton(button As Button, tipAmount As Decimal)
         ' Reset all tip buttons
         Dim tipButtons() As Button = {btn_tip0, btn_tip1, btn_tip2, btn_tip3, btn_tip4}
@@ -556,35 +700,6 @@ Public Class Mainform
         UpdateTotalPrice()
     End Sub
 
-    Private Sub btn_tip0_Click(sender As Object, e As EventArgs) Handles btn_tip0.Click
-        HighlightTipButton(btn_tip0, Tip0Amount)
-    End Sub
-
-    Private Sub btn_tip1_Click(sender As Object, e As EventArgs) Handles btn_tip1.Click
-        HighlightTipButton(btn_tip1, Tip1Amount)
-    End Sub
-    Private Sub btn_tip2_Click(sender As Object, e As EventArgs) Handles btn_tip2.Click
-        HighlightTipButton(btn_tip2, Tip2Amount)
-    End Sub
-    Private Sub btn_tip3_Click(sender As Object, e As EventArgs) Handles btn_tip3.Click
-        HighlightTipButton(btn_tip3, Tip3Amount)
-    End Sub
-    Private Sub btn_tip4_Click(sender As Object, e As EventArgs) Handles btn_tip4.Click
-        HighlightTipButton(btn_tip4, Tip4Amount)
-    End Sub
-
-    Private Sub cashinput_text_KeyPress(sender As Object, e As KeyPressEventArgs) Handles cashinput_text.KeyPress
-        ' Check if digit
-        If Not Char.IsDigit(e.KeyChar) AndAlso Not Char.IsControl(e.KeyChar) Then
-            ' If not digit or control key, cancel the key press event
-            e.Handled = True
-        ElseIf e.KeyChar = ChrW(Keys.Enter) Then
-            ' If Enter key is pressed, trigger the payment process
-            e.Handled = True
-            btn_pay_Click(sender, e)
-        End If
-    End Sub
-
     Private Sub HighlightPaymentButton(button As Button)
         ' Reset all payment buttons
         Dim paymentButtons() As Button = {btn_cash, btn_creditcard, btn_gcash}
@@ -598,18 +713,38 @@ Public Class Mainform
         button.ForeColor = Color.FromArgb(238, 238, 238) ' Highlight text color
     End Sub
 
-    Private Sub btn_cash_Click(sender As Object, e As EventArgs) Handles btn_cash.Click
-        HighlightPaymentButton(btn_cash)
+    Private Sub HighlightMultipleMenuButtons(buttons As List(Of Button))
+        ' Reset all menu buttons
+        Dim menuButtons() As Button = {btn_starter, btn_maincourse, btn_drinks, btn_desserts}
+        For Each menuButton In menuButtons
+            menuButton.BackColor = Color.DarkGray
+            menuButton.ForeColor = Color.FromArgb(238, 238, 238)
+        Next
+
+        ' Highlight the specified buttons
+        For Each button In buttons
+            button.BackColor = Color.FromArgb(34, 40, 49)
+            button.ForeColor = Color.FromArgb(238, 238, 238)
+        Next
     End Sub
 
-    Private Sub btn_creditcard_Click(sender As Object, e As EventArgs) Handles btn_creditcard.Click
-        HighlightPaymentButton(btn_creditcard)
+    Private Sub TogglePasswordVisibility(textBox As TextBox, button As Button, isVisible As Boolean)
+        If isVisible Then
+            textBox.PasswordChar = ControlChars.NullChar
+            button.Image = My.Resources.visibility_on
+        Else
+            textBox.PasswordChar = "●"c
+            button.Image = My.Resources.visibility_off
+        End If
     End Sub
 
-    Private Sub btn_gcash_Click(sender As Object, e As EventArgs) Handles btn_gcash.Click
-        HighlightPaymentButton(btn_gcash)
+    Private Sub OnOrderHistoryClicked(orderNumber As Integer)
+        orderNo_label.Text = "Order Number: " & orderNumber.ToString()
+        pOrderno_label.Text = "Order Number: " & orderNumber.ToString()
+        LoadOrderDetails(orderNumber)
     End Sub
 
+    'Load Data'
     Private Sub LoadOrderHistory()
         Using conn As New MySqlConnection(connectionString)
             Try
@@ -641,76 +776,142 @@ Public Class Mainform
             End Try
         End Using
     End Sub
-    Private Sub btn_pay_Click(sender As Object, e As EventArgs) Handles btn_pay.Click
-        Dim cashInput As Decimal
-        If Decimal.TryParse(cashinput_text.Text, cashInput) Then
-            Dim totalAmount As Decimal = CalcuTotalPrice() + (CalcuTotalPrice() * 0.1) + Decimal.Parse(prTipsno_label.Text.Replace("Php ", ""), Globalization.NumberStyles.Currency)
-            If cashInput >= totalAmount Then
-                Dim change As Decimal = cashInput - totalAmount
-                If SaveOrderToDatabase() Then
-                    MessageBox.Show($"Order has been successfully saved to the order history. Your change is Php {change:F2}.", "Order Saved", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    ' Clear the receipt panel after saving the order
-                    receiptmenu_panel.Controls.Clear()
-                    UpdateTotalPrice()
-                    btn_cancelorder.Enabled = False
-                    btn_sendorder.Enabled = False
-                    ' Hide receipt panel and show order history panel
-                    receipt_panel.Visible = False
-                    ShowPanel(history_panel)
-                    LoadOrderHistory()
-                Else
-                    MessageBox.Show("Failed to save the order. Please try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End If
-            Else
-                MessageBox.Show("Insufficient cash input. Please enter an amount greater than or equal to the total amount.", "Insufficient Cash", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            End If
-        Else
-            MessageBox.Show("Invalid cash input. Please enter a valid amount.", "Invalid Input", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-        End If
+
+    Private Sub LoadRecentOrder()
+        Using conn As New MySqlConnection(connectionString)
+            Try
+                conn.Open()
+                Dim query = "SELECT order_number, order_date, items, total_amount FROM order_history WHERE user_id = @userID ORDER BY order_date DESC LIMIT 1"
+                Using cmd As New MySqlCommand(query, conn)
+                    cmd.Parameters.AddWithValue("@userID", UserID)
+                    Using reader As MySqlDataReader = cmd.ExecuteReader()
+                        If reader.Read() Then
+                            Dim orderNumber As Integer = reader("order_number")
+                            Dim orderHistoryControl As New OrderHistoryControl()
+
+                            orderHistoryControl.Location = New Point(10, 10)
+                            orderHistoryControl.Width = recentOrder_panel.ClientSize.Width - 20
+                            orderHistoryControl.LoadOrderDetails(orderNumber)
+
+                            AddHandler orderHistoryControl.OrderHistoryClicked, Sub(number) OnOrderHistoryClicked(number)
+                            recentOrder_panel.Controls.Clear()
+                            recentOrder_panel.Controls.Add(orderHistoryControl)
+                        End If
+                    End Using
+                End Using
+            Catch ex As Exception
+                MessageBox.Show("Error loading recent order: " & ex.Message)
+            End Try
+        End Using
     End Sub
 
-    Private Function SaveOrderToDatabase() As Boolean
+    Private Sub LoadMonthlyExpenses()
+        Dim totalMonthlyExpenses As Decimal = 0
+        Using conn As New MySqlConnection(connectionString)
+            Try
+                conn.Open()
+                Dim query = "SELECT SUM(total_amount) FROM order_history WHERE user_id = @userID AND MONTH(order_date) = MONTH(CURRENT_DATE()) AND YEAR(order_date) = YEAR(CURRENT_DATE())"
+                Using cmd As New MySqlCommand(query, conn)
+                    cmd.Parameters.AddWithValue("@userID", UserID)
+                    Dim result As Object = cmd.ExecuteScalar()
+                    If result IsNot Nothing AndAlso Not IsDBNull(result) Then
+                        totalMonthlyExpenses = Convert.ToDecimal(result)
+                    End If
+                End Using
+            Catch ex As Exception
+                MessageBox.Show("Error loading monthly expenses: " & ex.Message)
+            End Try
+        End Using
+
+        monthlytotal_label.Text = $"Monthly Expenses: Php {totalMonthlyExpenses:F2}"
+    End Sub
+
+    Private Sub LoadDailyExpenses()
+        Dim totalDailyExpenses As Decimal = 0
+        Using conn As New MySqlConnection(connectionString)
+            Try
+                conn.Open()
+                Dim query = "SELECT SUM(total_amount) FROM order_history WHERE user_id = @userID AND DATE(order_date) = CURRENT_DATE()"
+                Using cmd As New MySqlCommand(query, conn)
+                    cmd.Parameters.AddWithValue("@userID", UserID)
+                    Dim result As Object = cmd.ExecuteScalar()
+                    If result IsNot Nothing AndAlso Not IsDBNull(result) Then
+                        totalDailyExpenses = Convert.ToDecimal(result)
+                    End If
+                End Using
+            Catch ex As Exception
+                MessageBox.Show("Error loading daily expenses: " & ex.Message)
+            End Try
+        End Using
+
+        dailytotal_label.Text = $"Daily Expenses: Php {totalDailyExpenses:F2}"
+    End Sub
+
+    Private Sub LoadUserData(userID As Integer)
         Dim connectionString = "server=127.0.0.1;userid=root;password='';database=RestaurantMSDB"
-        Dim conn As New MySqlConnection(connectionString)
-        Try
+        Dim query = "SELECT username, first_name, last_name, address, email, phone_number FROM users WHERE user_id = @userID"
+
+        Using conn As New MySqlConnection(connectionString)
             conn.Open()
 
-            ' Get the next order number for the user
-            Dim getOrderNumberQuery = "SELECT IFNULL(MAX(order_number), 0) + 1 FROM order_history WHERE user_id = @userID"
-            Dim getOrderNumberCmd As New MySqlCommand(getOrderNumberQuery, conn)
-            getOrderNumberCmd.Parameters.AddWithValue("@userID", Me.UserID)
-            Dim nextOrderNumber As Integer = Convert.ToInt32(getOrderNumberCmd.ExecuteScalar())
+            Using cmd As New MySqlCommand(query, conn)
+                cmd.Parameters.AddWithValue("@userID", userID)
+                Dim reader As MySqlDataReader = cmd.ExecuteReader()
 
-            ' Insert the new order
-            Dim query = "INSERT INTO order_history (user_id, order_date, items, total_amount, order_number) VALUES (@userID, @orderDate, @items, @totalAmount, @orderNumber)"
-            Dim cmd As New MySqlCommand(query, conn)
+                If reader.Read() Then
+                    username_label.Text = If(reader("username") IsNot DBNull.Value, reader("username").ToString(), "Username")
+                    fullname_label.Text = If(reader("first_name") IsNot DBNull.Value AndAlso reader("last_name") IsNot DBNull.Value, $"{reader("first_name")} {reader("last_name")}", "Full Name")
+                    address_label.Text = If(reader("address") IsNot DBNull.Value, reader("address").ToString(), "Address")
+                    email_label.Text = If(reader("email") IsNot DBNull.Value, reader("email").ToString(), "Email Address")
+                    phone_label.Text = If(reader("phone_number") IsNot DBNull.Value, FormatPhoneNumber(reader("phone_number").ToString()), "Phone Number")
+                Else
+                    ' Set default values if no data is found
+                    username_label.Text = "Username"
+                    fullname_label.Text = "Full Name"
+                    address_label.Text = "Address"
+                    email_label.Text = "Email Address"
+                    phone_label.Text = "Phone Number"
+                End If
+            End Using
+        End Using
+    End Sub
 
-            ' Format items with quantity
-            Dim items As String = String.Join(",", receiptmenu_panel.Controls.OfType(Of ReceiptItemControl)() _
-            .Select(Function(c) $"{c.ItemName}:{c.Quantity}"))
+    Private Sub LoadUserDataIntoTextBoxes(userID As Integer)
+        Dim connectionString = "server=127.0.0.1;userid=root;password='';database=RestaurantMSDB"
+        Dim query = "SELECT username, first_name, last_name, address, email, phone_number FROM users WHERE user_id = @userID"
 
-            Dim orderDate As DateTime = DateTime.Now
-            Dim totalAmount As Decimal = CalcuTotalPrice() + (CalcuTotalPrice() * 0.1) + Decimal.Parse(prTipsno_label.Text.Replace("Php ", ""), Globalization.NumberStyles.Currency)
+        Using conn As New MySqlConnection(connectionString)
+            conn.Open()
 
-            cmd.Parameters.AddWithValue("@userID", Me.UserID)
-            cmd.Parameters.AddWithValue("@orderDate", orderDate)
-            cmd.Parameters.AddWithValue("@items", items)
-            cmd.Parameters.AddWithValue("@totalAmount", totalAmount)
-            cmd.Parameters.AddWithValue("@orderNumber", nextOrderNumber)
+            Using cmd As New MySqlCommand(query, conn)
+                cmd.Parameters.AddWithValue("@userID", userID)
+                Dim reader As MySqlDataReader = cmd.ExecuteReader()
 
-            Dim result As Integer = cmd.ExecuteNonQuery()
+                If reader.Read() Then
+                    username_text.Text = If(reader("username") IsNot DBNull.Value, reader("username").ToString(), "")
+                    firstName_text.Text = If(reader("first_name") IsNot DBNull.Value, reader("first_name").ToString(), "")
+                    lastName_text.Text = If(reader("last_name") IsNot DBNull.Value, reader("last_name").ToString(), "")
+                    address_text.Text = If(reader("address") IsNot DBNull.Value, reader("address").ToString(), "")
+                    email_text.Text = If(reader("email") IsNot DBNull.Value, reader("email").ToString(), "")
+                    phone_text.Text = If(reader("phone_number") IsNot DBNull.Value, FormatPhoneNumber(reader("phone_number").ToString()), "")
+                End If
+            End Using
+        End Using
+    End Sub
 
-            If result > 0 Then
-                Return True
+    Private Sub LoadFoodItems(category As String, panel As FlowLayoutPanel)
+        Dim foodItems As DataTable = GetFoodItems(category)
+        panel.Controls.Clear()
+        For Each row As DataRow In foodItems.Rows
+            Dim foodItemControl As New FoodItemControl()
+            foodItemControl.FoodName = row("name").ToString()
+            If Not IsDBNull(row("image")) Then
+                foodItemControl.FoodImage = ByteArrayToImage(CType(row("image"), Byte()))
             End If
-        Catch ex As Exception
-            MessageBox.Show("Error: " & ex.Message)
-            Return False
-        Finally
-            conn.Close()
-        End Try
-        Return False
-    End Function
+            AddHandler foodItemControl.FoodItemClicked, AddressOf OnFoodItemClicked
+            panel.Controls.Add(foodItemControl)
+        Next
+    End Sub
 
     Private Sub LoadOrderDetails(orderNumber As Integer)
         Debug.WriteLine($"LoadOrderDetails called with orderNumber: {orderNumber}")
@@ -761,317 +962,6 @@ Public Class Mainform
         Finally
             conn.Close()
         End Try
-    End Sub
-
-    Private Sub OnOrderHistoryClicked(orderNumber As Integer)
-        orderNo_label.Text = "Order Number: " & orderNumber.ToString()
-        pOrderno_label.Text = "Order Number: " & orderNumber.ToString()
-        LoadOrderDetails(orderNumber)
-    End Sub
-    Private Sub LoadUserData(userID As Integer)
-        Dim connectionString = "server=127.0.0.1;userid=root;password='';database=RestaurantMSDB"
-        Dim query = "SELECT username, first_name, last_name, address, email, phone_number FROM users WHERE user_id = @userID"
-
-        Using conn As New MySqlConnection(connectionString)
-            conn.Open()
-
-            Using cmd As New MySqlCommand(query, conn)
-                cmd.Parameters.AddWithValue("@userID", userID)
-                Dim reader As MySqlDataReader = cmd.ExecuteReader()
-
-                If reader.Read() Then
-                    username_label.Text = If(reader("username") IsNot DBNull.Value, reader("username").ToString(), "Username")
-                    fullname_label.Text = If(reader("first_name") IsNot DBNull.Value AndAlso reader("last_name") IsNot DBNull.Value, $"{reader("first_name")} {reader("last_name")}", "Full Name")
-                    address_label.Text = If(reader("address") IsNot DBNull.Value, reader("address").ToString(), "Address")
-                    email_label.Text = If(reader("email") IsNot DBNull.Value, reader("email").ToString(), "Email Address")
-                    phone_label.Text = If(reader("phone_number") IsNot DBNull.Value, FormatPhoneNumber(reader("phone_number").ToString()), "Phone Number")
-                Else
-                    ' Set default values if no data is found
-                    username_label.Text = "Username"
-                    fullname_label.Text = "Full Name"
-                    address_label.Text = "Address"
-                    email_label.Text = "Email Address"
-                    phone_label.Text = "Phone Number"
-                End If
-            End Using
-        End Using
-    End Sub
-
-    Private Function FormatPhoneNumber(phoneNumber As String) As String
-        If phoneNumber.Length = 11 Then
-            Return $"{phoneNumber.Substring(0, 4)} {phoneNumber.Substring(4, 3)} {phoneNumber.Substring(7, 4)}"
-        End If
-        Return phoneNumber
-    End Function
-
-    Private Sub btn_edit_Click(sender As Object, e As EventArgs) Handles btn_edit.Click
-        ShowPanel(profileedit_panel)
-    End Sub
-
-    Private Sub btn_back_Click(sender As Object, e As EventArgs) Handles btn_back.Click
-        ShowPanel(profile_panel)
-    End Sub
-
-    Private Sub btn_pass_Click(sender As Object, e As EventArgs) Handles btn_pass.Click
-        ShowPanel(pass_panel)
-    End Sub
-
-    Private Sub btn_goback_Click(sender As Object, e As EventArgs) Handles btn_goback.Click
-        ShowPanel(profileedit_panel)
-    End Sub
-
-    Private Sub btn_save_Click(sender As Object, e As EventArgs) Handles btn_save.Click
-        ' Validate input fields
-        If String.IsNullOrWhiteSpace(firstName_text.Text) Then
-            MessageBox.Show("First name cannot be empty.")
-            firstName_text.Focus()
-            Return
-        End If
-
-        If String.IsNullOrWhiteSpace(lastName_text.Text) Then
-            MessageBox.Show("Last name cannot be empty.")
-            lastName_text.Focus()
-            Return
-        End If
-
-        If String.IsNullOrWhiteSpace(email_text.Text) Then
-            MessageBox.Show("Email cannot be empty.")
-            email_text.Focus()
-            Return
-        End If
-
-        If String.IsNullOrWhiteSpace(phone_text.Text) Then
-            MessageBox.Show("Phone number cannot be empty.")
-            phone_text.Focus()
-            Return
-        End If
-
-        If String.IsNullOrWhiteSpace(address_text.Text) Then
-            MessageBox.Show("Address cannot be empty.")
-            address_text.Focus()
-            Return
-        End If
-
-        If String.IsNullOrWhiteSpace(username_text.Text) OrElse username_text.Text.Length <= 4 Then
-            MessageBox.Show("Username must be more than 4 characters.")
-            username_text.Focus()
-            Return
-        End If
-
-        Dim connectionString = "server=127.0.0.1;userid=root;password='';database=RestaurantMSDB"
-        Dim query = "UPDATE users SET first_name = @firstName, last_name = @lastName, email = @Email, phone_number = @phoneNumber, address = @Address, username = @Username WHERE user_id = @userID"
-
-        Using conn As New MySqlConnection(connectionString)
-            Try
-                conn.Open()
-                Using cmd As New MySqlCommand(query, conn)
-                    cmd.Parameters.AddWithValue("@firstName", firstName_text.Text.Trim())
-                    cmd.Parameters.AddWithValue("@lastName", lastName_text.Text.Trim())
-                    cmd.Parameters.AddWithValue("@Email", email_text.Text.Trim())
-                    cmd.Parameters.AddWithValue("@phoneNumber", phone_text.Text.Trim())
-                    cmd.Parameters.AddWithValue("@Address", address_text.Text.Trim())
-                    cmd.Parameters.AddWithValue("@Username", username_text.Text.Trim())
-                    cmd.Parameters.AddWithValue("@userID", UserID)
-
-                    Dim result As Integer = cmd.ExecuteNonQuery()
-                    If result > 0 Then
-                        MessageBox.Show("Profile updated successfully!")
-                        LoadUserData(UserID)
-                        ShowPanel(profile_panel)
-                    Else
-                        MessageBox.Show("Failed to update profile. Please try again.")
-                    End If
-                End Using
-            Catch ex As MySqlException When ex.Number = 1062
-                MessageBox.Show("Username taken. Please choose a different username.")
-            Catch ex As Exception
-                MessageBox.Show("Error: " & ex.Message)
-            End Try
-        End Using
-        ShowPanel(profile_panel)
-    End Sub
-
-    Private Sub phone_text_KeyPress(sender As Object, e As KeyPressEventArgs) Handles phone_text.KeyPress
-        ' Check if digit
-        If Not Char.IsDigit(e.KeyChar) AndAlso Not Char.IsControl(e.KeyChar) Then
-            e.Handled = True
-        End If
-    End Sub
-
-    Private Sub phone_text_TextChanged(sender As Object, e As EventArgs) Handles phone_text.TextChanged
-        Dim text As String = phone_text.Text.Replace(" ", "")
-        If text.Length > 11 Then
-            text = text.Substring(0, 11)
-        End If
-
-        Dim formattedText As String = ""
-        If text.Length > 0 Then
-            formattedText = text.Substring(0, Math.Min(4, text.Length))
-        End If
-        If text.Length > 4 Then
-            formattedText &= " " & text.Substring(4, Math.Min(3, text.Length - 4))
-        End If
-        If text.Length > 7 Then
-            formattedText &= " " & text.Substring(7, Math.Min(4, text.Length - 7))
-        End If
-
-        phone_text.Text = formattedText
-        phone_text.SelectionStart = phone_text.Text.Length
-    End Sub
-
-    Private Sub LoadUserDataIntoTextBoxes(userID As Integer)
-        Dim connectionString = "server=127.0.0.1;userid=root;password='';database=RestaurantMSDB"
-        Dim query = "SELECT username, first_name, last_name, address, email, phone_number FROM users WHERE user_id = @userID"
-
-        Using conn As New MySqlConnection(connectionString)
-            conn.Open()
-
-            Using cmd As New MySqlCommand(query, conn)
-                cmd.Parameters.AddWithValue("@userID", userID)
-                Dim reader As MySqlDataReader = cmd.ExecuteReader()
-
-                If reader.Read() Then
-                    username_text.Text = If(reader("username") IsNot DBNull.Value, reader("username").ToString(), "")
-                    firstName_text.Text = If(reader("first_name") IsNot DBNull.Value, reader("first_name").ToString(), "")
-                    lastName_text.Text = If(reader("last_name") IsNot DBNull.Value, reader("last_name").ToString(), "")
-                    address_text.Text = If(reader("address") IsNot DBNull.Value, reader("address").ToString(), "")
-                    email_text.Text = If(reader("email") IsNot DBNull.Value, reader("email").ToString(), "")
-                    phone_text.Text = If(reader("phone_number") IsNot DBNull.Value, FormatPhoneNumber(reader("phone_number").ToString()), "")
-                End If
-            End Using
-        End Using
-    End Sub
-
-    Private Sub btn_changepass_Click(sender As Object, e As EventArgs) Handles btn_changepass.Click
-        ' Validate input fields
-        If String.IsNullOrWhiteSpace(currentpass_text.Text) Then
-            MessageBox.Show("Current password cannot be empty.")
-            currentpass_text.Focus()
-            Return
-        End If
-
-        If String.IsNullOrWhiteSpace(newpass_text.Text) Then
-            MessageBox.Show("New password cannot be empty.")
-            newpass_text.Focus()
-            Return
-        End If
-
-        If newpass_text.Text.Length < 8 Then
-            MessageBox.Show("New password must be at least 8 characters long.")
-            newpass_text.Focus()
-            Return
-        End If
-
-        If String.IsNullOrWhiteSpace(retype_text.Text) Then
-            MessageBox.Show("Retype password cannot be empty.")
-            retype_text.Focus()
-            Return
-        End If
-
-        If newpass_text.Text <> retype_text.Text Then
-            MessageBox.Show("New password and retype password do not match.")
-            retype_text.Focus()
-            Return
-        End If
-
-        Dim connectionString = "server=127.0.0.1;userid=root;password='';database=RestaurantMSDB"
-        Dim query = "SELECT password FROM users WHERE user_id = @userID"
-
-        Using conn As New MySqlConnection(connectionString)
-            Try
-                conn.Open()
-                Using cmd As New MySqlCommand(query, conn)
-                    cmd.Parameters.AddWithValue("@userID", UserID)
-                    Dim currentPassword As String = cmd.ExecuteScalar().ToString()
-
-                    If currentPassword <> currentpass_text.Text Then
-                        MessageBox.Show("Current password is incorrect.")
-                        currentpass_text.Focus()
-                        Return
-                    End If
-                End Using
-
-                ' Update the pass
-                query = "UPDATE users SET password = @newPassword WHERE user_id = @userID"
-                Using cmd As New MySqlCommand(query, conn)
-                    cmd.Parameters.AddWithValue("@newPassword", newpass_text.Text)
-                    cmd.Parameters.AddWithValue("@userID", UserID)
-
-                    Dim result As Integer = cmd.ExecuteNonQuery()
-                    If result > 0 Then
-                        MessageBox.Show("Password updated successfully!")
-                        ShowPanel(profileedit_panel)
-                    Else
-                        MessageBox.Show("Failed to update password. Please try again.")
-                    End If
-                End Using
-            Catch ex As Exception
-                MessageBox.Show("Error: " & ex.Message)
-            End Try
-        End Using
-    End Sub
-
-    Private Sub currentpass_text_KeyPress(sender As Object, e As KeyPressEventArgs) Handles currentpass_text.KeyPress
-        If Not Char.IsLetterOrDigit(e.KeyChar) AndAlso Not Char.IsControl(e.KeyChar) Then
-            e.Handled = True
-        End If
-    End Sub
-
-    Private Sub newpass_text_KeyPress(sender As Object, e As KeyPressEventArgs) Handles newpass_text.KeyPress
-        If Not Char.IsLetterOrDigit(e.KeyChar) AndAlso Not Char.IsControl(e.KeyChar) Then
-            e.Handled = True
-        End If
-    End Sub
-
-    Private Sub retype_text_KeyPress(sender As Object, e As KeyPressEventArgs) Handles retype_text.KeyPress
-        If Not Char.IsLetterOrDigit(e.KeyChar) AndAlso Not Char.IsControl(e.KeyChar) Then
-            e.Handled = True
-        End If
-    End Sub
-
-    Private Sub TogglePasswordVisibility(textBox As TextBox, button As Button, isVisible As Boolean)
-        If isVisible Then
-            textBox.PasswordChar = ControlChars.NullChar
-            button.Image = My.Resources.visibility_on
-        Else
-            textBox.PasswordChar = "●"c
-            button.Image = My.Resources.visibility_off
-        End If
-    End Sub
-
-    Private Sub btn_visibility_current_MouseDown(sender As Object, e As MouseEventArgs) Handles btn_visibility_current.MouseDown
-        TogglePasswordVisibility(currentpass_text, btn_visibility_current, True)
-    End Sub
-
-    Private Sub btn_visibility_current_MouseUp(sender As Object, e As MouseEventArgs) Handles btn_visibility_current.MouseUp
-        TogglePasswordVisibility(currentpass_text, btn_visibility_current, False)
-    End Sub
-
-    Private Sub btn_visibility_new_MouseDown(sender As Object, e As MouseEventArgs) Handles btn_visibility_new.MouseDown
-        TogglePasswordVisibility(newpass_text, btn_visibility_new, True)
-    End Sub
-
-    Private Sub btn_visibility_new_MouseUp(sender As Object, e As MouseEventArgs) Handles btn_visibility_new.MouseUp
-        TogglePasswordVisibility(newpass_text, btn_visibility_new, False)
-    End Sub
-
-    Private Sub btn_visibility_retype_MouseDown(sender As Object, e As MouseEventArgs) Handles btn_visibility_retype.MouseDown
-        TogglePasswordVisibility(retype_text, btn_visibility_retype, True)
-    End Sub
-
-    Private Sub btn_visibility_retype_MouseUp(sender As Object, e As MouseEventArgs) Handles btn_visibility_retype.MouseUp
-        TogglePasswordVisibility(retype_text, btn_visibility_retype, False)
-    End Sub
-
-    Private Sub btn_search_Click(sender As Object, e As EventArgs) Handles btn_search.Click
-        PerformSearch()
-    End Sub
-
-    Private Sub search_text_KeyPress(sender As Object, e As KeyPressEventArgs) Handles search_text.KeyPress
-        If e.KeyChar = ChrW(Keys.Enter) Then
-            e.Handled = True
-            PerformSearch()
-        End If
     End Sub
 
     Private Sub PerformSearch()
@@ -1181,21 +1071,229 @@ Public Class Mainform
         searchresults_panel.Visible = False
     End Sub
 
+    Private Sub DisplaySearchResults(dt As DataTable, panel As FlowLayoutPanel, category As String)
+        ' Clear only the specific panel passed
+        panel.Controls.Clear()
 
-    Private Sub HighlightMultipleMenuButtons(buttons As List(Of Button))
-        ' Reset all menu buttons
-        Dim menuButtons() As Button = {btn_starter, btn_maincourse, btn_drinks, btn_desserts}
-        For Each menuButton In menuButtons
-            menuButton.BackColor = Color.DarkGray
-            menuButton.ForeColor = Color.FromArgb(238, 238, 238)
-        Next
-
-        ' Highlight the specified buttons
-        For Each button In buttons
-            button.BackColor = Color.FromArgb(34, 40, 49)
-            button.ForeColor = Color.FromArgb(238, 238, 238)
+        ' Iterate through ALL rows in the DataTable
+        For Each row As DataRow In dt.Rows
+            ' Check if the current row's category matches the panel's category
+            If row("category").ToString().ToLower() = category.ToLower() Then
+                Dim foodItemControl As New FoodItemControl()
+                foodItemControl.FoodName = row("name").ToString()
+                If Not IsDBNull(row("image")) Then
+                    foodItemControl.FoodImage = ByteArrayToImage(CType(row("image"), Byte()))
+                End If
+                AddHandler foodItemControl.FoodItemClicked, AddressOf OnFoodItemClicked
+                panel.Controls.Add(foodItemControl)
+            End If
         Next
     End Sub
+
+    Private Sub DisplayOrderHistoryResults(dt As DataTable)
+        orderhistory_panel.Controls.Clear()
+        For Each row As DataRow In dt.Rows
+            Dim orderHistoryControl As New OrderHistoryControl()
+            orderHistoryControl.OrderNumber = Convert.ToInt32(row("order_number"))
+            orderHistoryControl.Controls("time_label").Text = Convert.ToDateTime(row("order_date")).ToString("MM/dd/yyyy hh:mm tt")
+            orderHistoryControl.Controls("noItems_label").Text = "Number of items: " & row("items").ToString().Split(","c).Length.ToString()
+            orderHistoryControl.Controls("total_label").Text = "Php " & Convert.ToDecimal(row("total_amount")).ToString("N2")
+            AddHandler orderHistoryControl.OrderHistoryClicked, AddressOf OnOrderHistoryClicked
+            orderhistory_panel.Controls.Add(orderHistoryControl)
+        Next
+    End Sub
+
+    'Helper Methods
+    Private Function GetFirstName(fullName As String) As String
+        Dim names As String() = fullName.Split(" "c)
+        If names.Length > 0 Then
+            Return names(0)
+        End If
+        Return fullName
+    End Function
+
+    Private Function GetItemPrice(itemName As String) As Decimal
+        Try
+            Using conn As New MySqlConnection(connectionString)
+                Dim query As String = "Select price FROM menu_items WHERE name = @name"
+                Using cmd As New MySqlCommand(query, conn)
+                    cmd.Parameters.AddWithValue("@name", itemName)
+                    conn.Open()
+                    Dim result As Object = cmd.ExecuteScalar()
+                    If result IsNot Nothing Then
+                        Return Convert.ToDecimal(result)
+                    End If
+                End Using
+            End Using
+        Catch ex As Exception
+            MessageBox.Show("Error retrieving price: " & ex.Message)
+        End Try
+        Return 0 ' Default price if not found
+    End Function
+    Private Function GetFoodItems(category As String) As DataTable
+        Dim dt As New DataTable()
+        Using conn As New MySqlConnection(connectionString)
+            Dim query As String = "SELECT * FROM menu_items WHERE category = @Category"
+            Using cmd As New MySqlCommand(query, conn)
+                cmd.Parameters.AddWithValue("@Category", category)
+                conn.Open()
+                Using reader As MySqlDataReader = cmd.ExecuteReader()
+                    dt.Load(reader)
+                End Using
+            End Using
+        End Using
+        Return dt
+    End Function
+
+    Private Function ByteArrayToImage(byteArray As Byte()) As Image
+        Using ms As New MemoryStream(byteArray)
+            Return Image.FromStream(ms)
+        End Using
+    End Function
+
+    Private Function CalcuTotalPrice() As Decimal
+        Dim total As Decimal = 0
+        For Each receiptItem As ReceiptItemControl In receiptmenu_panel.Controls.OfType(Of ReceiptItemControl)()
+            total += receiptItem.Price
+        Next
+        Return total
+    End Function
+
+    Private Function GetNextOrderNumber() As Integer
+        Dim nextOrderNumber As Integer = 0
+        Using conn As New MySqlConnection(connectionString)
+            Try
+                conn.Open()
+                Dim query = "SELECT IFNULL(MAX(order_number), 0) + 1 FROM order_history WHERE user_id = @userID"
+                Using cmd As New MySqlCommand(query, conn)
+                    cmd.Parameters.AddWithValue("@userID", Me.UserID)
+                    nextOrderNumber = Convert.ToInt32(cmd.ExecuteScalar())
+                End Using
+            Catch ex As Exception
+                MessageBox.Show("Error retrieving next order number: " & ex.Message)
+            End Try
+        End Using
+        Return nextOrderNumber
+    End Function
+
+    Private Sub OnPaymentItemDeleted(sender As Object, e As EventArgs)
+        Dim paymentItemControl As PaymentItemControl = CType(sender, PaymentItemControl)
+
+        ' Remove the item from receiptmenu_panel
+        For Each receiptItem As ReceiptItemControl In receiptmenu_panel.Controls.OfType(Of ReceiptItemControl)()
+            If receiptItem.ItemName = paymentItemControl.ItemName Then
+                receiptmenu_panel.Controls.Remove(receiptItem)
+                Exit For
+            End If
+        Next
+
+        ' Remove the item from payment panel
+        paymentItem_panel.Controls.Remove(paymentItemControl)
+
+        ' Update total
+        UpdateTotalPrice()
+    End Sub
+    Private Function GetItemCategory(itemName As String) As String
+        Dim connectionString = "server=127.0.0.1;userid=root;password='';database=RestaurantMSDB"
+        Dim conn As New MySqlConnection(connectionString)
+        Try
+            conn.Open()
+            Dim query = "SELECT category FROM menu_items WHERE name = @name"
+            Dim cmd As New MySqlCommand(query, conn)
+            cmd.Parameters.AddWithValue("@name", itemName)
+            Dim result As Object = cmd.ExecuteScalar()
+            If result IsNot Nothing Then
+                Return result.ToString()
+            End If
+        Catch ex As Exception
+            MessageBox.Show("Error: " & ex.Message)
+        Finally
+            conn.Close()
+        End Try
+        Return String.Empty
+    End Function
+
+    Private Function FormatPhoneNumber(phoneNumber As String) As String
+        If phoneNumber.Length = 11 Then
+            Return $"{phoneNumber.Substring(0, 4)} {phoneNumber.Substring(4, 3)} {phoneNumber.Substring(7, 4)}"
+        End If
+        Return phoneNumber
+    End Function
+
+    Private Function SaveOrderToDatabase() As Boolean
+        Dim connectionString = "server=127.0.0.1;userid=root;password='';database=RestaurantMSDB"
+        Dim conn As New MySqlConnection(connectionString)
+        Try
+            conn.Open()
+
+            ' Get the next order number for the user
+            Dim getOrderNumberQuery = "SELECT IFNULL(MAX(order_number), 0) + 1 FROM order_history WHERE user_id = @userID"
+            Dim getOrderNumberCmd As New MySqlCommand(getOrderNumberQuery, conn)
+            getOrderNumberCmd.Parameters.AddWithValue("@userID", Me.UserID)
+            Dim nextOrderNumber As Integer = Convert.ToInt32(getOrderNumberCmd.ExecuteScalar())
+
+            ' Insert the new order
+            Dim query = "INSERT INTO order_history (user_id, order_date, items, total_amount, order_number) VALUES (@userID, @orderDate, @items, @totalAmount, @orderNumber)"
+            Dim cmd As New MySqlCommand(query, conn)
+
+            ' Format items with quantity
+            Dim items As String = String.Join(",", receiptmenu_panel.Controls.OfType(Of ReceiptItemControl)() _
+            .Select(Function(c) $"{c.ItemName}:{c.Quantity}"))
+
+            Dim orderDate As DateTime = DateTime.Now
+            Dim totalAmount As Decimal = CalcuTotalPrice() + (CalcuTotalPrice() * 0.1) + Decimal.Parse(prTipsno_label.Text.Replace("Php ", ""), Globalization.NumberStyles.Currency)
+
+            cmd.Parameters.AddWithValue("@userID", Me.UserID)
+            cmd.Parameters.AddWithValue("@orderDate", orderDate)
+            cmd.Parameters.AddWithValue("@items", items)
+            cmd.Parameters.AddWithValue("@totalAmount", totalAmount)
+            cmd.Parameters.AddWithValue("@orderNumber", nextOrderNumber)
+
+            Dim result As Integer = cmd.ExecuteNonQuery()
+
+            If result > 0 Then
+                Return True
+            End If
+        Catch ex As Exception
+            MessageBox.Show("Error: " & ex.Message)
+            Return False
+        Finally
+            conn.Close()
+        End Try
+        Return False
+    End Function
+
+    Private Function SearchMenuItems(query As String) As DataTable
+        Dim dt As New DataTable()
+        Using conn As New MySqlConnection(connectionString)
+            ' Modify the search query to use LIKE with wildcards on both sides for name
+            Dim searchQuery = "SELECT * FROM menu_items WHERE LOWER(name) LIKE @query"
+            Using cmd As New MySqlCommand(searchQuery, conn)
+                ' Add wildcards to ensure partial matching
+                cmd.Parameters.AddWithValue("@query", "%" & query.ToLower() & "%")
+                conn.Open()
+                Using reader As MySqlDataReader = cmd.ExecuteReader()
+                    dt.Load(reader)
+                End Using
+            End Using
+        End Using
+        Return dt
+    End Function
+
+    Private Function SearchOrderHistory(query As String) As DataTable
+        Dim dt As New DataTable()
+        Using conn As New MySqlConnection(connectionString)
+            Dim searchQuery = "SELECT * FROM order_history WHERE LOWER(items) LIKE @query"
+            Using cmd As New MySqlCommand(searchQuery, conn)
+                cmd.Parameters.AddWithValue("@query", "%" & query.ToLower() & "%")
+                conn.Open()
+                Using reader As MySqlDataReader = cmd.ExecuteReader()
+                    dt.Load(reader)
+                End Using
+            End Using
+        End Using
+        Return dt
+    End Function
 
     Private Function GetTargetPanel(category As String) As FlowLayoutPanel
         Select Case category.ToLower()
@@ -1227,67 +1325,70 @@ Public Class Mainform
         End Select
     End Function
 
-    Private Function SearchMenuItems(query As String) As DataTable
-        Dim dt As New DataTable()
-        Using conn As New MySqlConnection(connectionString)
-            ' Modify the search query to use LIKE with wildcards on both sides for name
-            Dim searchQuery = "SELECT * FROM menu_items WHERE LOWER(name) LIKE @query"
-            Using cmd As New MySqlCommand(searchQuery, conn)
-                ' Add wildcards to ensure partial matching
-                cmd.Parameters.AddWithValue("@query", "%" & query.ToLower() & "%")
-                conn.Open()
-                Using reader As MySqlDataReader = cmd.ExecuteReader()
-                    dt.Load(reader)
-                End Using
-            End Using
-        End Using
-        Return dt
-    End Function
-
-    Private Sub DisplaySearchResults(dt As DataTable, panel As FlowLayoutPanel, category As String)
-        ' Clear only the specific panel passed
-        panel.Controls.Clear()
-
-        ' Iterate through ALL rows in the DataTable
-        For Each row As DataRow In dt.Rows
-            ' Check if the current row's category matches the panel's category
-            If row("category").ToString().ToLower() = category.ToLower() Then
-                Dim foodItemControl As New FoodItemControl()
-                foodItemControl.FoodName = row("name").ToString()
-                If Not IsDBNull(row("image")) Then
-                    foodItemControl.FoodImage = ByteArrayToImage(CType(row("image"), Byte()))
-                End If
-                AddHandler foodItemControl.FoodItemClicked, AddressOf OnFoodItemClicked
-                panel.Controls.Add(foodItemControl)
-            End If
-        Next
+    'Event Handlers
+    Private Sub cashinput_text_KeyPress(sender As Object, e As KeyPressEventArgs) Handles cashinput_text.KeyPress
+        ' Check if digit
+        If Not Char.IsDigit(e.KeyChar) AndAlso Not Char.IsControl(e.KeyChar) Then
+            ' If not digit or control key, cancel the key press event
+            e.Handled = True
+        ElseIf e.KeyChar = ChrW(Keys.Enter) Then
+            ' If Enter key is pressed, trigger the payment process
+            e.Handled = True
+            btn_pay_Click(sender, e)
+        End If
     End Sub
 
-    Private Function SearchOrderHistory(query As String) As DataTable
-        Dim dt As New DataTable()
-        Using conn As New MySqlConnection(connectionString)
-            Dim searchQuery = "SELECT * FROM order_history WHERE LOWER(items) LIKE @query"
-            Using cmd As New MySqlCommand(searchQuery, conn)
-                cmd.Parameters.AddWithValue("@query", "%" & query.ToLower() & "%")
-                conn.Open()
-                Using reader As MySqlDataReader = cmd.ExecuteReader()
-                    dt.Load(reader)
-                End Using
-            End Using
-        End Using
-        Return dt
-    End Function
-
-    Private Sub DisplayOrderHistoryResults(dt As DataTable)
-        orderhistory_panel.Controls.Clear()
-        For Each row As DataRow In dt.Rows
-            Dim orderHistoryControl As New OrderHistoryControl()
-            orderHistoryControl.OrderNumber = Convert.ToInt32(row("order_number"))
-            orderHistoryControl.Controls("time_label").Text = Convert.ToDateTime(row("order_date")).ToString("MM/dd/yyyy hh:mm tt")
-            orderHistoryControl.Controls("noItems_label").Text = "Number of items: " & row("items").ToString().Split(","c).Length.ToString()
-            orderHistoryControl.Controls("total_label").Text = "Php " & Convert.ToDecimal(row("total_amount")).ToString("N2")
-            AddHandler orderHistoryControl.OrderHistoryClicked, AddressOf OnOrderHistoryClicked
-            orderhistory_panel.Controls.Add(orderHistoryControl)
-        Next
+    Private Sub phone_text_KeyPress(sender As Object, e As KeyPressEventArgs) Handles phone_text.KeyPress
+        ' Check if digit
+        If Not Char.IsDigit(e.KeyChar) AndAlso Not Char.IsControl(e.KeyChar) Then
+            e.Handled = True
+        End If
     End Sub
+
+    Private Sub phone_text_TextChanged(sender As Object, e As EventArgs) Handles phone_text.TextChanged
+        Dim text As String = phone_text.Text.Replace(" ", "")
+        If text.Length > 11 Then
+            text = text.Substring(0, 11)
+        End If
+
+        Dim formattedText As String = ""
+        If text.Length > 0 Then
+            formattedText = text.Substring(0, Math.Min(4, text.Length))
+        End If
+        If text.Length > 4 Then
+            formattedText &= " " & text.Substring(4, Math.Min(3, text.Length - 4))
+        End If
+        If text.Length > 7 Then
+            formattedText &= " " & text.Substring(7, Math.Min(4, text.Length - 7))
+        End If
+
+        phone_text.Text = formattedText
+        phone_text.SelectionStart = phone_text.Text.Length
+    End Sub
+
+    Private Sub currentpass_text_KeyPress(sender As Object, e As KeyPressEventArgs) Handles currentpass_text.KeyPress
+        If Not Char.IsLetterOrDigit(e.KeyChar) AndAlso Not Char.IsControl(e.KeyChar) Then
+            e.Handled = True
+        End If
+    End Sub
+
+    Private Sub newpass_text_KeyPress(sender As Object, e As KeyPressEventArgs) Handles newpass_text.KeyPress
+        If Not Char.IsLetterOrDigit(e.KeyChar) AndAlso Not Char.IsControl(e.KeyChar) Then
+            e.Handled = True
+        End If
+    End Sub
+
+    Private Sub retype_text_KeyPress(sender As Object, e As KeyPressEventArgs) Handles retype_text.KeyPress
+        If Not Char.IsLetterOrDigit(e.KeyChar) AndAlso Not Char.IsControl(e.KeyChar) Then
+            e.Handled = True
+        End If
+    End Sub
+
+    Private Sub search_text_KeyPress(sender As Object, e As KeyPressEventArgs) Handles search_text.KeyPress
+        If e.KeyChar = ChrW(Keys.Enter) Then
+            e.Handled = True
+            PerformSearch()
+        End If
+    End Sub
+
 End Class

@@ -25,6 +25,17 @@ Partial Class Mainform
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Mainform))
         Mainform_panel = New Panel()
         nav_panel = New Panel()
+        home_panel = New Panel()
+        Label1 = New Label()
+        line_label = New Label()
+        dailytotal_label = New Label()
+        daily_label = New Label()
+        monthlytotal_label = New Label()
+        monthly_label = New Label()
+        recentOrder_panel = New FlowLayoutPanel()
+        recent_label = New Label()
+        ask_label = New Label()
+        greet_label = New Label()
         payment_panel = New Panel()
         psubtotal_label = New Label()
         quantity_label = New Label()
@@ -54,8 +65,6 @@ Partial Class Mainform
         Label5 = New Label()
         dessertsmenu_panel = New FlowLayoutPanel()
         Label2 = New Label()
-        home_panel = New Panel()
-        Label1 = New Label()
         history_panel = New Panel()
         orderNo_label = New Label()
         quantity_text = New Label()
@@ -181,6 +190,7 @@ Partial Class Mainform
         btn_home = New CircularButton()
         Mainform_panel.SuspendLayout()
         nav_panel.SuspendLayout()
+        home_panel.SuspendLayout()
         payment_panel.SuspendLayout()
         headerpayment_panel.SuspendLayout()
         CType(time_icon, ComponentModel.ISupportInitialize).BeginInit()
@@ -191,7 +201,6 @@ Partial Class Mainform
         maincoursemenu_panel.SuspendLayout()
         drinksmenu_panel.SuspendLayout()
         dessertsmenu_panel.SuspendLayout()
-        home_panel.SuspendLayout()
         history_panel.SuspendLayout()
         settings_panel.SuspendLayout()
         pass_panel.SuspendLayout()
@@ -245,15 +254,131 @@ Partial Class Mainform
         ' 
         ' nav_panel
         ' 
+        nav_panel.Controls.Add(home_panel)
         nav_panel.Controls.Add(payment_panel)
         nav_panel.Controls.Add(foodmenu_panel)
-        nav_panel.Controls.Add(home_panel)
         nav_panel.Controls.Add(history_panel)
         nav_panel.Controls.Add(settings_panel)
         nav_panel.Location = New Point(111, 98)
         nav_panel.Name = "nav_panel"
         nav_panel.Size = New Size(929, 837)
         nav_panel.TabIndex = 4
+        ' 
+        ' home_panel
+        ' 
+        home_panel.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
+        home_panel.BackColor = Color.FromArgb(CByte(238), CByte(238), CByte(238))
+        home_panel.Controls.Add(Label1)
+        home_panel.Controls.Add(line_label)
+        home_panel.Controls.Add(dailytotal_label)
+        home_panel.Controls.Add(daily_label)
+        home_panel.Controls.Add(monthlytotal_label)
+        home_panel.Controls.Add(monthly_label)
+        home_panel.Controls.Add(recentOrder_panel)
+        home_panel.Controls.Add(recent_label)
+        home_panel.Controls.Add(ask_label)
+        home_panel.Controls.Add(greet_label)
+        home_panel.Location = New Point(0, 0)
+        home_panel.Name = "home_panel"
+        home_panel.Size = New Size(1383, 837)
+        home_panel.TabIndex = 0
+        ' 
+        ' Label1
+        ' 
+        Label1.AutoSize = True
+        Label1.Font = New Font("Segoe UI Semibold", 20.0F, FontStyle.Bold)
+        Label1.Location = New Point(0, 519)
+        Label1.Name = "Label1"
+        Label1.Size = New Size(1584, 46)
+        Label1.TabIndex = 9
+        Label1.Text = "——————————————————————————————————————————————"
+        ' 
+        ' line_label
+        ' 
+        line_label.AutoSize = True
+        line_label.Font = New Font("Segoe UI Semibold", 20.0F, FontStyle.Bold)
+        line_label.Location = New Point(3, 195)
+        line_label.Name = "line_label"
+        line_label.Size = New Size(1584, 46)
+        line_label.TabIndex = 8
+        line_label.Text = "——————————————————————————————————————————————"
+        ' 
+        ' dailytotal_label
+        ' 
+        dailytotal_label.AutoSize = True
+        dailytotal_label.Font = New Font("Segoe UI", 20.0F)
+        dailytotal_label.Location = New Point(61, 452)
+        dailytotal_label.Name = "dailytotal_label"
+        dailytotal_label.Size = New Size(148, 46)
+        dailytotal_label.TabIndex = 7
+        dailytotal_label.Text = "Php 0.00"
+        ' 
+        ' daily_label
+        ' 
+        daily_label.AutoSize = True
+        daily_label.Font = New Font("Segoe UI Semibold", 25.0F, FontStyle.Bold)
+        daily_label.Location = New Point(61, 379)
+        daily_label.Name = "daily_label"
+        daily_label.Size = New Size(305, 57)
+        daily_label.TabIndex = 6
+        daily_label.Text = "Daily Expenses"
+        ' 
+        ' monthlytotal_label
+        ' 
+        monthlytotal_label.AutoSize = True
+        monthlytotal_label.Font = New Font("Segoe UI", 20.0F)
+        monthlytotal_label.Location = New Point(61, 317)
+        monthlytotal_label.Name = "monthlytotal_label"
+        monthlytotal_label.Size = New Size(148, 46)
+        monthlytotal_label.TabIndex = 5
+        monthlytotal_label.Text = "Php 0.00"
+        ' 
+        ' monthly_label
+        ' 
+        monthly_label.AutoSize = True
+        monthly_label.Font = New Font("Segoe UI Semibold", 25.0F, FontStyle.Bold)
+        monthly_label.Location = New Point(61, 244)
+        monthly_label.Name = "monthly_label"
+        monthly_label.Size = New Size(370, 57)
+        monthly_label.TabIndex = 4
+        monthly_label.Text = "Monthly Expenses"
+        ' 
+        ' recentOrder_panel
+        ' 
+        recentOrder_panel.Location = New Point(61, 625)
+        recentOrder_panel.Name = "recentOrder_panel"
+        recentOrder_panel.Size = New Size(492, 125)
+        recentOrder_panel.TabIndex = 3
+        ' 
+        ' recent_label
+        ' 
+        recent_label.AutoSize = True
+        recent_label.Font = New Font("Segoe UI Semibold", 25.0F, FontStyle.Bold)
+        recent_label.Location = New Point(61, 558)
+        recent_label.Name = "recent_label"
+        recent_label.Size = New Size(295, 57)
+        recent_label.TabIndex = 2
+        recent_label.Text = "Recent Orders"
+        ' 
+        ' ask_label
+        ' 
+        ask_label.AutoSize = True
+        ask_label.Font = New Font("Segoe UI", 30.0F)
+        ask_label.Location = New Point(61, 130)
+        ask_label.Name = "ask_label"
+        ask_label.Size = New Size(770, 67)
+        ask_label.TabIndex = 1
+        ask_label.Text = "What would you like to do today?"
+        ' 
+        ' greet_label
+        ' 
+        greet_label.AutoSize = True
+        greet_label.Font = New Font("Segoe UI Semibold", 40.0F, FontStyle.Bold)
+        greet_label.Location = New Point(61, 25)
+        greet_label.Name = "greet_label"
+        greet_label.Size = New Size(360, 89)
+        greet_label.TabIndex = 0
+        greet_label.Text = "Greet User"
         ' 
         ' payment_panel
         ' 
@@ -617,26 +742,6 @@ Partial Class Mainform
         Label2.Size = New Size(405, 67)
         Label2.TabIndex = 0
         Label2.Text = "DESSERTS PANEL"
-        ' 
-        ' home_panel
-        ' 
-        home_panel.BackColor = Color.FromArgb(CByte(238), CByte(238), CByte(238))
-        home_panel.Controls.Add(Label1)
-        home_panel.Dock = DockStyle.Fill
-        home_panel.Location = New Point(0, 0)
-        home_panel.Name = "home_panel"
-        home_panel.Size = New Size(929, 837)
-        home_panel.TabIndex = 0
-        ' 
-        ' Label1
-        ' 
-        Label1.AutoSize = True
-        Label1.Font = New Font("Segoe UI", 60.0F)
-        Label1.Location = New Point(186, 171)
-        Label1.Name = "Label1"
-        Label1.Size = New Size(658, 133)
-        Label1.TabIndex = 0
-        Label1.Text = "HOME PANEL"
         ' 
         ' history_panel
         ' 
@@ -2328,6 +2433,8 @@ Partial Class Mainform
         Text = "Mainform"
         Mainform_panel.ResumeLayout(False)
         nav_panel.ResumeLayout(False)
+        home_panel.ResumeLayout(False)
+        home_panel.PerformLayout()
         payment_panel.ResumeLayout(False)
         payment_panel.PerformLayout()
         headerpayment_panel.ResumeLayout(False)
@@ -2345,8 +2452,6 @@ Partial Class Mainform
         drinksmenu_panel.PerformLayout()
         dessertsmenu_panel.ResumeLayout(False)
         dessertsmenu_panel.PerformLayout()
-        home_panel.ResumeLayout(False)
-        home_panel.PerformLayout()
         history_panel.ResumeLayout(False)
         history_panel.PerformLayout()
         settings_panel.ResumeLayout(False)
@@ -2433,7 +2538,7 @@ Partial Class Mainform
     Friend WithEvents receipttotal_panel As Panel
     Friend WithEvents nav_panel As Panel
     Friend WithEvents home_panel As Panel
-    Friend WithEvents Label1 As Label
+    Friend WithEvents greet_label As Label
     Friend WithEvents settings_panel As Panel
     Friend WithEvents payment_panel As Panel
     Friend WithEvents startermenu_panel As FlowLayoutPanel
@@ -2554,4 +2659,13 @@ Partial Class Mainform
     Friend WithEvents orderno_panel As Panel
     Friend WithEvents searchresults_panel As FlowLayoutPanel
     Friend WithEvents Label3 As Label
+    Friend WithEvents ask_label As Label
+    Friend WithEvents recent_label As Label
+    Friend WithEvents recentOrder_panel As FlowLayoutPanel
+    Friend WithEvents monthly_label As Label
+    Friend WithEvents dailytotal_label As Label
+    Friend WithEvents daily_label As Label
+    Friend WithEvents monthlytotal_label As Label
+    Friend WithEvents line_label As Label
+    Friend WithEvents Label1 As Label
 End Class
