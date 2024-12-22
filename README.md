@@ -81,8 +81,10 @@
 
 3. **Update the connection string**:
    - Open `Mainform.vb`.
-   - Update the `connectionString` variable with your MySQL server details: Private connectionString As String = "Server=127.0.0.1;userid=root;password='yourpassword';Database=RestaurantMSDB"
-     
+   - Update the `connectionString` variable with your MySQL server details:
+   ```bash
+    Private connectionString As String = "Server=127.0.0.1;userid=root;password='yourpassword';Database=RestaurantMSDB"
+    ```
 4. **Build the project**:
    - Go to the `Build` menu and select `Build Solution` or press `Ctrl+Shift+B`.
 
